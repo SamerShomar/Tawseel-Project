@@ -42,14 +42,14 @@ export default function RestaurantPage() {
   }
 
   return (
-    <div className="pb-28">
+    <div className="pb-24 md:pb-28">
       <div className="relative">
-        <RestaurantCover restaurant={restaurant} className="h-48 w-full sm:h-64" />
+        <RestaurantCover restaurant={restaurant} className="h-36 w-full sm:h-64" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4">
-        <div className="card relative -mt-12 p-6">
+        <div className="card relative -mt-10 p-5 sm:-mt-12 sm:p-6">
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-2xl font-bold sm:text-3xl">{restaurant.name}</h1>
             {restaurant.category && <span className="rounded-full bg-brand-50 px-3 py-1 text-sm text-brand-700">{restaurant.category}</span>}
@@ -89,8 +89,30 @@ export default function RestaurantPage() {
             <EmptyState title="القائمة فارغة حالياً">هذا المطعم لم يضف أصنافاً بعد</EmptyState>
           </div>
         ) : (
-          sections.map(([section, items]) => (
-            <section key={section} className="mt-10">
+          <>
+            {/* Jump to a menu section (useful on phones with long menus). */}
+            {sections.length > 1 && (
+              <nav
+                aria-label="أقسام القائمة"
+                className="no-scrollbar sticky top-[calc(3.5rem+env(safe-area-inset-top))] z-20 -mx-4 mt-5 flex gap-2 overflow-x-auto border-b border-stone-200 bg-stone-50/95 px-4 py-2.5 backdrop-blur md:top-16"
+              >
+                {sections.map(([section]) => (
+                  <a
+                    key={section}
+                    href={`#section-${section}`}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      document.getElementById(`section-${section}`)?.scrollIntoView({ behavior: 'smooth' })
+                    }}
+                    className="shrink-0 rounded-full bg-white px-3.5 py-1.5 text-sm font-medium whitespace-nowrap text-stone-700 ring-1 ring-stone-200"
+                  >
+                    {section}
+                  </a>
+                ))}
+              </nav>
+            )}
+          {sections.map(([section, items]) => (
+            <section key={section} id={`section-${section}`} className="mt-6 scroll-mt-32 md:mt-10 md:scroll-mt-36">
               <h2 className="mb-4 text-xl font-bold">{section}</h2>
               <div className="grid gap-4 md:grid-cols-2">
                 {items.map((item) => {
@@ -127,18 +149,20 @@ export default function RestaurantPage() {
                 })}
               </div>
             </section>
-          ))
+          ))}
+          </>
         )}
       </div>
 
       {cart.count > 0 && cart.restaurant?.id === restaurant.id && (
-        <div className="fixed inset-x-0 bottom-0 z-30 border-t border-stone-200 bg-white/95 p-4 backdrop-blur">
-          <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
+        <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-stone-200 bg-white/95 px-4 py-3 backdrop-blur md:bottom-0 md:py-4">
+          <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
             <span className="text-sm">
               <strong>{cart.count}</strong> صنف · <strong>{formatPrice(cart.total)}</strong>
             </span>
             <Link to="/cart" className="btn-primary px-6">
-              عرض السلة وإتمام الطلب
+              <span className="sm:hidden">إتمام الطلب</span>
+              <span className="hidden sm:inline">عرض السلة وإتمام الطلب</span>
             </Link>
           </div>
         </div>
