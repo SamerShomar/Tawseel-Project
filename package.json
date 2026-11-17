@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "npm ci --include=dev --prefix server && npm ci --include=dev --prefix client && npm run build --prefix client",
-    "migrate": "npm run db:deploy --prefix server",
+    "migrate": "npm run db:deploy --prefix server && npm run db:seed:deploy --prefix server",
     "start": "npm start --prefix server"
   }
 }
