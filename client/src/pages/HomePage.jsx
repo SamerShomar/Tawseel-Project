@@ -22,9 +22,9 @@ function Hero({ onBrowse }) {
 
   return (
     <section ref={ref} className="relative overflow-hidden bg-gradient-to-b from-brand-50 to-stone-50">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-10 md:grid-cols-2 md:py-24">
+      <div className="mx-auto grid max-w-6xl items-center gap-2 px-4 pt-4 pb-8 md:grid-cols-2 md:gap-10 md:py-24">
         <div>
-          <p className="hero-fade mb-4 inline-block rounded-full bg-white px-3 py-1 text-sm font-medium text-brand-700 shadow-sm">
+          <p className="hero-fade mb-3 inline-block rounded-full bg-white px-3 py-1 text-sm font-medium text-brand-700 shadow-sm md:mb-4">
             الدفع عند الاستلام 💵
           </p>
           <SplitText
@@ -33,12 +33,12 @@ function Hero({ onBrowse }) {
             splitType="words"
             trigger="load"
             textAlign="start"
-            className="text-[2.5rem] leading-tight font-bold sm:text-5xl md:text-6xl"
+            className="max-w-[18rem] text-4xl leading-tight font-bold sm:max-w-none sm:text-5xl md:text-6xl"
           />
-          <p className="hero-fade mt-4 max-w-md text-stone-600 md:mt-5 md:text-lg">
+          <p className="hero-fade mt-3 max-w-md text-stone-600 md:mt-5 md:text-lg">
             تصفّح قوائم المطاعم بالأسعار، اطلب بكبسة زر، وتابع طلبك خطوة بخطوة بدون ولا مكالمة.
           </p>
-          <div className="hero-fade mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:mt-8">
+          <div className="hero-fade mt-5 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:mt-8">
             <button onClick={onBrowse} className="btn-primary px-5 py-3 text-base">
               تصفّح المطاعم
             </button>
@@ -48,12 +48,14 @@ function Hero({ onBrowse }) {
           </div>
         </div>
 
-        <div className="relative hidden h-80 md:block" aria-hidden>
-          <div className="absolute top-1/2 left-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-100" />
-          <span className="hero-food absolute top-4 right-16 text-8xl">🍔</span>
-          <span className="hero-food absolute top-28 left-10 text-8xl">🍕</span>
-          <span className="hero-food absolute right-28 bottom-0 text-7xl">🌯</span>
-          <span className="hero-food absolute bottom-10 left-36 text-6xl">🍰</span>
+        {/* Food illustration: small and above the text on phones, large beside it on desktop. */}
+        <div className="relative order-first mx-auto h-44 w-full max-w-72 md:order-none md:h-80 md:max-w-none" aria-hidden>
+          <div className="absolute top-1/2 left-1/2 size-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-100 md:size-72" />
+          <span className="hero-food absolute top-1 right-[18%] text-6xl md:top-4 md:right-16 md:text-8xl">🍔</span>
+          <span className="hero-food absolute top-[38%] left-[6%] text-6xl md:top-28 md:left-10 md:text-8xl">🍕</span>
+          <span className="hero-food absolute right-[30%] bottom-0 text-5xl md:right-28 md:text-7xl">🌯</span>
+          <span className="hero-food absolute top-[34%] right-0 text-4xl md:hidden">🧆</span>
+          <span className="hero-food absolute bottom-3 left-[34%] text-4xl md:bottom-10 md:left-36 md:text-6xl">🍰</span>
         </div>
       </div>
     </section>
@@ -68,7 +70,7 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-6 md:py-14">
+    <section className="mx-auto max-w-6xl px-4 pb-4 md:py-14">
       <AnimatedContent distance={40} stagger={0.12} className="grid grid-cols-3 gap-2 md:gap-4">
         {STEPS.map((s) => (
           <div key={s.title} className="card p-3 text-center md:p-6 md:text-start">
