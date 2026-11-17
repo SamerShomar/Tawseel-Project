@@ -7,7 +7,7 @@ const prisma = new PrismaClient()
 
 const restaurants = [
   {
-    owner: { name: 'صاحب برجر هاوس', email: 'burger@tawseel.test' },
+    owner: { name: 'خالد منصور', email: 'burger@tawseel.test' },
     name: 'برجر هاوس',
     description: 'برجر لحم مشوي على الفحم مع بطاطا مقرمشة',
     category: 'برجر',
@@ -23,7 +23,7 @@ const restaurants = [
     ],
   },
   {
-    owner: { name: 'صاحب بيتزا روما', email: 'pizza@tawseel.test' },
+    owner: { name: 'يوسف حمدان', email: 'pizza@tawseel.test' },
     name: 'بيتزا روما',
     description: 'بيتزا إيطالية على الحطب بعجينة طازجة يومياً',
     category: 'بيتزا',
@@ -39,7 +39,7 @@ const restaurants = [
     ],
   },
   {
-    owner: { name: 'صاحب حلويات الشام', email: 'sweets@tawseel.test' },
+    owner: { name: 'رامي عيسى', email: 'sweets@tawseel.test' },
     name: 'حلويات الشام',
     description: 'كنافة نابلسية وحلويات شرقية',
     category: 'حلويات',
@@ -54,7 +54,7 @@ const restaurants = [
     ],
   },
   {
-    owner: { name: 'صاحب شاورما الريف', email: 'shawarma@tawseel.test' },
+    owner: { name: 'محمود سالم', email: 'shawarma@tawseel.test' },
     name: 'شاورما الريف',
     description: 'شاورما دجاج ولحم على الطريقة الشامية',
     category: 'شاورما',
@@ -80,7 +80,7 @@ async function main() {
   await prisma.user.deleteMany()
 
   await prisma.user.create({
-    data: { name: 'زبون تجريبي', email: 'customer@tawseel.test', phone: '0599111111', passwordHash },
+    data: { name: 'سارة أحمد', email: 'customer@tawseel.test', phone: '0599111111', passwordHash },
   })
 
   for (const r of restaurants) {

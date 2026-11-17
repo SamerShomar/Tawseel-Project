@@ -1,29 +1,32 @@
-# Tawseel
+# Tawseel – Frontend
 
-React 19 (JavaScript) + Vite + Tailwind CSS v4, with:
+React (JavaScript) + Vite + Tailwind CSS v4. The UI is in Arabic (RTL).
 
-- **GSAP** (`gsap`, `@gsap/react`) — plugins registered in `src/lib/gsap.ts` (ScrollTrigger, SplitText)
-- **Lenis** — smooth scroll via `useLenis()` in `src/hooks/useLenis.ts`, synced with ScrollTrigger
-- **React Bits** — components live in `src/components/react-bits/`
+- **Routing**: React Router (`src/App.jsx`)
+- **API calls**: `src/lib/api.js`. In development Vite proxies `/api` to `http://localhost:4000`. In production, set `VITE_API_URL` to the API's address.
+- **GSAP**: plugins are registered in `src/lib/gsap.js`. Use `useGSAP` for animations.
+- **Lenis**: smooth scrolling is turned on in `Layout` through `useLenis()`, and stays synced with ScrollTrigger.
+- **React Bits**: components live in `src/components/react-bits/`.
 
 ## Commands
 
 ```bash
-npm install
-npm run dev
-npm run build
+npm run dev       # development server
+npm run build     # production build in dist/
+npm run lint
+npm test
 ```
 
 ## Adding React Bits components
 
-Names follow `<Component>-<JS|TS>-<TW|CSS>` (e.g. `Aurora-JS-TW`):
+Names follow `<Component>-<JS|TS>-<TW|CSS>`. Use `JS-TW` for this project:
 
 ```bash
-npm run reactbits -- Aurora-JS-TW BlurText-JS-TW
+npm run reactbits -- BlurText-JS-TW
 ```
 
 The official CLI also works where reactbits.dev is reachable:
 
 ```bash
-npx shadcn@latest add @react-bits/Aurora-JS-TW
+npx shadcn@latest add @react-bits/BlurText-JS-TW
 ```
