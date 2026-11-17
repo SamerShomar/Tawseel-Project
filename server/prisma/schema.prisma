@@ -1,0 +1,110 @@
+// Tawseel database schema — tables from the proposal:
+// users, restaurants, menu_items, orders, order_items
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  RESTAURANT_OWNER
+}
+
+enum OrderStatus {
+  PENDING
+  ACCEPTED
+  PREPARING
+  ON_THE_WAY
+  DELIVERED
+  REJECTED
+}
+
+model User {
+  id                Int         @id @default(autoincrement())
+  name              String
+  email             String      @unique
+  passwordHash      String      @map("password_hash")
+  role              Role        @default(CUSTOMER)
+  phone             String?
+  resetTokenHash    String?     @map("reset_token_hash")
+  resetTokenExpires DateTime?   @map("reset_token_expires")
+  createdAt         DateTime    @default(now()) @map("created_at")
+  restaurant        Restaurant?
+  orders            Order[]
+
+  @@map("users")
+}
+
+model Restaurant {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String     @default("")
+  category    String     @default("")
+  imageUrl    String?    @map("image_url")
+  address     String     @default("")
+  phone       String     @default("")
+  ownerId     Int        @unique @map("owner_id")
+  owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  menuItems   MenuItem[]
+  orders      Order[]
+  createdAt   DateTime   @default(now()) @map("created_at")
+
+  @@map("restaurants")
+}
+
+model MenuItem {
+  id           Int         @id @default(autoincrement())
+  restaurantId Int         @map("restaurant_id")
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  name         String
+  description  String      @default("")
+  price        Decimal     @db.Decimal(10, 2)
+  category     String      @default("")
+  imageUrl     String?     @map("image_url")
+  isAvailable  Boolean     @default(true) @map("is_available")
+  orderItems   OrderItem[]
+  createdAt    DateTime    @default(now()) @map("created_at")
+
+  @@index([restaurantId])
+  @@map("menu_items")
+}
+
+model Order {
+  id              Int         @id @default(autoincrement())
+  customerId      Int         @map("customer_id")
+  customer        User        @relation(fields: [customerId], references: [id])
+  restaurantId    Int         @map("restaurant_id")
+  restaurant      Restaurant  @relation(fields: [restaurantId], references: [id])
+  status          OrderStatus @default(PENDING)
+  deliveryAddress String      @map("delivery_address")
+  phone           String
+  notes           String      @default("")
+  total           Decimal     @db.Decimal(10, 2)
+  items           OrderItem[]
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  @@index([customerId])
+  @@index([restaurantId, status])
+  @@map("orders")
+}
+
+/// name and unitPrice are copied from the menu item when the order is placed,
+/// so old orders stay correct if the menu changes or the item is deleted.
+model OrderItem {
+  id         Int       @id @default(autoincrement())
+  orderId    Int       @map("order_id")
+  order      Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItemId Int?      @map("menu_item_id")
+  menuItem   MenuItem? @relation(fields: [menuItemId], references: [id], onDelete: SetNull)
+  name       String
+  unitPrice  Decimal   @map("unit_price") @db.Decimal(10, 2)
+  quantity   Int
+
+  @@map("order_items")
+}
