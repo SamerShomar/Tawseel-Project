@@ -1,29 +1,27 @@
-# Tawseel
+# Tawseel – Online Food Delivery Web App
 
-React 19 + Vite + TypeScript + Tailwind CSS v4, with:
+Team **ORBA** — Software Engineering team project.
 
-- **GSAP** (`gsap`, `@gsap/react`) — plugins registered in `src/lib/gsap.ts` (ScrollTrigger, SplitText)
-- **Lenis** — smooth scroll via `useLenis()` in `src/hooks/useLenis.ts`, synced with ScrollTrigger
-- **React Bits** — components live in `src/components/react-bits/`
+Tawseel connects customers with local restaurants: browse menus, order with cash on delivery, and track the order until it arrives. Restaurant owners manage their menu and incoming orders from a dashboard.
 
-## Commands
+## Repository structure
+
+| Folder    | Contents |
+|-----------|----------|
+| `client/` | Frontend — React + Vite, Tailwind CSS, GSAP, Lenis, React Bits |
+| `server/` | Backend — Node.js + Express REST API, Prisma, PostgreSQL *(coming in Sprint 1)* |
+| `docs/`   | Project documents (proposal, API docs, user guide) |
+
+## Running the frontend
 
 ```bash
+cd client
 npm install
 npm run dev
-npm run build
 ```
 
-## Adding React Bits components
+See [`client/README.md`](client/README.md) for frontend details.
 
-Names follow `<Component>-<TS|JS>-<TW|CSS>` (e.g. `Aurora-TS-TW`):
+## Workflow
 
-```bash
-npm run reactbits -- Aurora-TS-TW BlurText-TS-TW
-```
-
-The official CLI also works where reactbits.dev is reachable:
-
-```bash
-npx shadcn@latest add @react-bits/Aurora-TS-TW
-```
+One branch per feature, a pull request reviewed by another member before merging to `main`.
