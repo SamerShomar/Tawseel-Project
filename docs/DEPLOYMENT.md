@@ -51,7 +51,7 @@
 3. روح على **Settings ← Networking** واضغط **Generate Domain**. بيعطيك رابط مثل `https://tawseel-production.up.railway.app`.
 4. Railway بيعمل deploy لحاله، وأثناءه:
    - بيبني الواجهة.
-   - بيطبّق الـ migrations على Supabase (`npm run migrate`)، يعني بيعمل الجداول.
+   - مع كل تشغيل للسيرفر بيطبّق الـ migrations على Supabase (`npm run migrate`)، يعني بيعمل الجداول، وبعدين بيشغّل السيرفر.
    - بيشغّل السيرفر، وبيتأكد إنه شغال من `/api/health`.
 5. افتح `https://<رابطك>/api/health`. لازم يطلعلك `{"ok":true}`.
 
@@ -65,7 +65,7 @@
 1. افتح Railway وروح على الخدمة، وبعدين **Variables** ← **New Variable**.
 2. حط `SEED_DEMO_DATA` = `reset`.
 3. اضغط **Deploy**، واستنى لحد ما يخلص.
-4. ⚠️ **ارجع احذف المتغيّر `SEED_DEMO_DATA`**، لأنه إذا ضل موجود رح يمسح البيانات مع كل Deploy.
+4. ⚠️ **ارجع احذف المتغيّر `SEED_DEMO_DATA`**، لأنه إذا ضل موجود رح يمسح البيانات مع كل Deploy أو إعادة تشغيل للسيرفر.
 
 > الـ reset **بيمسح كل البيانات** (الطلبات والحسابات اللي انعملت) وبيرجع البيانات التجريبية.
 
@@ -108,7 +108,7 @@ DATABASE_URL="رابط-Supabase-هون" npm run db:seed
 
 ## التحديثات بعد النشر
 
-كل merge على `main` بيخلي Railway يعيد البناء والنشر لحاله، وإذا في migration جديدة بيطبّقها قبل ما يشغّل النسخة الجديدة.
+كل merge على `main` بيخلي Railway يعيد البناء والنشر لحاله، وإذا في migration جديدة بيطبّقها أول ما يشتغل السيرفر الجديد.
 
 ## التكلفة
 
@@ -123,4 +123,5 @@ DATABASE_URL="رابط-Supabase-هون" npm run db:seed
 | `P1000: Authentication failed` | كلمة السر بالرابط غلط، أو فيها رموز خاصة. غيّرها من Supabase ← Settings ← Database ← Reset database password لكلمة فيها حروف وأرقام بس. |
 | `FATAL: Max client connections reached` | تأكد إن بآخر الرابط `?connection_limit=5`. |
 | السيرفر بيوقف وبالـ Logs `JWT_SECRET must be set in production` | ضيف `JWT_SECRET` بالـ Variables. |
+| «حدث خطأ في الخادم» وبالـ Logs `P2021 ... does not exist` | الجداول مش موجودة. تأكد إن آخر Deploy فيه أسطر `Applying migration` أو `No pending migrations` بأول الـ Deploy Logs. |
 | الموقع بيفتح بس ما بتظهر مطاعم | حط `SEED_DEMO_DATA=reset` واعمل Deploy (الخطوة 3)، وبعدين احذف المتغيّر. |
