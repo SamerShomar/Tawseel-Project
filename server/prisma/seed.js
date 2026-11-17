@@ -1,5 +1,11 @@
 // Demo data: 10 restaurants with menus, their owners, and one customer.
 // All demo accounts use the password: password123
+//
+// npm run db:seed              → always resets the database to the demo data
+// node prisma/seed.js --on-deploy (runs on every Railway deploy):
+//   - seeds only when the database has no restaurants yet (first deploy), or
+//   - when the SEED_DEMO_DATA variable is "reset" (remove the variable afterwards,
+//     otherwise every deploy resets the data again)
 import bcrypt from 'bcryptjs'
 import { PrismaClient } from '@prisma/client'
 
@@ -176,7 +182,25 @@ const restaurants = [
   },
 ]
 
+async function shouldSeed() {
+  if (!process.argv.includes('--on-deploy')) return true
+
+  if (process.env.SEED_DEMO_DATA === 'reset') {
+    console.log('[seed] SEED_DEMO_DATA=reset → resetting the database to the demo data')
+    return true
+  }
+  const count = await prisma.restaurant.count()
+  if (count === 0) {
+    console.log('[seed] Empty database → adding the demo data')
+    return true
+  }
+  console.log(`[seed] Database already has ${count} restaurants → skipping demo data`)
+  return false
+}
+
 async function main() {
+  if (!(await shouldSeed())) return
+
   const passwordHash = await bcrypt.hash('password123', 10)
 
   // Empty all tables and restart IDs at 1, so restaurant links stay the same after every seed.
