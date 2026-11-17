@@ -13,6 +13,7 @@ datasource db {
 enum Role {
   CUSTOMER
   RESTAURANT_OWNER
+  ADMIN
 }
 
 enum OrderStatus {
@@ -31,6 +32,7 @@ model User {
   passwordHash      String      @map("password_hash")
   role              Role        @default(CUSTOMER)
   phone             String?
+  isActive          Boolean     @default(true) @map("is_active")
   resetTokenHash    String?     @map("reset_token_hash")
   resetTokenExpires DateTime?   @map("reset_token_expires")
   createdAt         DateTime    @default(now()) @map("created_at")
@@ -48,6 +50,7 @@ model Restaurant {
   imageUrl    String?    @map("image_url")
   address     String     @default("")
   phone       String     @default("")
+  isActive    Boolean    @default(true) @map("is_active")
   ownerId     Int        @unique @map("owner_id")
   owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   menuItems   MenuItem[]

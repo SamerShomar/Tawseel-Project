@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { scrollToTop, useLenis } from '@/hooks/useLenis'
+import { homeFor } from '@/lib/format'
 
 const YEAR = new Date().getFullYear()
 
@@ -20,6 +21,14 @@ const OWNER_TABS = [
   { to: '/account', label: 'حسابي', icon: '👤' },
 ]
 
+const ADMIN_TABS = [
+  { to: '/admin', label: 'نظرة عامة', icon: '📊', end: true },
+  { to: '/admin/users', label: 'المستخدمين', icon: '👥' },
+  { to: '/admin/restaurants', label: 'المطاعم', icon: '🏪' },
+  { to: '/admin/orders', label: 'الطلبات', icon: '🧾' },
+  { to: '/account', label: 'حسابي', icon: '👤' },
+]
+
 const navClass = ({ isActive }) =>
   `rounded-lg px-3 py-2 text-sm font-medium transition ${isActive ? 'bg-brand-50 text-brand-700' : 'text-stone-600 hover:text-ink'}`
 
@@ -34,17 +43,19 @@ function CartBadge({ count, className = '' }) {
 
 /** Top bar. On desktop it holds all links; on phones only the logo (the bottom tab bar has the rest). */
 function Navbar() {
-  const { user, isOwner, logout } = useAuth()
+  const { user, isOwner, isAdmin, canOrder, logout } = useAuth()
   const { count } = useCart()
 
-  const links = isOwner
+  const links = isAdmin
+    ? ADMIN_TABS.slice(0, 4)
+    : isOwner
     ? OWNER_TABS.slice(0, 3)
     : [{ to: '/', label: 'المطاعم', end: true }, ...(user ? [{ to: '/orders', label: 'طلباتي' }] : [])]
 
   return (
     <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/90 pt-[env(safe-area-inset-top)] backdrop-blur">
       <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-4 md:h-16">
-        <Link to={isOwner ? '/dashboard' : '/'} className="flex items-center gap-2 text-xl font-bold text-ink">
+        <Link to={user ? homeFor(user) : '/'} className="flex items-center gap-2 text-xl font-bold text-ink">
           <img src="/favicon.svg" alt="" className="size-8" />
           توصيل
         </Link>
@@ -58,7 +69,7 @@ function Navbar() {
         </div>
 
         <div className="ms-auto flex items-center gap-2">
-          {!isOwner && (
+          {canOrder && (
             <Link to="/cart" className="btn-secondary relative hidden px-3 md:inline-flex" aria-label={`السلة (${count})`}>
               🛒 السلة
               <CartBadge count={count} className="absolute -top-1.5 -start-1.5" />
@@ -89,16 +100,16 @@ function Navbar() {
 
 /** App-style bottom navigation, phones only. */
 function MobileTabBar() {
-  const { isOwner } = useAuth()
+  const { isOwner, isAdmin } = useAuth()
   const { count } = useCart()
-  const tabs = isOwner ? OWNER_TABS : CUSTOMER_TABS
+  const tabs = isAdmin ? ADMIN_TABS : isOwner ? OWNER_TABS : CUSTOMER_TABS
 
   return (
     <nav
       aria-label="التنقل الرئيسي"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
     >
-      <ul className="grid grid-cols-4">
+      <ul className={`grid ${tabs.length === 5 ? 'grid-cols-5' : 'grid-cols-4'}`}>
         {tabs.map((t) => (
           <li key={t.to}>
             <NavLink

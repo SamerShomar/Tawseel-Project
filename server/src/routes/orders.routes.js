@@ -30,7 +30,7 @@ router.post('/', requireRole('CUSTOMER'), validate(createSchema), async (req, re
 
   // Prices always come from the database, never from the client.
   const ids = [...new Set(items.map((i) => i.menuItemId))]
-  const menuItems = await prisma.menuItem.findMany({ where: { id: { in: ids }, restaurantId, isAvailable: true } })
+  const menuItems = await prisma.menuItem.findMany({ where: { id: { in: ids }, restaurantId, isAvailable: true, restaurant: { isActive: true } } })
   if (menuItems.length !== ids.length) throw new HttpError(400, 'بعض الأصناف غير متوفرة حالياً')
 
   const byId = new Map(menuItems.map((m) => [m.id, m]))
@@ -65,14 +65,15 @@ router.get('/', requireRole('CUSTOMER'), async (req, res) => {
   res.json({ orders: orders.map(orderDto) })
 })
 
-// GET /api/orders/:id — visible to the customer who placed it and to the restaurant owner
+// GET /api/orders/:id — visible to the customer who placed it, the restaurant owner, and admins
 router.get('/:id', async (req, res) => {
   const id = Number(req.params.id)
   const order = Number.isInteger(id)
     ? await prisma.order.findUnique({ where: { id }, include: { ...orderInclude, restaurant: { select: { id: true, name: true, phone: true, ownerId: true } } } })
     : null
 
-  const allowed = order && (order.customerId === req.user.id || order.restaurant.ownerId === req.user.id)
+  const allowed =
+    order && (order.customerId === req.user.id || order.restaurant.ownerId === req.user.id || req.user.role === 'ADMIN')
   if (!allowed) return res.status(404).json({ error: 'الطلب غير موجود' })
 
   const { ownerId: _ownerId, ...restaurant } = order.restaurant

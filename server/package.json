@@ -13,7 +13,8 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
     "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --coverage",
     "postinstall": "prisma generate",
-    "db:seed:deploy": "node prisma/seed.js --on-deploy"
+    "db:seed:deploy": "node prisma/seed.js --on-deploy",
+    "db:admin": "node prisma/ensure-admin.js"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

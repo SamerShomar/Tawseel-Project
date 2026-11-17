@@ -4,12 +4,19 @@ import { OrderProgress } from '@/components/OrderProgress'
 import { StatusBadge } from '@/components/StatusBadge'
 import { Alert } from '@/components/ui/Alert'
 import { Spinner } from '@/components/ui/Spinner'
+import { useAuth } from '@/context/AuthContext'
 import { useApi } from '@/hooks/useApi'
 import { formatDate, formatPrice, isActiveOrder } from '@/lib/format'
+
+const BACK = {
+  ADMIN: { to: '/admin/orders', label: 'كل الطلبات' },
+  RESTAURANT_OWNER: { to: '/dashboard', label: 'لوحة الطلبات' },
+}
 
 export default function OrderDetailsPage() {
   const { id } = useParams()
   const { state } = useLocation()
+  const { user } = useAuth()
   // Refresh every 10 seconds so the customer sees status changes without reloading.
   const { data, error, loading } = useApi(`/orders/${id}`, { pollMs: 10000 })
 
@@ -73,8 +80,8 @@ export default function OrderDetailsPage() {
           )}
         </section>
 
-        <Link to="/orders" className="inline-block text-sm text-brand-700 hover:underline">
-          → كل طلباتي
+        <Link to={BACK[user?.role]?.to || '/orders'} className="inline-block text-sm text-brand-700 hover:underline">
+          → {BACK[user?.role]?.label || 'كل طلباتي'}
         </Link>
       </div>
     </Page>

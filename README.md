@@ -13,6 +13,8 @@ Tawseel connects customers with local restaurants: browse menus, order with cash
 5. **Restaurant orders dashboard**: accept or reject an order, then update its status step by step
 6. **Menu management**: add, edit and delete items, and mark items available or unavailable
 
+Also: an **admin panel** (`/admin`) with site statistics, and the admin can suspend users, hide restaurants and view all orders.
+
 ## Tech stack
 
 | Layer | Tools |
@@ -52,6 +54,7 @@ All demo accounts use the password `password123`.
 
 | Role | Email |
 |---|---|
+| Admin (local only) | `admin@tawseel.test` |
 | Customer | `customer@tawseel.test` |
 | Restaurant owners | `shawarma@`, `burger@`, `pizza@`, `sweets@`, `falafel@`, `grill@`, `fish@`, `kitchen@`, `bakery@`, `cafe@` + `tawseel.test` |
 

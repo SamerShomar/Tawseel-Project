@@ -6,4 +6,5 @@ ALTER TABLE "restaurants" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "menu_items" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "orders" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "order_items" ENABLE ROW LEVEL SECURITY;
-ALTER TABLE "_prisma_migrations" ENABLE ROW LEVEL SECURITY;
+-- IF EXISTS: this table does not exist in the shadow database that `prisma migrate dev` uses.
+ALTER TABLE IF EXISTS "_prisma_migrations" ENABLE ROW LEVEL SECURITY;

@@ -56,6 +56,7 @@ router.post('/login', validate(loginSchema), async (req, res) => {
   const user = await prisma.user.findUnique({ where: { email: req.body.email } })
   const ok = user && (await bcrypt.compare(req.body.password, user.passwordHash))
   if (!ok) return res.status(401).json({ error: 'البريد أو كلمة المرور غير صحيحة' })
+  if (!user.isActive) return res.status(403).json({ error: 'تم إيقاف هذا الحساب، تواصل مع إدارة الموقع' })
 
   res.json({ token: signToken(user), user: publicUser(user) })
 })

@@ -24,4 +24,5 @@ export const NEXT_ACTION = {
 export const isActiveOrder = (status) => !['DELIVERED', 'REJECTED'].includes(status)
 
 /** Where a user lands after login. */
-export const homeFor = (user) => (user.role === 'RESTAURANT_OWNER' ? '/dashboard' : '/')
+export const HOME_BY_ROLE = { CUSTOMER: '/', RESTAURANT_OWNER: '/dashboard', ADMIN: '/admin' }
+export const homeFor = (user) => HOME_BY_ROLE[user.role] || '/'

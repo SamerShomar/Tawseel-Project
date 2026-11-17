@@ -5,6 +5,7 @@ import express from 'express'
 import { config } from './config.js'
 import { errorHandler, notFound } from './middleware/errorHandler.js'
 import { authLimiter } from './middleware/rateLimit.js'
+import adminRoutes from './routes/admin.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import myRestaurantRoutes from './routes/myRestaurant.routes.js'
 import ordersRoutes from './routes/orders.routes.js'
@@ -23,6 +24,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/restaurants', restaurantsRoutes)
 app.use('/api/orders', ordersRoutes)
 app.use('/api/my-restaurant', myRestaurantRoutes)
+app.use('/api/admin', adminRoutes)
 
 // In production the built React app (client/dist) is served by this same server,
 // so the site and the API share one URL. Every non-API page returns index.html (React Router handles it).

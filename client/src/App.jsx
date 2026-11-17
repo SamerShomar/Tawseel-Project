@@ -2,6 +2,10 @@ import { Route, Routes } from 'react-router'
 import { Layout } from '@/components/Layout'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import AccountPage from '@/pages/AccountPage'
+import AdminDashboardPage from '@/pages/admin/AdminDashboardPage'
+import AdminOrdersPage from '@/pages/admin/AdminOrdersPage'
+import AdminRestaurantsPage from '@/pages/admin/AdminRestaurantsPage'
+import AdminUsersPage from '@/pages/admin/AdminUsersPage'
 import CartPage from '@/pages/CartPage'
 import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage'
 import LoginPage from '@/pages/auth/LoginPage'
@@ -44,6 +48,14 @@ export default function App() {
           <Route index element={<OwnerOrdersPage />} />
           <Route path="menu" element={<OwnerMenuPage />} />
           <Route path="settings" element={<OwnerSettingsPage />} />
+        </Route>
+
+        {/* Admin */}
+        <Route path="admin" element={<ProtectedRoute role="ADMIN" />}>
+          <Route index element={<AdminDashboardPage />} />
+          <Route path="users" element={<AdminUsersPage />} />
+          <Route path="restaurants" element={<AdminRestaurantsPage />} />
+          <Route path="orders" element={<AdminOrdersPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
