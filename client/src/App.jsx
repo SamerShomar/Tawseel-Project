@@ -5,7 +5,7 @@ import { gsap, useGSAP } from '@/lib/gsap'
 
 function App() {
   useLenis()
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef(null)
 
   useGSAP(
     () => {

@@ -1,6 +1,6 @@
 # Tawseel
 
-React 19 + Vite + TypeScript + Tailwind CSS v4, with:
+React 19 (JavaScript) + Vite + Tailwind CSS v4, with:
 
 - **GSAP** (`gsap`, `@gsap/react`) — plugins registered in `src/lib/gsap.ts` (ScrollTrigger, SplitText)
 - **Lenis** — smooth scroll via `useLenis()` in `src/hooks/useLenis.ts`, synced with ScrollTrigger
@@ -16,14 +16,14 @@ npm run build
 
 ## Adding React Bits components
 
-Names follow `<Component>-<TS|JS>-<TW|CSS>` (e.g. `Aurora-TS-TW`):
+Names follow `<Component>-<JS|TS>-<TW|CSS>` (e.g. `Aurora-JS-TW`):
 
 ```bash
-npm run reactbits -- Aurora-TS-TW BlurText-TS-TW
+npm run reactbits -- Aurora-JS-TW BlurText-JS-TW
 ```
 
 The official CLI also works where reactbits.dev is reachable:
 
 ```bash
-npx shadcn@latest add @react-bits/Aurora-TS-TW
+npx shadcn@latest add @react-bits/Aurora-JS-TW
 ```

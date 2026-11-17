@@ -8,7 +8,7 @@ Tawseel connects customers with local restaurants: browse menus, order with cash
 
 | Folder    | Contents |
 |-----------|----------|
-| `client/` | Frontend — React + Vite, Tailwind CSS, GSAP, Lenis, React Bits |
+| `client/` | Frontend — React (JavaScript) + Vite, Tailwind CSS, GSAP, Lenis, React Bits |
 | `server/` | Backend — Node.js + Express REST API, Prisma, PostgreSQL *(coming in Sprint 1)* |
 | `docs/`   | Project documents (proposal, API docs, user guide) |
 

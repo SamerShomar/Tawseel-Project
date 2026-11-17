@@ -8,7 +8,7 @@ export function useLenis() {
     const lenis = new Lenis({ autoRaf: false })
     lenis.on('scroll', ScrollTrigger.update)
 
-    const tick = (time: number) => lenis.raf(time * 1000)
+    const tick = (time) => lenis.raf(time * 1000)
     gsap.ticker.add(tick)
     gsap.ticker.lagSmoothing(0)
 
