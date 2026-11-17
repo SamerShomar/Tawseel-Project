@@ -1,0 +1,13 @@
+{
+  "name": "tawseel",
+  "private": true,
+  "description": "Tawseel – online food delivery web app (client + server)",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "npm ci --include=dev --prefix server && npm ci --include=dev --prefix client && npm run build --prefix client",
+    "migrate": "npm run db:deploy --prefix server",
+    "start": "npm start --prefix server"
+  }
+}
