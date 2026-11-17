@@ -57,25 +57,25 @@
 
 > رابط استعادة كلمة المرور بياخد رابط Railway لحاله، فما في داعي لـ `CLIENT_URL`. بس إذا ربطت دومين خاص، ضيف `CLIENT_URL=https://دومينك`.
 
-## 3. البيانات التجريبية (مرة وحدة بس)
+## 3. البيانات التجريبية
 
-عشان تنضاف المطاعم الأربعة وحسابات التجربة، شغّل الـ seed من جهازك على Supabase:
+**أوتوماتيك:** أول Deploy على قاعدة بيانات فاضية بيضيف المطاعم العشرة وحسابات التجربة لحاله. إذا قاعدة البيانات فيها مطاعم أصلاً، ما بيلمس إشي.
+
+**إذا بدك ترجّع البيانات التجريبية من جديد** (مثلاً قبل العرض، أو بعد تحديث قائمة المطاعم)، بتقدر تعملها من الجوال:
+1. افتح Railway وروح على الخدمة، وبعدين **Variables** ← **New Variable**.
+2. حط `SEED_DEMO_DATA` = `reset`.
+3. اضغط **Deploy**، واستنى لحد ما يخلص.
+4. ⚠️ **ارجع احذف المتغيّر `SEED_DEMO_DATA`**، لأنه إذا ضل موجود رح يمسح البيانات مع كل Deploy.
+
+> الـ reset **بيمسح كل البيانات** (الطلبات والحسابات اللي انعملت) وبيرجع البيانات التجريبية.
+
+**من جهازك (بديل):**
 
 ```bash
 cd server
 npm install
 DATABASE_URL="رابط-Supabase-هون" npm run db:seed
 ```
-
-على Windows (PowerShell):
-
-```powershell
-cd server
-npm install
-$env:DATABASE_URL="رابط-Supabase-هون"; npm run db:seed
-```
-
-> ⚠️ الـ seed **بيمسح كل البيانات** وبيرجع البيانات التجريبية. شغّله مرة وحدة بالبداية، أو لما بدك ترجّع الموقع لحالته الأولى قبل العرض.
 
 بتقدر تشوف الجداول والبيانات من Supabase ← **Table Editor**.
 
@@ -123,4 +123,4 @@ $env:DATABASE_URL="رابط-Supabase-هون"; npm run db:seed
 | `P1000: Authentication failed` | كلمة السر بالرابط غلط، أو فيها رموز خاصة. غيّرها من Supabase ← Settings ← Database ← Reset database password لكلمة فيها حروف وأرقام بس. |
 | `FATAL: Max client connections reached` | تأكد إن بآخر الرابط `?connection_limit=5`. |
 | السيرفر بيوقف وبالـ Logs `JWT_SECRET must be set in production` | ضيف `JWT_SECRET` بالـ Variables. |
-| الموقع بيفتح بس ما بتظهر مطاعم | شغّل الـ seed (الخطوة 3). |
+| الموقع بيفتح بس ما بتظهر مطاعم | حط `SEED_DEMO_DATA=reset` واعمل Deploy (الخطوة 3)، وبعدين احذف المتغيّر. |
