@@ -53,10 +53,9 @@ All demo accounts use the password `password123`.
 | Role | Email |
 |---|---|
 | Customer | `customer@tawseel.test` |
-| Restaurant owner (Burger House) | `burger@tawseel.test` |
-| Restaurant owner (Pizza Roma) | `pizza@tawseel.test` |
-| Restaurant owner (Sweets) | `sweets@tawseel.test` |
-| Restaurant owner (Shawarma) | `shawarma@tawseel.test` |
+| Restaurant owners | `shawarma@`, `burger@`, `pizza@`, `sweets@`, `falafel@`, `grill@`, `fish@`, `kitchen@`, `bakery@`, `cafe@` + `tawseel.test` |
+
+The seed adds 10 restaurants in real areas of the Gaza Strip (Rimal, Shati camp, Shujaiya, Nuseirat, Deir al-Balah, Khan Younis…). Restaurant and owner names are made up for the demo, and the shekel prices are based on real 2026 price levels in Gaza.
 
 In development, "Forgot password" prints the reset link in the **server console**. Set the `SMTP_*` values in `server/.env` to send real emails.
 

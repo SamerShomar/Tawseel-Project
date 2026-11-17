@@ -1,5 +1,16 @@
 // Shows the restaurant image, or a colored placeholder with an emoji for its category.
-const EMOJI = { برجر: '🍔', بيتزا: '🍕', حلويات: '🍰', شاورما: '🌯', مشروبات: '🥤' }
+const EMOJI = {
+  برجر: '🍔',
+  بيتزا: '🍕',
+  حلويات: '🍰',
+  شاورما: '🌯',
+  مشروبات: '☕',
+  فلافل: '🧆',
+  مشاوي: '🍢',
+  'مأكولات بحرية': '🐟',
+  'مأكولات شعبية': '🍲',
+  فطائر: '🥙',
+}
 const GRADIENTS = [
   'from-orange-200 to-rose-200',
   'from-amber-200 to-orange-300',
