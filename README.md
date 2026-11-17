@@ -60,6 +60,10 @@ All demo accounts use the password `password123`.
 
 In development, "Forgot password" prints the reset link in the **server console**. Set the `SMTP_*` values in `server/.env` to send real emails.
 
+## Deployment
+
+The app is deployed with free services: Neon (database), Render (API) and Vercel (frontend). Step-by-step guide: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
 ## Tests
 
 ```bash
@@ -88,7 +92,9 @@ server/                 Express API
   src/routes/           one file per resource
   src/middleware/       auth (JWT + roles), validation, errors
   tests/                Jest + Supertest
-docs/                   proposal and API documentation (docs/API.md)
+docs/                   proposal, API docs (API.md), deployment guide (DEPLOYMENT.md)
+render.yaml             Render config for the API
+client/vercel.json      Vercel config for the frontend
 ```
 
 ## Workflow
