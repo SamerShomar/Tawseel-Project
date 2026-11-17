@@ -60,6 +60,10 @@ All demo accounts use the password `password123`.
 
 In development, "Forgot password" prints the reset link in the **server console**. Set the `SMTP_*` values in `server/.env` to send real emails.
 
+## Deployment
+
+The database is on **Supabase**. **Railway** runs one service that builds the React app and serves it from the Express server, so the site and the API share one URL (`railway.json`, root `package.json`). Step-by-step guide: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
 ## Tests
 
 ```bash
@@ -88,7 +92,9 @@ server/                 Express API
   src/routes/           one file per resource
   src/middleware/       auth (JWT + roles), validation, errors
   tests/                Jest + Supertest
-docs/                   proposal and API documentation (docs/API.md)
+docs/                   proposal, API docs (API.md), deployment guide (DEPLOYMENT.md)
+railway.json            Railway build / deploy config
+package.json            root scripts used by Railway (build client, start server)
 ```
 
 ## Workflow
