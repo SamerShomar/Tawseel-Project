@@ -22,7 +22,7 @@ function Hero({ onBrowse }) {
 
   return (
     <section ref={ref} className="relative overflow-hidden bg-gradient-to-b from-brand-50 to-stone-50">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-10 md:grid-cols-2 md:py-24">
         <div>
           <p className="hero-fade mb-4 inline-block rounded-full bg-white px-3 py-1 text-sm font-medium text-brand-700 shadow-sm">
             الدفع عند الاستلام 💵
@@ -33,16 +33,16 @@ function Hero({ onBrowse }) {
             splitType="words"
             trigger="load"
             textAlign="start"
-            className="text-4xl leading-tight font-bold sm:text-5xl md:text-6xl"
+            className="text-[2.5rem] leading-tight font-bold sm:text-5xl md:text-6xl"
           />
-          <p className="hero-fade mt-5 max-w-md text-lg text-stone-600">
+          <p className="hero-fade mt-4 max-w-md text-stone-600 md:mt-5 md:text-lg">
             تصفّح قوائم المطاعم بالأسعار، اطلب بكبسة زر، وتابع طلبك خطوة بخطوة بدون ولا مكالمة.
           </p>
-          <div className="hero-fade mt-8 flex flex-wrap gap-3">
-            <button onClick={onBrowse} className="btn-primary px-6 py-3 text-base">
+          <div className="hero-fade mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:mt-8">
+            <button onClick={onBrowse} className="btn-primary px-5 py-3 text-base">
               تصفّح المطاعم
             </button>
-            <Link to="/register?role=owner" className="btn-secondary px-6 py-3 text-base">
+            <Link to="/register?role=owner" className="btn-secondary px-5 py-3 text-base">
               سجّل مطعمك
             </Link>
           </div>
@@ -68,15 +68,15 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section className="mx-auto max-w-6xl px-4 py-14">
-      <AnimatedContent distance={40} stagger={0.12} className="grid gap-4 sm:grid-cols-3">
+    <section className="mx-auto max-w-6xl px-4 py-6 md:py-14">
+      <AnimatedContent distance={40} stagger={0.12} className="grid grid-cols-3 gap-2 md:gap-4">
         {STEPS.map((s) => (
-          <div key={s.title} className="card p-6">
-            <span className="text-3xl" aria-hidden>
+          <div key={s.title} className="card p-3 text-center md:p-6 md:text-start">
+            <span className="text-2xl md:text-3xl" aria-hidden>
               {s.icon}
             </span>
-            <h3 className="mt-3 font-bold">{s.title}</h3>
-            <p className="mt-1 text-sm text-stone-500">{s.text}</p>
+            <h3 className="mt-2 text-sm font-bold md:mt-3 md:text-base">{s.title}</h3>
+            <p className="mt-1 hidden text-sm text-stone-500 md:block">{s.text}</p>
           </div>
         ))}
       </AnimatedContent>
@@ -105,8 +105,8 @@ export default function HomePage() {
       <Hero onBrowse={scrollToList} />
       <HowItWorks />
 
-      <section ref={listRef} className="mx-auto max-w-6xl scroll-mt-20 px-4 pb-20">
-        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <section ref={listRef} className="mx-auto max-w-6xl scroll-mt-16 px-4 pt-4 pb-10 md:scroll-mt-20 md:pb-20">
+        <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-end sm:justify-between">
           <h2 className="text-2xl font-bold sm:text-3xl">المطاعم</h2>
           <input
             type="search"
@@ -119,13 +119,13 @@ export default function HomePage() {
         </div>
 
         {cats?.categories?.length > 0 && (
-          <div className="mb-6 flex flex-wrap gap-2" role="group" aria-label="التصنيفات">
+          <div className="no-scrollbar -mx-4 mb-5 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:mb-6 sm:flex-wrap sm:px-0" role="group" aria-label="التصنيفات">
             {['', ...cats.categories].map((c) => (
               <button
                 key={c || 'all'}
                 onClick={() => setCategory(c)}
                 aria-pressed={category === c}
-                className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
+                className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition sm:py-1.5 ${
                   category === c ? 'bg-ink text-white' : 'bg-white text-stone-600 ring-1 ring-stone-200 hover:ring-stone-300'
                 }`}
               >
@@ -143,21 +143,21 @@ export default function HomePage() {
             جرّب كلمة بحث أو تصنيف ثاني
           </EmptyState>
         ) : (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {data?.restaurants.map((r) => (
               <Link
                 key={r.id}
                 to={`/restaurants/${r.id}`}
-                className="card group overflow-hidden transition hover:-translate-y-1 hover:shadow-lg"
+                className="card group flex items-stretch overflow-hidden transition active:scale-[0.99] sm:block sm:hover:-translate-y-1 sm:hover:shadow-lg"
               >
-                <RestaurantCover restaurant={r} className="h-40 w-full transition duration-500 group-hover:scale-105" />
-                <div className="p-5">
+                <RestaurantCover restaurant={r} className="w-24 shrink-0 transition duration-500 sm:h-40 sm:w-full sm:group-hover:scale-105" />
+                <div className="min-w-0 flex-1 p-3.5 sm:p-5">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-lg font-bold">{r.name}</h3>
-                    {r.category && <span className="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs text-stone-600">{r.category}</span>}
+                    <h3 className="truncate font-bold sm:text-lg">{r.name}</h3>
+                    {r.category && <span className="shrink-0 rounded-full bg-stone-100 px-2.5 py-0.5 text-xs text-stone-600">{r.category}</span>}
                   </div>
-                  {r.description && <p className="mt-1 line-clamp-2 text-sm text-stone-500">{r.description}</p>}
-                  {r.address && <p className="mt-3 text-xs text-stone-400">📍 {r.address}</p>}
+                  {r.description && <p className="mt-1 line-clamp-1 text-sm text-stone-500 sm:line-clamp-2">{r.description}</p>}
+                  {r.address && <p className="mt-1.5 truncate text-xs text-stone-400 sm:mt-3">📍 {r.address}</p>}
                 </div>
               </Link>
             ))}

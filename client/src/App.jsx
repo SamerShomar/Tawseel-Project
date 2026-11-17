@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router'
 import { Layout } from '@/components/Layout'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
+import AccountPage from '@/pages/AccountPage'
 import CartPage from '@/pages/CartPage'
 import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage'
 import LoginPage from '@/pages/auth/LoginPage'
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="register" element={<RegisterPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
         <Route path="reset-password" element={<ResetPasswordPage />} />
+        <Route path="account" element={<AccountPage />} />
 
         {/* Customer */}
         <Route element={<ProtectedRoute role="CUSTOMER" />}>

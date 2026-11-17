@@ -28,6 +28,15 @@ html.lenis body {
 
 body {
   @apply bg-stone-50 text-ink antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Horizontal scrolling rows (category chips, menu sections) without a visible scrollbar. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @utility btn {
@@ -48,7 +57,7 @@ body {
 }
 
 @utility input {
-    @apply w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-sm outline-none transition
+    @apply w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-base outline-none transition md:text-sm
       placeholder:text-stone-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
 }
 
