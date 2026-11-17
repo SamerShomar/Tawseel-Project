@@ -62,7 +62,7 @@ In development, "Forgot password" prints the reset link in the **server console*
 
 ## Deployment
 
-The app is deployed with free services: Neon (database), Render (API) and Vercel (frontend). Step-by-step guide: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+The database is on **Supabase**. **Railway** runs one service that builds the React app and serves it from the Express server, so the site and the API share one URL (`railway.json`, root `package.json`). Step-by-step guide: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ## Tests
 
@@ -93,8 +93,8 @@ server/                 Express API
   src/middleware/       auth (JWT + roles), validation, errors
   tests/                Jest + Supertest
 docs/                   proposal, API docs (API.md), deployment guide (DEPLOYMENT.md)
-render.yaml             Render config for the API
-client/vercel.json      Vercel config for the frontend
+railway.json            Railway build / deploy config
+package.json            root scripts used by Railway (build client, start server)
 ```
 
 ## Workflow

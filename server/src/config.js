@@ -8,7 +8,12 @@ if (isProduction && !process.env.JWT_SECRET) {
 
 // CLIENT_URL can list several origins separated by commas (e.g. the Vercel URL and a custom domain).
 // The first one is used in password-reset links.
-const clientUrls = (process.env.CLIENT_URL || 'http://localhost:5173')
+// On Railway, RAILWAY_PUBLIC_DOMAIN is set automatically, so CLIENT_URL is optional there.
+const defaultClientUrl = process.env.RAILWAY_PUBLIC_DOMAIN
+  ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+  : 'http://localhost:5173'
+
+const clientUrls = (process.env.CLIENT_URL || defaultClientUrl)
   .split(',')
   .map((u) => u.trim().replace(/\/$/, ''))
   .filter(Boolean)
