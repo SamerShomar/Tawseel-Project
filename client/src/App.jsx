@@ -1,45 +1,51 @@
-import { useRef } from 'react'
-import SplitText from '@/components/react-bits/SplitText/SplitText'
-import { useLenis } from '@/hooks/useLenis'
-import { gsap, useGSAP } from '@/lib/gsap'
+import { Route, Routes } from 'react-router'
+import { Layout } from '@/components/Layout'
+import { ProtectedRoute } from '@/components/ProtectedRoute'
+import CartPage from '@/pages/CartPage'
+import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage'
+import LoginPage from '@/pages/auth/LoginPage'
+import RegisterPage from '@/pages/auth/RegisterPage'
+import ResetPasswordPage from '@/pages/auth/ResetPasswordPage'
+import HomePage from '@/pages/HomePage'
+import NotFoundPage from '@/pages/NotFoundPage'
+import OrderDetailsPage from '@/pages/OrderDetailsPage'
+import OrdersPage from '@/pages/OrdersPage'
+import OwnerMenuPage from '@/pages/owner/OwnerMenuPage'
+import OwnerOrdersPage from '@/pages/owner/OwnerOrdersPage'
+import OwnerSettingsPage from '@/pages/owner/OwnerSettingsPage'
+import RestaurantPage from '@/pages/RestaurantPage'
 
-function App() {
-  useLenis()
-  const sectionRef = useRef(null)
-
-  useGSAP(
-    () => {
-      gsap.from('.card', {
-        y: 60,
-        opacity: 0,
-        stagger: 0.15,
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-      })
-    },
-    { scope: sectionRef },
-  )
-
+export default function App() {
   return (
-    <main>
-      <section className="flex min-h-screen items-center justify-center px-4">
-        <SplitText
-          text="توصيل"
-          tag="h1"
-          splitType="words"
-          className="text-6xl font-bold md:text-8xl"
-          trigger="load"
-        />
-      </section>
+    <Routes>
+      <Route element={<Layout />}>
+        {/* Public */}
+        <Route index element={<HomePage />} />
+        <Route path="restaurants/:id" element={<RestaurantPage />} />
+        <Route path="cart" element={<CartPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+        <Route path="forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="reset-password" element={<ResetPasswordPage />} />
 
-      <section ref={sectionRef} className="mx-auto grid min-h-screen max-w-5xl gap-6 px-4 py-24 md:grid-cols-3">
-        {['GSAP', 'Lenis', 'React Bits'].map((name) => (
-          <div key={name} className="card rounded-2xl border border-neutral-800 bg-neutral-900 p-8 text-center text-2xl">
-            {name}
-          </div>
-        ))}
-      </section>
-    </main>
+        {/* Customer */}
+        <Route element={<ProtectedRoute role="CUSTOMER" />}>
+          <Route path="orders" element={<OrdersPage />} />
+        </Route>
+        {/* Customer or restaurant owner (the API checks who can see the order) */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="orders/:id" element={<OrderDetailsPage />} />
+        </Route>
+
+        {/* Restaurant owner */}
+        <Route path="dashboard" element={<ProtectedRoute role="RESTAURANT_OWNER" />}>
+          <Route index element={<OwnerOrdersPage />} />
+          <Route path="menu" element={<OwnerMenuPage />} />
+          <Route path="settings" element={<OwnerSettingsPage />} />
+        </Route>
+
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   )
 }
-
-export default App

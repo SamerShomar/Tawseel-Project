@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-50: #fff4ed;
+  --color-brand-100: #ffe6d4;
+  --color-brand-200: #ffc9a8;
+  --color-brand-500: #f2622e;
+  --color-brand-600: #e04a17;
+  --color-brand-700: #b93812;
+  --color-ink: #1c1917;
+}
+
 /* Lenis recommended styles */
 html.lenis,
 html.lenis body {
@@ -16,5 +27,31 @@ html.lenis body {
 }
 
 body {
-  @apply bg-neutral-950 text-neutral-100 antialiased;
+  @apply bg-stone-50 text-ink antialiased;
+}
+
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition
+      disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500;
+}
+
+@utility btn-primary {
+    @apply btn bg-brand-500 text-white hover:bg-brand-600;
+}
+
+@utility btn-secondary {
+    @apply btn border border-stone-300 bg-white text-ink hover:bg-stone-100;
+}
+
+@utility btn-danger {
+    @apply btn bg-rose-50 text-rose-700 hover:bg-rose-100;
+}
+
+@utility input {
+    @apply w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-sm outline-none transition
+      placeholder:text-stone-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
+}
+
+@utility card {
+    @apply rounded-2xl border border-stone-200 bg-white;
 }
