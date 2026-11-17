@@ -134,7 +134,8 @@ export function Layout() {
         <Outlet />
       </main>
       <footer className="border-t border-stone-200 py-6 text-center text-sm text-stone-500">
-        © {YEAR} توصيل – فريق ORBA
+        <p>© {YEAR} توصيل – فريق ORBA</p>
+        <p className="mt-1 text-xs text-stone-400">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض</p>
       </footer>
     </div>
   )
