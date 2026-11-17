@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Download React Bits components (https://reactbits.dev) from their public registry on GitHub.
-// Usage: npm run reactbits -- SplitText-TS-TW Aurora-TS-TW
+// Usage: npm run reactbits -- SplitText-JS-TW Aurora-JS-TW
 // Names follow the React Bits registry: <Component>-<JS|TS>-<CSS|TW>
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -10,7 +10,7 @@ const OUT_DIR = path.resolve('src/components/react-bits')
 
 const names = process.argv.slice(2)
 if (names.length === 0) {
-  console.error('Usage: npm run reactbits -- <Name-TS-TW> [...]')
+  console.error('Usage: npm run reactbits -- <Name-JS-TW> [...]')
   process.exit(1)
 }
 
