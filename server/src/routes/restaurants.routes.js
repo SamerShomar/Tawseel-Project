@@ -16,6 +16,7 @@ router.get('/', validate(listQuery, 'query'), async (req, res) => {
   const { search, category } = req.validated
   const restaurants = await prisma.restaurant.findMany({
     where: {
+      isActive: true,
       ...(search && { name: { contains: search, mode: 'insensitive' } }),
       ...(category && { category }),
     },
@@ -27,7 +28,7 @@ router.get('/', validate(listQuery, 'query'), async (req, res) => {
 
 // GET /api/restaurants/categories
 router.get('/categories', async (req, res) => {
-  const rows = await prisma.restaurant.findMany({ where: { category: { not: '' } }, distinct: ['category'], select: { category: true } })
+  const rows = await prisma.restaurant.findMany({ where: { isActive: true, category: { not: '' } }, distinct: ['category'], select: { category: true } })
   res.json({ categories: rows.map((r) => r.category).sort() })
 })
 
@@ -40,9 +41,9 @@ router.get('/:id', async (req, res) => {
     where: { id },
     include: { menuItems: { where: { isAvailable: true }, orderBy: [{ category: 'asc' }, { name: 'asc' }] } },
   })
-  if (!restaurant) return res.status(404).json({ error: 'المطعم غير موجود' })
+  if (!restaurant || !restaurant.isActive) return res.status(404).json({ error: 'المطعم غير موجود' })
 
-  const { menuItems, ownerId: _ownerId, ...rest } = restaurant
+  const { menuItems, ownerId: _ownerId, isActive: _isActive, ...rest } = restaurant
   res.json({ restaurant: { ...rest, menuItems: menuItems.map(menuItemDto) } })
 })
 

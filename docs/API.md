@@ -11,7 +11,7 @@ Errors look like `{ "error": "message" }`. Validation errors (400) also include
 
 | Method | Path | Auth | Body | Notes |
 |---|---|---|---|---|
-| POST | `/auth/register` | – | `name, email, password, phone?, role?, restaurantName?` | `role` is `CUSTOMER` (default) or `RESTAURANT_OWNER`. Owners must send `restaurantName`; their restaurant is created automatically. Returns `{ token, user }`. |
+| POST | `/auth/register` | – | `name, email, password, phone?, role?, restaurantName?` | `role` is `CUSTOMER` (default) or `RESTAURANT_OWNER` (an admin can't be registered). Owners must send `restaurantName`; their restaurant is created automatically. Returns `{ token, user }`. |
 | POST | `/auth/login` | – | `email, password` | Returns `{ token, user }`. |
 | GET | `/auth/me` | any | – | Returns `{ user }`. |
 | POST | `/auth/forgot-password` | – | `email` | Emails a reset link (valid 30 min). Same answer whether the email exists or not. |
@@ -36,6 +36,21 @@ Logout happens on the client (it deletes the token).
 | GET | `/orders/:id` | CUSTOMER or owner | Only the customer who placed it or the owner of the restaurant can see it. |
 
 Order status: `PENDING → ACCEPTED → PREPARING → ON_THE_WAY → DELIVERED`, or `PENDING → REJECTED`.
+
+## Admin
+
+All routes need an `ADMIN` token. Admin accounts can't be created through `/auth/register`. They come from the `ADMIN_EMAIL` / `ADMIN_PASSWORD` variables (see `server/prisma/ensure-admin.js`).
+
+| Method | Path | Body / Notes |
+|---|---|---|
+| GET | `/admin/stats` | Users by role, restaurants (total / active), orders (total / today / by status), delivered revenue, latest 5 orders. |
+| GET | `/admin/users?search=&role=` | All users. `search` matches the name or email. |
+| PATCH | `/admin/users/:id` | `{ isActive }`. A suspended user can't log in, and their existing tokens stop working (403). Admins can't be suspended. |
+| GET | `/admin/restaurants` | All restaurants with their owner, item count and order count. |
+| PATCH | `/admin/restaurants/:id` | `{ isActive }`. A hidden restaurant disappears from `/restaurants` and can't receive orders. |
+| GET | `/admin/orders?status=&restaurantId=` | Latest 200 orders, newest first. |
+
+Admins can also open any order with `GET /orders/:id`.
 
 ## My restaurant (restaurant owner)
 

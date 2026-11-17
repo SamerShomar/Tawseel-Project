@@ -38,6 +38,9 @@ export function AuthProvider({ children }) {
       user,
       loading,
       isOwner: user?.role === 'RESTAURANT_OWNER',
+      isAdmin: user?.role === 'ADMIN',
+      // Customers and visitors can order; owners and admins cannot.
+      canOrder: !user || user.role === 'CUSTOMER',
       login: async (email, password) => saveSession(await api('/auth/login', { method: 'POST', body: { email, password } })),
       register: async (form) => saveSession(await api('/auth/register', { method: 'POST', body: form })),
       logout,

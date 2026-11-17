@@ -234,6 +234,11 @@ async function main() {
     })
   }
 
+  // Demo admin for local development only. On Railway the admin comes from ADMIN_EMAIL / ADMIN_PASSWORD.
+  if (process.env.NODE_ENV !== 'production') {
+    await prisma.user.create({ data: { name: 'مدير الموقع', email: 'admin@tawseel.test', role: 'ADMIN', passwordHash } })
+  }
+
   console.log(`Seeded ${restaurants.length} restaurants. Login with customer@tawseel.test / password123`)
 }
 

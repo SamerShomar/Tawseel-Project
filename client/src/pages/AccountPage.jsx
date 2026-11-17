@@ -2,7 +2,7 @@ import { Link, Navigate, useNavigate } from 'react-router'
 import { Page } from '@/components/Layout'
 import { useAuth } from '@/context/AuthContext'
 
-const ROLE_LABEL = { CUSTOMER: 'زبون', RESTAURANT_OWNER: 'صاحب مطعم' }
+const ROLE_LABEL = { CUSTOMER: 'زبون', RESTAURANT_OWNER: 'صاحب مطعم', ADMIN: 'مدير الموقع' }
 
 /** Account page (mainly for the phone tab bar): who is logged in, and logout. */
 export default function AccountPage() {
@@ -13,7 +13,14 @@ export default function AccountPage() {
   if (!user) return null
 
   const links =
-    user.role === 'RESTAURANT_OWNER'
+    user.role === 'ADMIN'
+      ? [
+          { to: '/admin', label: 'نظرة عامة', icon: '📊' },
+          { to: '/admin/users', label: 'المستخدمين', icon: '👥' },
+          { to: '/admin/restaurants', label: 'المطاعم', icon: '🏪' },
+          { to: '/admin/orders', label: 'الطلبات', icon: '🧾' },
+        ]
+      : user.role === 'RESTAURANT_OWNER'
       ? [
           { to: '/dashboard', label: 'لوحة الطلبات', icon: '🧾' },
           { to: '/dashboard/menu', label: 'إدارة القائمة', icon: '📋' },

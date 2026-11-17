@@ -16,6 +16,7 @@ export async function requireAuth(req, res, next) {
     const payload = jwt.verify(token, config.jwtSecret)
     const user = await prisma.user.findUnique({ where: { id: payload.sub } })
     if (!user) return res.status(401).json({ error: 'يجب تسجيل الدخول' })
+    if (!user.isActive) return res.status(403).json({ error: 'تم إيقاف هذا الحساب، تواصل مع إدارة الموقع' })
     req.user = user
     next()
   } catch {

@@ -13,7 +13,7 @@ export default function RestaurantPage() {
   const { id } = useParams()
   const { data, error, loading } = useApi(`/restaurants/${id}`)
   const cart = useCart()
-  const { isOwner } = useAuth()
+  const { canOrder } = useAuth()
   const [pending, setPending] = useState(null) // item waiting for "replace cart?" confirmation
 
   const restaurant = data?.restaurant
@@ -125,7 +125,7 @@ export default function RestaurantPage() {
                         {item.description && <p className="mt-1 text-sm text-stone-500">{item.description}</p>}
                         <div className="mt-auto flex items-center justify-between pt-3">
                           <span className="font-bold text-brand-700">{formatPrice(item.price)}</span>
-                          {isOwner ? null : qty ? (
+                          {!canOrder ? null : qty ? (
                             <div className="flex items-center gap-2">
                               <button className="btn-secondary size-9 p-0" onClick={() => cart.setQuantity(item.id, qty - 1)} aria-label={`إنقاص ${item.name}`}>
                                 −
