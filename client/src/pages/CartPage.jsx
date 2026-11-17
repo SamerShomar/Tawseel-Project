@@ -13,7 +13,9 @@ export default function CartPage() {
   const cart = useCart()
   const { user } = useAuth()
   const navigate = useNavigate()
-  const [form, setForm] = useState({ deliveryAddress: '', phone: user?.phone || '', notes: '' })
+  // phone stays null until the user types, so it can fall back to the account's phone (which may load after this page).
+  const [form, setForm] = useState({ deliveryAddress: '', phone: null, notes: '' })
+  const phone = form.phone ?? user?.phone ?? ''
   const [errors, setErrors] = useState({})
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -46,6 +48,7 @@ export default function CartPage() {
           restaurantId: cart.restaurant.id,
           items: cart.items.map((i) => ({ menuItemId: i.id, quantity: i.quantity })),
           ...form,
+          phone,
         },
       })
       cart.clear()
@@ -97,7 +100,7 @@ export default function CartPage() {
           <h2 className="text-lg font-bold">معلومات التوصيل</h2>
           <Alert>{error}</Alert>
           <Field label="عنوان التوصيل" as="textarea" rows={2} required value={form.deliveryAddress} onChange={set('deliveryAddress')} error={errors.deliveryAddress} placeholder="المدينة، الحي، الشارع، أقرب معلم" />
-          <Field label="رقم الهاتف" type="tel" dir="ltr" required value={form.phone} onChange={set('phone')} error={errors.phone} placeholder="059xxxxxxx" />
+          <Field label="رقم الهاتف" type="tel" dir="ltr" required value={phone} onChange={set('phone')} error={errors.phone} placeholder="059xxxxxxx" />
           <Field label="ملاحظات (اختياري)" as="textarea" rows={2} value={form.notes} onChange={set('notes')} error={errors.notes} placeholder="مثلاً: بدون بصل" />
           <p className="rounded-xl bg-stone-100 px-3 py-2 text-sm text-stone-600">💵 الدفع نقداً عند الاستلام</p>
           <button className="btn-primary py-3 text-base" disabled={submitting}>

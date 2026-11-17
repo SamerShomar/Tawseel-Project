@@ -25,7 +25,7 @@ export function RestaurantCover({ restaurant, className = '' }) {
   }
   return (
     <div className={`grid place-items-center bg-gradient-to-br ${GRADIENTS[restaurant.id % GRADIENTS.length]} ${className}`}>
-      <span className="text-5xl drop-shadow-sm" aria-hidden>
+      <span className="text-4xl drop-shadow-sm sm:text-5xl" aria-hidden>
         {EMOJI[restaurant.category] || '🍽️'}
       </span>
     </div>

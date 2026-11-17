@@ -59,6 +59,20 @@ function MenuItemForm({ initial, onSave, onCancel }) {
   )
 }
 
+function AvailabilitySwitch({ item, onToggle }) {
+  return (
+    <button
+      role="switch"
+      aria-checked={item.isAvailable}
+      aria-label={`${item.name} متوفر`}
+      onClick={() => onToggle(item)}
+      className={`relative h-6 w-11 shrink-0 rounded-full transition ${item.isAvailable ? 'bg-emerald-500' : 'bg-stone-300'}`}
+    >
+      <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-all ${item.isAvailable ? 'start-5.5' : 'start-0.5'}`} />
+    </button>
+  )
+}
+
 export default function OwnerMenuPage() {
   const { data, error, loading, reload } = useApi('/my-restaurant/menu')
   const [editing, setEditing] = useState(null) // null | 'new' | item
@@ -116,7 +130,36 @@ export default function OwnerMenuPage() {
             أضف أول صنف عشان الزباين يقدروا يطلبوا
           </EmptyState>
         ) : (
-          <div className="card overflow-hidden">
+          <>
+          {/* Phones: one card per item */}
+          <ul className="space-y-3 sm:hidden">
+            {items.map((item) => (
+              <li key={item.id} className={`card p-4 ${item.isAvailable ? '' : 'opacity-60'}`}>
+                <div className="flex items-start gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold">{item.name}</p>
+                    {item.description && <p className="line-clamp-1 text-xs text-stone-500">{item.description}</p>}
+                    <p className="mt-1 text-sm">
+                      <span className="font-bold text-brand-700">{formatPrice(item.price)}</span>
+                      {item.category && <span className="text-stone-400"> · {item.category}</span>}
+                    </p>
+                  </div>
+                  <AvailabilitySwitch item={item} onToggle={toggle} />
+                </div>
+                <div className="mt-3 grid grid-cols-2 gap-2">
+                  <button className="btn-secondary py-2" onClick={() => setEditing(item)}>
+                    تعديل
+                  </button>
+                  <button className="btn-danger py-2" onClick={() => remove(item)}>
+                    حذف
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {/* Tablets and desktop: table */}
+          <div className="card hidden overflow-hidden sm:block">
             <table className="w-full text-sm">
               <thead className="bg-stone-50 text-stone-500">
                 <tr>
@@ -139,15 +182,7 @@ export default function OwnerMenuPage() {
                     <td className="hidden p-3 sm:table-cell">{item.category || '—'}</td>
                     <td className="p-3 font-semibold whitespace-nowrap">{formatPrice(item.price)}</td>
                     <td className="p-3">
-                      <button
-                        role="switch"
-                        aria-checked={item.isAvailable}
-                        aria-label={`${item.name} متوفر`}
-                        onClick={() => toggle(item)}
-                        className={`relative h-6 w-11 rounded-full transition ${item.isAvailable ? 'bg-emerald-500' : 'bg-stone-300'}`}
-                      >
-                        <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-all ${item.isAvailable ? 'start-5.5' : 'start-0.5'}`} />
-                      </button>
+                      <AvailabilitySwitch item={item} onToggle={toggle} />
                     </td>
                     <td className="p-3">
                       <div className="flex justify-end gap-1">
@@ -164,6 +199,7 @@ export default function OwnerMenuPage() {
               </tbody>
             </table>
           </div>
+          </>
         )}
       </div>
     </Page>
