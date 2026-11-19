@@ -1,5 +1,5 @@
 import { ensureAdmin } from '../src/lib/ensureAdmin.js'
-import { api, auth, prisma, registerOwner, registerUser, resetDb } from './helpers.js'
+import { api, auth, deliverOrder, prisma, registerDriver, registerOwner, registerUser, resetDb } from './helpers.js'
 
 let admin
 let customer
@@ -47,13 +47,14 @@ describe('access', () => {
 describe('GET /api/admin/stats', () => {
   it('counts users, restaurants, orders and delivered revenue', async () => {
     const { order } = (await placeOrder()).body
-    for (const status of ['ACCEPTED', 'PREPARING', 'ON_THE_WAY', 'DELIVERED']) {
-      await api().patch(`/api/my-restaurant/orders/${order.id}/status`).set(auth(owner.token)).send({ status })
-    }
+    const driver = await registerDriver()
+    await registerDriver({ approved: false })
+    await deliverOrder(order.id, owner.token, driver.token)
     await placeOrder()
 
     const { body } = await asAdmin('get', '/api/admin/stats')
-    expect(body.users).toEqual({ CUSTOMER: 1, RESTAURANT_OWNER: 1, ADMIN: 1 })
+    expect(body.users).toEqual({ CUSTOMER: 1, RESTAURANT_OWNER: 1, DRIVER: 2, ADMIN: 1 })
+    expect(body.pendingDrivers).toBe(1)
     expect(body.restaurants).toEqual({ total: 1, active: 1 })
     expect(body.orders.total).toBe(2)
     expect(body.orders.today).toBe(2)

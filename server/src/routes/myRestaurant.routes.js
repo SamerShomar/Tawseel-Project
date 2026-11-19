@@ -91,20 +91,27 @@ router.delete('/menu/:id', async (req, res) => {
 
 const ORDER_STATUSES = ['PENDING', 'ACCEPTED', 'PREPARING', 'ON_THE_WAY', 'DELIVERED', 'REJECTED']
 
-// Allowed next steps for each status.
+// What the restaurant can do: accept or reject, then start preparing.
+// Picking the order up (ON_THE_WAY) and delivering it are the driver's steps (see driver.routes.js).
 export const NEXT_STATUS = {
   PENDING: ['ACCEPTED', 'REJECTED'],
   ACCEPTED: ['PREPARING'],
-  PREPARING: ['ON_THE_WAY'],
-  ON_THE_WAY: ['DELIVERED'],
+  PREPARING: [],
+  ON_THE_WAY: [],
   DELIVERED: [],
   REJECTED: [],
+}
+
+const ownerOrderInclude = {
+  items: true,
+  customer: { select: { id: true, name: true } },
+  driver: { select: { id: true, name: true, phone: true } },
 }
 
 router.get('/orders', validate(z.object({ status: z.enum(ORDER_STATUSES).optional() }), 'query'), async (req, res) => {
   const orders = await prisma.order.findMany({
     where: { restaurantId: req.restaurant.id, ...(req.validated.status && { status: req.validated.status }) },
-    include: { items: true, customer: { select: { id: true, name: true } } },
+    include: ownerOrderInclude,
     orderBy: { createdAt: 'desc' },
   })
   res.json({ orders: orders.map(orderDto) })
@@ -122,7 +129,7 @@ router.patch('/orders/:id/status', validate(z.object({ status: z.enum(ORDER_STAT
   const updated = await prisma.order.update({
     where: { id },
     data: { status: req.body.status },
-    include: { items: true, customer: { select: { id: true, name: true } } },
+    include: ownerOrderInclude,
   })
   res.json({ order: orderDto(updated) })
 })

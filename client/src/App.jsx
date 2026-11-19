@@ -7,6 +7,8 @@ import AdminOrdersPage from '@/pages/admin/AdminOrdersPage'
 import AdminRestaurantsPage from '@/pages/admin/AdminRestaurantsPage'
 import AdminUsersPage from '@/pages/admin/AdminUsersPage'
 import CartPage from '@/pages/CartPage'
+import DriverAvailablePage from '@/pages/driver/DriverAvailablePage'
+import DriverMyPage from '@/pages/driver/DriverMyPage'
 import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage'
 import LoginPage from '@/pages/auth/LoginPage'
 import RegisterPage from '@/pages/auth/RegisterPage'
@@ -50,6 +52,12 @@ export default function App() {
           <Route index element={<OwnerOrdersPage />} />
           <Route path="menu" element={<OwnerMenuPage />} />
           <Route path="settings" element={<OwnerSettingsPage />} />
+        </Route>
+
+        {/* Delivery driver */}
+        <Route path="driver" element={<ProtectedRoute role="DRIVER" />}>
+          <Route index element={<DriverAvailablePage />} />
+          <Route path="mine" element={<DriverMyPage />} />
         </Route>
 
         {/* Admin */}

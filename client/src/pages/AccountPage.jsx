@@ -1,8 +1,8 @@
 import { Link, Navigate, useNavigate } from 'react-router'
 import { Page } from '@/components/Layout'
 import { useAuth } from '@/context/AuthContext'
+import { ROLE_LABEL } from '@/lib/format'
 
-const ROLE_LABEL = { CUSTOMER: 'زبون', RESTAURANT_OWNER: 'صاحب مطعم', ADMIN: 'مدير الموقع' }
 
 /** Account page (mainly for the phone tab bar): who is logged in, and logout. */
 export default function AccountPage() {
@@ -13,7 +13,12 @@ export default function AccountPage() {
   if (!user) return null
 
   const links =
-    user.role === 'ADMIN'
+    user.role === 'DRIVER'
+      ? [
+          { to: '/driver', label: 'الطلبات المتاحة', icon: '📦' },
+          { to: '/driver/mine', label: 'توصيلاتي', icon: '🛵' },
+        ]
+      : user.role === 'ADMIN'
       ? [
           { to: '/admin', label: 'نظرة عامة', icon: '📊' },
           { to: '/admin/users', label: 'المستخدمين', icon: '👥' },

@@ -15,14 +15,22 @@ export const STATUS = {
 }
 
 /** Status the restaurant can move an order to next (mirrors the server rules). */
+/** What the restaurant does next. Pickup and delivery are the driver's steps. */
 export const NEXT_ACTION = {
   ACCEPTED: { status: 'PREPARING', label: 'بدء التحضير' },
-  PREPARING: { status: 'ON_THE_WAY', label: 'خرج للتوصيل' },
-  ON_THE_WAY: { status: 'DELIVERED', label: 'تم التوصيل' },
+}
+
+/** What the driver does next on an order they took. */
+export const DRIVER_ACTION = {
+  ACCEPTED: { status: 'ON_THE_WAY', label: 'استلمت الطلب من المطعم' },
+  PREPARING: { status: 'ON_THE_WAY', label: 'استلمت الطلب من المطعم' },
+  ON_THE_WAY: { status: 'DELIVERED', label: 'تم التوصيل ✓' },
 }
 
 export const isActiveOrder = (status) => !['DELIVERED', 'REJECTED'].includes(status)
 
 /** Where a user lands after login. */
-export const HOME_BY_ROLE = { CUSTOMER: '/', RESTAURANT_OWNER: '/dashboard', ADMIN: '/admin' }
+export const HOME_BY_ROLE = { CUSTOMER: '/', RESTAURANT_OWNER: '/dashboard', ADMIN: '/admin', DRIVER: '/driver' }
+
+export const ROLE_LABEL = { CUSTOMER: 'زبون', RESTAURANT_OWNER: 'صاحب مطعم', DRIVER: 'سائق توصيل', ADMIN: 'أدمن' }
 export const homeFor = (user) => HOME_BY_ROLE[user.role] || '/'

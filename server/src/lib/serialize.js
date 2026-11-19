@@ -8,6 +8,7 @@ export const publicUser = (u) => ({
   role: u.role,
   phone: u.phone,
   emailVerified: Boolean(u.emailVerifiedAt),
+  ...(u.role === 'DRIVER' && { driverApproved: Boolean(u.driverApprovedAt) }),
 })
 
 export const menuItemDto = (m) => ({ ...m, price: toNumber(m.price) })

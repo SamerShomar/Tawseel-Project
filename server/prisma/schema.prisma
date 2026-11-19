@@ -14,6 +14,7 @@ enum Role {
   CUSTOMER
   RESTAURANT_OWNER
   ADMIN
+  DRIVER
 }
 
 enum OrderStatus {
@@ -36,11 +37,14 @@ model User {
   emailVerifiedAt   DateTime?   @map("email_verified_at")
   verifyTokenHash   String?     @map("verify_token_hash")
   verifyTokenExpires DateTime?  @map("verify_token_expires")
+  /// Drivers can see and take orders only after an admin approves them.
+  driverApprovedAt  DateTime?   @map("driver_approved_at")
   resetTokenHash    String?     @map("reset_token_hash")
   resetTokenExpires DateTime?   @map("reset_token_expires")
   createdAt         DateTime    @default(now()) @map("created_at")
   restaurant        Restaurant?
-  orders            Order[]
+  orders            Order[]     @relation("CustomerOrders")
+  deliveries        Order[]     @relation("DriverOrders")
 
   @@map("users")
 }
@@ -83,7 +87,9 @@ model MenuItem {
 model Order {
   id              Int         @id @default(autoincrement())
   customerId      Int         @map("customer_id")
-  customer        User        @relation(fields: [customerId], references: [id])
+  customer        User        @relation("CustomerOrders", fields: [customerId], references: [id])
+  driverId        Int?        @map("driver_id")
+  driver          User?       @relation("DriverOrders", fields: [driverId], references: [id], onDelete: SetNull)
   restaurantId    Int         @map("restaurant_id")
   restaurant      Restaurant  @relation(fields: [restaurantId], references: [id])
   status          OrderStatus @default(PENDING)
@@ -97,6 +103,7 @@ model Order {
 
   @@index([customerId])
   @@index([restaurantId, status])
+  @@index([driverId, status])
   @@map("orders")
 }
 

@@ -28,6 +28,22 @@ function OrderCard({ order, onStatus, busy }) {
         <StatusBadge status={order.status} />
       </header>
 
+      {['ACCEPTED', 'PREPARING', 'ON_THE_WAY'].includes(order.status) && (
+        <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${order.driver ? 'bg-sky-50 text-sky-900' : 'bg-stone-50 text-stone-600'}`}>
+          🛵{' '}
+          {order.driver ? (
+            <>
+              السائق: <b>{order.driver.name}</b>{' '}
+              <a href={`tel:${order.driver.phone}`} dir="ltr" className="underline">
+                {order.driver.phone}
+              </a>
+            </>
+          ) : (
+            'بانتظار سائق يستلم الطلب'
+          )}
+        </p>
+      )}
+
       <ul className="mt-4 space-y-1 text-sm">
         {order.items.map((i) => (
           <li key={i.id} className="flex justify-between">

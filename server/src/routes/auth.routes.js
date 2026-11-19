@@ -35,8 +35,13 @@ const registerSchema = z
     email,
     password,
     phone: z.string().trim().max(30).optional(),
-    role: z.enum(['CUSTOMER', 'RESTAURANT_OWNER']).default('CUSTOMER'),
+    role: z.enum(['CUSTOMER', 'RESTAURANT_OWNER', 'DRIVER']).default('CUSTOMER'),
     restaurantName: z.string().trim().max(100).optional(),
+  })
+  // Drivers must give a phone number: customers and restaurants call them.
+  .refine((d) => d.role !== 'DRIVER' || (d.phone && d.phone.length >= 7), {
+    message: 'رقم الهاتف مطلوب للسائقين',
+    path: ['phone'],
   })
   .refine((d) => d.role !== 'RESTAURANT_OWNER' || (d.restaurantName && d.restaurantName.length >= 2), {
     message: 'اسم المطعم مطلوب',
