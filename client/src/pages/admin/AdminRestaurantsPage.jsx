@@ -52,6 +52,7 @@ export default function AdminRestaurantsPage() {
                   <p className="mt-1 truncate text-sm text-stone-500">
                     {r.owner.name}
                     {!r.owner.isActive && <span className="text-rose-600"> (حساب موقوف)</span>}
+                    {!r.owner.emailVerifiedAt && <span className="text-amber-700"> (الإيميل غير مؤكد، المطعم مش ظاهر للزباين)</span>}
                   </p>
                   <p className="text-xs text-stone-400">
                     {r.menuItemsCount} صنف · {r.ordersCount} طلب {r.address && `· ${r.address}`}

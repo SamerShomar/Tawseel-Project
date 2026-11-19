@@ -6,7 +6,7 @@ Tawseel connects customers with local restaurants: browse menus, order with cash
 
 ## Features (MVP)
 
-1. **User accounts**: sign up as a customer or restaurant owner, log in and out, and reset a forgotten password by email
+1. **User accounts**: sign up as a customer or restaurant owner (with **email verification**), log in and out, and reset a forgotten password by email
 2. **Browse restaurants and menus**, with search and category filter
 3. **Cart and checkout**: change quantities, enter delivery details, pay cash on delivery
 4. **Order tracking and history**: the status updates automatically

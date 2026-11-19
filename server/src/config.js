@@ -26,6 +26,7 @@ export const config = {
   clientUrl: clientUrls[0],
   corsOrigins: clientUrls,
   resetTokenMinutes: 30,
+  verifyTokenHours: 24,
   smtp: {
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT) || 587,

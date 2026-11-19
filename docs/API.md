@@ -16,6 +16,10 @@ Errors look like `{ "error": "message" }`. Validation errors (400) also include
 | GET | `/auth/me` | any | – | Returns `{ user }`. |
 | POST | `/auth/forgot-password` | – | `email` | Emails a reset link (valid 30 min). Same answer whether the email exists or not. |
 | POST | `/auth/reset-password` | – | `token, password` | The token from the email link. Each token works once. |
+| POST | `/auth/verify-email` | – | `token` | The token from the verification email sent at registration (valid 24 h, works once). Returns `{ message, user }`. An expired token returns `expired: true`. |
+| POST | `/auth/resend-verification` | any | – | Sends a new verification link. 400 if the email is already verified. |
+
+`user` objects include `emailVerified`. Until it is `true`, a customer can't place orders (403, `code: "EMAIL_NOT_VERIFIED"`), and a restaurant owner's restaurant is hidden from customers. Accounts that existed before email verification was added are treated as verified.
 
 Logout happens on the client (it deletes the token).
 

@@ -67,6 +67,42 @@ export async function sendEmail(message) {
   return providers[mailProvider()](message)
 }
 
+/** Shared Arabic RTL layout for all emails. */
+function emailLayout({ greeting, body, buttonText, link, notes }) {
+  return `<!doctype html>
+<html lang="ar" dir="rtl">
+<body style="margin:0;padding:24px;background:#fafaf9;font-family:Tahoma,Arial,sans-serif;color:#1c1917">
+  <div style="max-width:480px;margin:0 auto;background:#ffffff;border:1px solid #e7e5e4;border-radius:16px;padding:28px;text-align:right">
+    <div style="font-size:22px;font-weight:bold;color:#f2622e;margin-bottom:16px">توصيل</div>
+    <p style="margin:0 0 12px;font-size:16px">${greeting}</p>
+    <p style="margin:0 0 20px;font-size:15px;line-height:1.7">${body}</p>
+    <p style="margin:0 0 20px"><a href="${link}" style="display:inline-block;background:#f2622e;color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:12px;font-weight:bold;font-size:15px">${buttonText}</a></p>
+    ${notes.map((n) => `<p style="margin:0 0 8px;font-size:13px;color:#78716c">${n}</p>`).join('\n    ')}
+    <p style="margin:16px 0 0;font-size:12px;color:#a8a29e;word-break:break-all;direction:ltr;text-align:left">${link}</p>
+  </div>
+</body>
+</html>`
+}
+
+export function verificationEmail(name, link, hours = config.verifyTokenHours) {
+  const text = `أهلاً ${name}،\n\nشكراً لتسجيلك على توصيل. لتأكيد إيميلك افتح الرابط التالي (صالح لمدة ${hours} ساعة):\n${link}\n\nإذا ما عملت حساب على توصيل، تجاهل هالرسالة.\n\nفريق توصيل`
+  const html = emailLayout({
+    greeting: `أهلاً ${name}،`,
+    body: 'شكراً لتسجيلك على توصيل! اضغط على الزر لتأكيد إيميلك وتفعيل حسابك.',
+    buttonText: 'تأكيد الإيميل',
+    link,
+    notes: [`الرابط صالح لمدة ${hours} ساعة.`, 'إذا ما عملت حساب على توصيل، تجاهل هالرسالة.'],
+  })
+  return { subject: 'توصيل – أكّد إيميلك', text, html }
+}
+
+export async function sendVerificationEmail(to, name, link) {
+  if (mailProvider() === 'console' && process.env.NODE_ENV !== 'test') {
+    console.log(`[mail] No email provider set. Verification link for ${to}: ${link}`)
+  }
+  await sendEmail({ to, ...verificationEmail(name, link) })
+}
+
 export function passwordResetEmail(link, minutes = config.resetTokenMinutes) {
   const text = `مرحباً،\n\nوصلنا طلب لإعادة تعيين كلمة المرور لحسابك على توصيل.\nافتح الرابط التالي لاختيار كلمة مرور جديدة (صالح لمدة ${minutes} دقيقة):\n${link}\n\nإذا ما طلبت هذا، تجاهل الرسالة وكلمة مرورك ما رح تتغير.\n\nفريق توصيل`
   const html = `<!doctype html>

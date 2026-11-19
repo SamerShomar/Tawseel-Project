@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { z } from 'zod'
 import { HttpError } from '../lib/errors.js'
+import { PUBLIC } from './restaurants.routes.js'
 import { prisma } from '../lib/prisma.js'
 import { orderDto } from '../lib/serialize.js'
 import { requireAuth, requireRole } from '../middleware/auth.js'
@@ -26,11 +27,14 @@ const createSchema = z.object({
 
 // POST /api/orders — place an order (cash on delivery)
 router.post('/', requireRole('CUSTOMER'), validate(createSchema), async (req, res) => {
+  if (!req.user.emailVerifiedAt) {
+    return res.status(403).json({ error: 'أكّد إيميلك أولاً عشان تقدر تطلب. الرابط وصلك على إيميلك.', code: 'EMAIL_NOT_VERIFIED' })
+  }
   const { restaurantId, items, deliveryAddress, phone, notes } = req.body
 
   // Prices always come from the database, never from the client.
   const ids = [...new Set(items.map((i) => i.menuItemId))]
-  const menuItems = await prisma.menuItem.findMany({ where: { id: { in: ids }, restaurantId, isAvailable: true, restaurant: { isActive: true } } })
+  const menuItems = await prisma.menuItem.findMany({ where: { id: { in: ids }, restaurantId, isAvailable: true, restaurant: PUBLIC } })
   if (menuItems.length !== ids.length) throw new HttpError(400, 'بعض الأصناف غير متوفرة حالياً')
 
   const byId = new Map(menuItems.map((m) => [m.id, m]))

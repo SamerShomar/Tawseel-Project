@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import { Router } from 'express'
 import { z } from 'zod'
 import { config } from '../config.js'
-import { sendPasswordResetEmail } from '../lib/mailer.js'
+import { sendPasswordResetEmail, sendVerificationEmail } from '../lib/mailer.js'
 import { prisma } from '../lib/prisma.js'
 import { publicUser } from '../lib/serialize.js'
 import { requireAuth, signToken } from '../middleware/auth.js'
@@ -14,6 +14,20 @@ const router = Router()
 const email = z.string().trim().toLowerCase().email('البريد الإلكتروني غير صحيح')
 const password = z.string().min(8, 'كلمة المرور يجب أن تكون 8 أحرف على الأقل').max(100)
 const hashToken = (token) => crypto.createHash('sha256').update(token).digest('hex')
+
+/** Creates a new email-verification token for the user and emails the link. Never throws. */
+async function issueVerification(user) {
+  const token = crypto.randomBytes(32).toString('hex')
+  await prisma.user.update({
+    where: { id: user.id },
+    data: { verifyTokenHash: hashToken(token), verifyTokenExpires: new Date(Date.now() + config.verifyTokenHours * 3600_000) },
+  })
+  try {
+    await sendVerificationEmail(user.email, user.name, `${config.clientUrl}/verify-email?token=${token}`)
+  } catch (err) {
+    console.error(`[mail] Could not send the verification email: ${err.message}`)
+  }
+}
 
 const registerSchema = z
   .object({
@@ -47,7 +61,30 @@ router.post('/register', validate(registerSchema), async (req, res) => {
     },
   })
 
+  await issueVerification(user)
   res.status(201).json({ token: signToken(user), user: publicUser(user) })
+})
+
+// POST /api/auth/verify-email — the link in the email. Works without being logged in (e.g. opened on a phone).
+router.post('/verify-email', validate(z.object({ token: z.string().min(10).max(200) })), async (req, res) => {
+  const user = await prisma.user.findFirst({ where: { verifyTokenHash: hashToken(req.body.token) } })
+  if (!user) return res.status(400).json({ error: 'رابط التأكيد غير صالح أو مستخدم من قبل' })
+  if (user.verifyTokenExpires < new Date()) {
+    return res.status(400).json({ error: 'انتهت صلاحية رابط التأكيد، اطلب رابطاً جديداً من حسابك', expired: true })
+  }
+
+  const updated = await prisma.user.update({
+    where: { id: user.id },
+    data: { emailVerifiedAt: new Date(), verifyTokenHash: null, verifyTokenExpires: null },
+  })
+  res.json({ message: 'تم تأكيد إيميلك بنجاح 🎉', user: publicUser(updated) })
+})
+
+// POST /api/auth/resend-verification — sends a new link to the logged-in user.
+router.post('/resend-verification', requireAuth, async (req, res) => {
+  if (req.user.emailVerifiedAt) return res.status(400).json({ error: 'إيميلك مؤكد أصلاً' })
+  await issueVerification(req.user)
+  res.json({ message: `بعتنالك رابط تأكيد جديد على ${req.user.email}` })
 })
 
 const loginSchema = z.object({ email, password: z.string().min(1, 'كلمة المرور مطلوبة') })

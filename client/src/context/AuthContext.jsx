@@ -44,6 +44,8 @@ export function AuthProvider({ children }) {
       login: async (email, password) => saveSession(await api('/auth/login', { method: 'POST', body: { email, password } })),
       register: async (form) => saveSession(await api('/auth/register', { method: 'POST', body: form })),
       logout,
+      /** Updates the logged-in user (e.g. after verifying the email). */
+      setUser: (u) => setUser((prev) => (prev && u && prev.id === u.id ? { ...prev, ...u } : prev)),
     }),
     [user, loading, logout, saveSession],
   )

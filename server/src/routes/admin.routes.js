@@ -101,7 +101,7 @@ router.patch('/users/:id', validate(z.object({ isActive: z.boolean() })), async 
 router.get('/restaurants', async (req, res) => {
   const restaurants = await prisma.restaurant.findMany({
     include: {
-      owner: { select: { id: true, name: true, email: true, isActive: true } },
+      owner: { select: { id: true, name: true, email: true, isActive: true, emailVerifiedAt: true } },
       _count: { select: { menuItems: true, orders: true } },
     },
     orderBy: { name: 'asc' },
