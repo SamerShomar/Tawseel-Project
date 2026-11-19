@@ -111,23 +111,32 @@ DATABASE_URL="رابط-Supabase-هون" npm run db:seed
 
 ---
 
-## إيميل استعادة كلمة المرور (SMTP)
+## إيميل استعادة كلمة المرور (Brevo)
 
-بدون SMTP، رابط الاستعادة بينطبع بس بالـ **Deploy Logs** على Railway. لإرسال إيميل حقيقي استخدم Gmail:
+بدون إعداد إيميل، رابط «نسيت كلمة المرور» بينكتب بس بالـ **Deploy Logs** على Railway وما بيوصل للمستخدم.
+Railway بيمنع SMTP (زي Gmail SMTP) على الخطط المجانية والتجريبية، فبنستخدم **Brevo** اللي بيبعت عن طريق API:
+مجاني لـ 300 إيميل باليوم، وما بيحتاج دومين، وبيكفي إيميل Gmail كمرسل.
 
-1. فعّل **التحقق بخطوتين (2-Step Verification)** على حساب Gmail.
-2. من [App passwords](https://myaccount.google.com/apppasswords) اعمل كلمة سر للتطبيق، بتكون 16 حرف.
-3. ضيف بـ Railway ← Variables:
+1. اعمل حساب على [brevo.com](https://www.brevo.com) (مجاني).
+2. **ثبّت إيميل المرسل:** من فوق اضغط على اسمك ← **Senders, Domains & Dedicated IPs** ← **Senders** ← **Add a sender**.
+   حط اسم `Tawseel` وإيميلك (مثلاً Gmail)، وبعدين افتح الإيميل اللي وصلك من Brevo وأكّد.
+3. **اعمل مفتاح API:** من فوق اضغط على اسمك ← **SMTP & API** ← تبويب **API Keys** ← **Generate a new API key**.
+   انسخ المفتاح (بيبلش بـ `xkeysib-`). ⚠️ لا تبعته لحدا ولا تحطه بالريبو.
+4. Railway ← الخدمة ← **Variables** ← ضيف:
 
    | المتغير | القيمة |
    |---|---|
-   | `SMTP_HOST` | `smtp.gmail.com` |
-   | `SMTP_PORT` | `587` |
-   | `SMTP_USER` | إيميل Gmail |
-   | `SMTP_PASS` | كلمة سر التطبيق (16 حرف) |
-   | `MAIL_FROM` | `Tawseel <إيميلك@gmail.com>` |
+   | `BREVO_API_KEY` | المفتاح اللي نسخته |
+   | `MAIL_FROM` | `Tawseel <إيميل-المرسل-اللي-ثبّتته@gmail.com>` |
 
-> ملاحظة: بعض خطط Railway بتمنع الاتصال بـ SMTP. إذا الإيميل ما وصل وطلع بالـ Logs خطأ timeout، استخدم خدمة إيميل بتشتغل عن طريق API مثل Resend أو Brevo، أو رقّي الخطة.
+5. اضغط **Deploy**. بالـ Deploy Logs لازم تشوف: `[mail] Email provider: brevo`.
+6. جرّب: من صفحة الدخول ← «نسيت كلمة المرور» ← حط إيميل حساب موجود. إذا ما وصل خلال دقيقتين شيّك على **Spam**.
+   إذا في مشكلة، بالـ Logs بيطلع سطر `[mail] Could not send ...` وفيه سبب الخطأ من Brevo.
+
+> **ملاحظات:**
+> - `MAIL_FROM` لازم يكون **نفس** الإيميل اللي ثبّتته بـ Brevo بالخطوة 2، وإلا Brevo برفض الإرسال.
+> - رسائل Gmail المبعوثة عن طريق خدمة ثانية ممكن تروح على Spam. لتحسين الوصول بتحتاج دومين خاص (اختياري).
+> - إذا اشتريت دومين لاحقاً، بتقدر بدل Brevo تستخدم Resend: `RESEND_API_KEY` و `MAIL_FROM=Tawseel <no-reply@دومينك>`.
 
 ## التحديثات بعد النشر
 

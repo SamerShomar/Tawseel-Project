@@ -60,7 +60,7 @@ All demo accounts use the password `password123`.
 
 The seed adds 10 restaurants in real areas of the Gaza Strip (Rimal, Shati camp, Shujaiya, Nuseirat, Deir al-Balah, Khan Younis…). Restaurant and owner names are made up for the demo, and the shekel prices are based on real 2026 price levels in Gaza.
 
-In development, "Forgot password" prints the reset link in the **server console**. Set the `SMTP_*` values in `server/.env` to send real emails.
+In development, "Forgot password" prints the reset link in the **server console**. To send real emails, set `BREVO_API_KEY` and `MAIL_FROM` (see the email section of [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)).
 
 ## Deployment
 

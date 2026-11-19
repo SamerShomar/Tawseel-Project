@@ -31,7 +31,12 @@ export default function ForgotPasswordPage() {
       footer={<AuthLink to="/login">→ رجوع لتسجيل الدخول</AuthLink>}
     >
       {message ? (
-        <Alert type="success">{message}</Alert>
+        <div className="flex flex-col gap-3">
+          <Alert type="success">{message}</Alert>
+          <p className="text-sm text-stone-500">
+            الرابط صالح لمدة 30 دقيقة. إذا ما وصلت الرسالة خلال دقيقتين، شيّك على مجلد الرسائل غير المرغوب فيها (Spam).
+          </p>
+        </div>
       ) : (
         <form onSubmit={submit} className="flex flex-col gap-4">
           <Alert>{error}</Alert>

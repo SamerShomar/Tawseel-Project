@@ -77,7 +77,12 @@ router.post('/forgot-password', validate(z.object({ email })), async (req, res) 
         resetTokenExpires: new Date(Date.now() + config.resetTokenMinutes * 60_000),
       },
     })
-    await sendPasswordResetEmail(user.email, `${config.clientUrl}/reset-password?token=${token}`)
+    try {
+      await sendPasswordResetEmail(user.email, `${config.clientUrl}/reset-password?token=${token}`)
+    } catch (err) {
+      // Logged for the team; the response stays the same so it never reveals which emails exist.
+      console.error(`[mail] Could not send the password reset email: ${err.message}`)
+    }
   }
 
   // Same answer whether or not the email exists, so nobody can check which emails are registered.
