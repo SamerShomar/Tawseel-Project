@@ -33,6 +33,9 @@ model User {
   role              Role        @default(CUSTOMER)
   phone             String?
   isActive          Boolean     @default(true) @map("is_active")
+  emailVerifiedAt   DateTime?   @map("email_verified_at")
+  verifyTokenHash   String?     @map("verify_token_hash")
+  verifyTokenExpires DateTime?  @map("verify_token_expires")
   resetTokenHash    String?     @map("reset_token_hash")
   resetTokenExpires DateTime?   @map("reset_token_expires")
   createdAt         DateTime    @default(now()) @map("created_at")

@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { scrollToTop, useLenis } from '@/hooks/useLenis'
 import { homeFor } from '@/lib/format'
+import { VerifyEmailBanner } from './VerifyEmailBanner'
 
 const YEAR = new Date().getFullYear()
 
@@ -123,8 +124,8 @@ function MobileTabBar() {
             >
               {({ isActive }) => (
                 <>
-                  <span className={`relative text-xl transition ${isActive ? 'scale-110' : 'opacity-70 grayscale'}`} aria-hidden>
-                    {t.icon}
+                  <span className="relative text-xl" aria-hidden>
+                    <span className={`inline-block transition ${isActive ? 'scale-110' : 'opacity-70 grayscale'}`}>{t.icon}</span>
                     {t.badge === 'cart' && <CartBadge count={count} className="absolute -top-1.5 -end-3" />}
                   </span>
                   {t.label}
@@ -146,6 +147,7 @@ export function Layout() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
+      <VerifyEmailBanner />
       {/* Bottom padding on phones keeps content above the tab bar. */}
       <main className="flex-1 pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
         <Outlet />

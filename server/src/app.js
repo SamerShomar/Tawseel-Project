@@ -19,7 +19,17 @@ app.use(cors({ origin: config.corsOrigins }))
 app.use(express.json({ limit: '100kb' }))
 
 app.get('/api/health', (req, res) => res.json({ ok: true }))
-app.use(['/api/auth/login', '/api/auth/register', '/api/auth/forgot-password', '/api/auth/reset-password'], authLimiter)
+app.use(
+  [
+    '/api/auth/login',
+    '/api/auth/register',
+    '/api/auth/forgot-password',
+    '/api/auth/reset-password',
+    '/api/auth/verify-email',
+    '/api/auth/resend-verification',
+  ],
+  authLimiter,
+)
 app.use('/api/auth', authRoutes)
 app.use('/api/restaurants', restaurantsRoutes)
 app.use('/api/orders', ordersRoutes)

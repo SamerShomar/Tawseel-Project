@@ -13,16 +13,16 @@ export async function ensureAdmin(prisma, { email, password, name = 'مدير ا
 
   const existing = await prisma.user.findUnique({ where: { email } })
   if (!existing) {
-    await prisma.user.create({ data: { name, email, role: 'ADMIN', passwordHash: await bcrypt.hash(password, 10) } })
+    await prisma.user.create({ data: { name, email, role: 'ADMIN', emailVerifiedAt: new Date(), passwordHash: await bcrypt.hash(password, 10) } })
     return 'created'
   }
 
   const samePassword = await bcrypt.compare(password, existing.passwordHash)
-  if (existing.role === 'ADMIN' && existing.isActive && samePassword) return 'unchanged'
+  if (existing.role === 'ADMIN' && existing.isActive && existing.emailVerifiedAt && samePassword) return 'unchanged'
 
   await prisma.user.update({
     where: { id: existing.id },
-    data: { role: 'ADMIN', isActive: true, ...(!samePassword && { passwordHash: await bcrypt.hash(password, 10) }) },
+    data: { role: 'ADMIN', isActive: true, emailVerifiedAt: existing.emailVerifiedAt ?? new Date(), ...(!samePassword && { passwordHash: await bcrypt.hash(password, 10) }) },
   })
   return 'updated'
 }

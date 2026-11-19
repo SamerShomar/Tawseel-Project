@@ -26,11 +26,16 @@ export const config = {
   clientUrl: clientUrls[0],
   corsOrigins: clientUrls,
   resetTokenMinutes: 30,
+  verifyTokenHours: 24,
   smtp: {
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT) || 587,
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  // Email provider, picked in this order: Brevo API → Resend API → SMTP → console only.
+  // Railway blocks SMTP on free/trial plans, so an HTTP API (Brevo) is the reliable choice there.
+  brevoApiKey: process.env.BREVO_API_KEY,
+  resendApiKey: process.env.RESEND_API_KEY,
   mailFrom: process.env.MAIL_FROM || 'Tawseel <no-reply@tawseel.local>',
 }

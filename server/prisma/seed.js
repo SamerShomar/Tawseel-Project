@@ -202,6 +202,7 @@ async function main() {
   if (!(await shouldSeed())) return
 
   const passwordHash = await bcrypt.hash('password123', 10)
+  const emailVerifiedAt = new Date() // demo accounts are already verified
 
   // Empty all tables and restart IDs at 1, so restaurant links stay the same after every seed.
   await prisma.$executeRawUnsafe(
@@ -209,7 +210,7 @@ async function main() {
   )
 
   await prisma.user.create({
-    data: { name: 'سارة أحمد', email: 'customer@tawseel.test', phone: '0599111111', passwordHash },
+    data: { name: 'سارة أحمد', email: 'customer@tawseel.test', phone: '0599111111', passwordHash, emailVerifiedAt },
   })
 
   for (const r of restaurants) {
@@ -217,6 +218,7 @@ async function main() {
       data: {
         ...r.owner,
         passwordHash,
+        emailVerifiedAt,
         role: 'RESTAURANT_OWNER',
         restaurant: {
           create: {
@@ -236,7 +238,7 @@ async function main() {
 
   // Demo admin for local development only. On Railway the admin comes from ADMIN_EMAIL / ADMIN_PASSWORD.
   if (process.env.NODE_ENV !== 'production') {
-    await prisma.user.create({ data: { name: 'مدير الموقع', email: 'admin@tawseel.test', role: 'ADMIN', passwordHash } })
+    await prisma.user.create({ data: { name: 'مدير الموقع', email: 'admin@tawseel.test', role: 'ADMIN', passwordHash, emailVerifiedAt } })
   }
 
   console.log(`Seeded ${restaurants.length} restaurants. Login with customer@tawseel.test / password123`)

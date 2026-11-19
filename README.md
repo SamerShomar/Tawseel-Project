@@ -6,7 +6,7 @@ Tawseel connects customers with local restaurants: browse menus, order with cash
 
 ## Features (MVP)
 
-1. **User accounts**: sign up as a customer or restaurant owner, log in and out, and reset a forgotten password by email
+1. **User accounts**: sign up as a customer or restaurant owner (with **email verification**), log in and out, and reset a forgotten password by email
 2. **Browse restaurants and menus**, with search and category filter
 3. **Cart and checkout**: change quantities, enter delivery details, pay cash on delivery
 4. **Order tracking and history**: the status updates automatically
@@ -60,7 +60,7 @@ All demo accounts use the password `password123`.
 
 The seed adds 10 restaurants in real areas of the Gaza Strip (Rimal, Shati camp, Shujaiya, Nuseirat, Deir al-Balah, Khan Younis…). Restaurant and owner names are made up for the demo, and the shekel prices are based on real 2026 price levels in Gaza.
 
-In development, "Forgot password" prints the reset link in the **server console**. Set the `SMTP_*` values in `server/.env` to send real emails.
+In development, "Forgot password" prints the reset link in the **server console**. To send real emails, set `BREVO_API_KEY` and `MAIL_FROM` (see the email section of [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)).
 
 ## Deployment
 

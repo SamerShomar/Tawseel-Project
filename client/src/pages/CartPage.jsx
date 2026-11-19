@@ -34,9 +34,12 @@ export default function CartPage() {
 
   const set = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
 
+  const needsVerification = user && !user.emailVerified
+
   const submit = async (e) => {
     e.preventDefault()
     if (!user) return navigate('/login', { state: { from: '/cart' } })
+    if (needsVerification) return
 
     setSubmitting(true)
     setError('')
@@ -103,7 +106,8 @@ export default function CartPage() {
           <Field label="رقم الهاتف" type="tel" dir="ltr" required value={phone} onChange={set('phone')} error={errors.phone} placeholder="059xxxxxxx" />
           <Field label="ملاحظات (اختياري)" as="textarea" rows={2} value={form.notes} onChange={set('notes')} error={errors.notes} placeholder="مثلاً: بدون بصل" />
           <p className="rounded-xl bg-stone-100 px-3 py-2 text-sm text-stone-600">💵 الدفع نقداً عند الاستلام</p>
-          <button className="btn-primary py-3 text-base" disabled={submitting}>
+          {needsVerification && <Alert type="info">أكّد إيميلك أولاً عشان تقدر تكمل الطلب. الرابط وصلك على إيميلك، أو اطلب رابط جديد من الشريط الأصفر فوق.</Alert>}
+          <button className="btn-primary py-3 text-base" disabled={submitting || needsVerification}>
             {submitting ? 'جاري إرسال الطلب…' : user ? `تأكيد الطلب · ${formatPrice(cart.total)}` : 'سجّل الدخول لإتمام الطلب'}
           </button>
         </form>
