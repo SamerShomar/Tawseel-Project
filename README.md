@@ -13,7 +13,11 @@ Tawseel connects customers with local restaurants: browse menus, order with cash
 5. **Restaurant orders dashboard**: accept or reject an order, then update its status step by step
 6. **Menu management**: add, edit and delete items, and mark items available or unavailable
 
-Also: an **admin panel** (`/admin`) with site statistics, and the admin can suspend users, hide restaurants and view all orders.
+Four interfaces:
+- **Customer**: browse, order, track the order and see the driver
+- **Restaurant owner** (`/dashboard`): accept or reject orders and prepare them, manage the menu
+- **Delivery driver** (`/driver`): take orders that are waiting for a driver, pick them up, deliver them. Drivers need admin approval.
+- **Admin** (`/admin`): site statistics, users (suspend, approve drivers), restaurants (hide), all orders
 
 ## Tech stack
 
@@ -56,6 +60,7 @@ All demo accounts use the password `password123`.
 |---|---|
 | Admin (local only) | `admin@tawseel.test` |
 | Customer | `customer@tawseel.test` |
+| Delivery driver | `driver@tawseel.test` |
 | Restaurant owners | `shawarma@`, `burger@`, `pizza@`, `sweets@`, `falafel@`, `grill@`, `fish@`, `kitchen@`, `bakery@`, `cafe@` + `tawseel.test` |
 
 The seed adds 10 restaurants in real areas of the Gaza Strip (Rimal, Shati camp, Shujaiya, Nuseirat, Deir al-Balah, Khan Younis…). Restaurant and owner names are made up for the demo, and the shekel prices are based on real 2026 price levels in Gaza.

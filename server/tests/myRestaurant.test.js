@@ -87,14 +87,17 @@ describe('orders dashboard', () => {
     expect((await asOwner('get', '/api/my-restaurant/orders?status=WRONG')).status).toBe(400)
   })
 
-  it('moves an order through every status until delivered', async () => {
-    for (const status of ['ACCEPTED', 'PREPARING', 'ON_THE_WAY', 'DELIVERED']) {
+  it('accepts and prepares, but pickup and delivery are left to the driver', async () => {
+    for (const status of ['ACCEPTED', 'PREPARING']) {
       const res = await asOwner('patch', `/api/my-restaurant/orders/${order.id}/status`).send({ status })
       expect(res.status).toBe(200)
       expect(res.body.order.status).toBe(status)
     }
+    for (const status of ['ON_THE_WAY', 'DELIVERED']) {
+      expect((await asOwner('patch', `/api/my-restaurant/orders/${order.id}/status`).send({ status })).status).toBe(400)
+    }
     const seenByCustomer = await api().get(`/api/orders/${order.id}`).set(auth(customer.token))
-    expect(seenByCustomer.body.order.status).toBe('DELIVERED')
+    expect(seenByCustomer.body.order.status).toBe('PREPARING')
   })
 
   it('can reject a pending order but not skip steps', async () => {

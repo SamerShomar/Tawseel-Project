@@ -1,4 +1,4 @@
-// Demo data: 10 restaurants with menus, their owners, and one customer.
+// Demo data: 10 restaurants with menus, their owners, one customer and one driver.
 // All demo accounts use the password: password123
 //
 // npm run db:seed              → always resets the database to the demo data
@@ -182,6 +182,17 @@ const restaurants = [
   },
 ]
 
+// Demo driver (approved and verified). Also added to existing databases on deploy if missing.
+const DEMO_DRIVER = { name: 'أبو أحمد السائق', email: 'driver@tawseel.test', phone: '0599222333', role: 'DRIVER' }
+
+async function ensureDemoDriver(passwordHash) {
+  const exists = await prisma.user.findUnique({ where: { email: DEMO_DRIVER.email } })
+  if (exists) return false
+  const now = new Date()
+  await prisma.user.create({ data: { ...DEMO_DRIVER, passwordHash, emailVerifiedAt: now, driverApprovedAt: now } })
+  return true
+}
+
 async function shouldSeed() {
   if (!process.argv.includes('--on-deploy')) return true
 
@@ -195,6 +206,7 @@ async function shouldSeed() {
     return true
   }
   console.log(`[seed] Database already has ${count} restaurants → skipping demo data`)
+  if (await ensureDemoDriver(await bcrypt.hash('password123', 10))) console.log(`[seed] Added demo driver ${DEMO_DRIVER.email}`)
   return false
 }
 
@@ -235,6 +247,8 @@ async function main() {
       },
     })
   }
+
+  await ensureDemoDriver(passwordHash)
 
   // Demo admin for local development only. On Railway the admin comes from ADMIN_EMAIL / ADMIN_PASSWORD.
   if (process.env.NODE_ENV !== 'production') {

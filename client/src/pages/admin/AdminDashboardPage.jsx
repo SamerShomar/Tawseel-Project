@@ -34,14 +34,26 @@ export default function AdminDashboardPage() {
   if (loading) return <Spinner />
   if (error) return <Page title="نظرة عامة"><Alert>{error.message}</Alert></Page>
 
-  const { users, restaurants, orders, deliveredRevenue, recentOrders } = data
+  const { users, pendingDrivers, restaurants, orders, deliveredRevenue, recentOrders } = data
   const statuses = [...ORDER_STEPS, 'REJECTED']
   const maxStatus = Math.max(1, ...statuses.map((s) => orders.byStatus[s]))
 
   return (
     <Page title="لوحة الإدارة" subtitle="نظرة عامة على الموقع">
+      {pendingDrivers > 0 && (
+        <Link to="/admin/users" className="mb-4 flex items-center gap-3 rounded-2xl border border-sky-200 bg-sky-50 p-4 text-sky-900">
+          <span className="text-2xl" aria-hidden>
+            🛵
+          </span>
+          <span className="flex-1">
+            <b>{pendingDrivers}</b> سائق بانتظار موافقتك
+          </span>
+          <span className="text-sm underline">مراجعة</span>
+        </Link>
+      )}
+
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Stat icon="👥" label="المستخدمين" value={users.CUSTOMER + users.RESTAURANT_OWNER} hint={`${users.CUSTOMER} زبون · ${users.RESTAURANT_OWNER} صاحب مطعم`} to="/admin/users" />
+        <Stat icon="👥" label="المستخدمين" value={users.CUSTOMER + users.RESTAURANT_OWNER + users.DRIVER} hint={`${users.CUSTOMER} زبون · ${users.RESTAURANT_OWNER} مطعم · ${users.DRIVER} سائق`} to="/admin/users" />
         <Stat icon="🏪" label="المطاعم" value={restaurants.total} hint={`${restaurants.active} ظاهر للزباين`} to="/admin/restaurants" />
         <Stat icon="🧾" label="الطلبات" value={orders.total} hint={`${orders.today} اليوم`} to="/admin/orders" />
         <Stat icon="💵" label="المبيعات المسلّمة" value={formatPrice(deliveredRevenue)} hint="مجموع الطلبات اللي تم توصيلها" />

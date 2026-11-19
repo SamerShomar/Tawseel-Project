@@ -39,6 +39,7 @@ export function AuthProvider({ children }) {
       loading,
       isOwner: user?.role === 'RESTAURANT_OWNER',
       isAdmin: user?.role === 'ADMIN',
+      isDriver: user?.role === 'DRIVER',
       // Customers and visitors can order; owners and admins cannot.
       canOrder: !user || user.role === 'CUSTOMER',
       login: async (email, password) => saveSession(await api('/auth/login', { method: 'POST', body: { email, password } })),

@@ -14,6 +14,7 @@ export class ApiError extends Error {
     super(body?.error || 'حدث خطأ غير متوقع')
     this.status = status
     this.details = body?.details || []
+    this.code = body?.code
   }
 
   /** Field errors from the server as { fieldName: message }. */

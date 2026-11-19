@@ -13,6 +13,7 @@ router.use(requireAuth)
 const orderInclude = {
   items: true,
   restaurant: { select: { id: true, name: true, phone: true } },
+  driver: { select: { id: true, name: true, phone: true } },
 }
 
 const createSchema = z.object({
@@ -69,7 +70,7 @@ router.get('/', requireRole('CUSTOMER'), async (req, res) => {
   res.json({ orders: orders.map(orderDto) })
 })
 
-// GET /api/orders/:id — visible to the customer who placed it, the restaurant owner, and admins
+// GET /api/orders/:id — visible to the customer who placed it, the restaurant owner, its driver, and admins
 router.get('/:id', async (req, res) => {
   const id = Number(req.params.id)
   const order = Number.isInteger(id)
@@ -77,7 +78,11 @@ router.get('/:id', async (req, res) => {
     : null
 
   const allowed =
-    order && (order.customerId === req.user.id || order.restaurant.ownerId === req.user.id || req.user.role === 'ADMIN')
+    order &&
+    (order.customerId === req.user.id ||
+      order.restaurant.ownerId === req.user.id ||
+      (order.driverId !== null && order.driverId === req.user.id) ||
+      req.user.role === 'ADMIN')
   if (!allowed) return res.status(404).json({ error: 'الطلب غير موجود' })
 
   const { ownerId: _ownerId, ...restaurant } = order.restaurant

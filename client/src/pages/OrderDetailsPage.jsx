@@ -10,6 +10,7 @@ import { formatDate, formatPrice, isActiveOrder } from '@/lib/format'
 
 const BACK = {
   ADMIN: { to: '/admin/orders', label: 'كل الطلبات' },
+  DRIVER: { to: '/driver/mine', label: 'توصيلاتي' },
   RESTAURANT_OWNER: { to: '/dashboard', label: 'لوحة الطلبات' },
 }
 
@@ -42,6 +43,24 @@ export default function OrderDetailsPage() {
           <OrderProgress status={order.status} />
           {isActiveOrder(order.status) && <p className="mt-4 text-center text-xs text-stone-400">يتم تحديث الحالة تلقائياً</p>}
         </section>
+
+        {order.driver && isActiveOrder(order.status) && (
+          <section className="card flex items-center gap-4 p-5">
+            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-sky-100 text-2xl" aria-hidden>
+              🛵
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm text-stone-500">سائق التوصيل</p>
+              <p className="font-bold">{order.driver.name}</p>
+              <p className="text-sm text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
+                {order.driver.phone}
+              </p>
+            </div>
+            <a href={`tel:${order.driver.phone}`} className="btn-primary shrink-0" aria-label={`اتصال بالسائق ${order.driver.phone}`}>
+              📞 اتصال
+            </a>
+          </section>
+        )}
 
         <section className="card p-5">
           <h2 className="mb-3 font-bold">تفاصيل الطلب</h2>

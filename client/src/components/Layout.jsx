@@ -30,6 +30,12 @@ const ADMIN_TABS = [
   { to: '/account', label: 'حسابي', icon: '👤' },
 ]
 
+const DRIVER_TABS = [
+  { to: '/driver', label: 'طلبات متاحة', icon: '📦', end: true },
+  { to: '/driver/mine', label: 'توصيلاتي', icon: '🛵' },
+  { to: '/account', label: 'حسابي', icon: '👤' },
+]
+
 const navClass = ({ isActive }) =>
   `rounded-lg px-3 py-2 text-sm font-medium transition ${isActive ? 'bg-brand-50 text-brand-700' : 'text-stone-600 hover:text-ink'}`
 
@@ -44,11 +50,13 @@ function CartBadge({ count, className = '' }) {
 
 /** Top bar. On desktop it holds all links; on phones only the logo (the bottom tab bar has the rest). */
 function Navbar() {
-  const { user, isOwner, isAdmin, canOrder, logout } = useAuth()
+  const { user, isOwner, isAdmin, isDriver, canOrder, logout } = useAuth()
   const { count } = useCart()
 
   const links = isAdmin
     ? ADMIN_TABS.slice(0, 4)
+    : isDriver
+    ? DRIVER_TABS.slice(0, 2)
     : isOwner
     ? OWNER_TABS.slice(0, 3)
     : [{ to: '/', label: 'المطاعم', end: true }, ...(user ? [{ to: '/orders', label: 'طلباتي' }] : [])]
@@ -101,16 +109,16 @@ function Navbar() {
 
 /** App-style bottom navigation, phones only. */
 function MobileTabBar() {
-  const { isOwner, isAdmin } = useAuth()
+  const { isOwner, isAdmin, isDriver } = useAuth()
   const { count } = useCart()
-  const tabs = isAdmin ? ADMIN_TABS : isOwner ? OWNER_TABS : CUSTOMER_TABS
+  const tabs = isAdmin ? ADMIN_TABS : isDriver ? DRIVER_TABS : isOwner ? OWNER_TABS : CUSTOMER_TABS
 
   return (
     <nav
       aria-label="التنقل الرئيسي"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
     >
-      <ul className={`grid ${tabs.length === 5 ? 'grid-cols-5' : 'grid-cols-4'}`}>
+      <ul className={`grid ${{ 3: 'grid-cols-3', 4: 'grid-cols-4', 5: 'grid-cols-5' }[tabs.length]}`}>
         {tabs.map((t) => (
           <li key={t.to}>
             <NavLink

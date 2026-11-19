@@ -5,6 +5,7 @@ import { api } from '@/lib/api'
 const WHY = {
   CUSTOMER: 'عشان تقدر تطلب',
   RESTAURANT_OWNER: 'عشان يظهر مطعمك للزباين',
+  DRIVER: 'عشان تقدر تستلم طلبات توصيل',
 }
 
 /** Shown under the top bar until the user verifies their email. */

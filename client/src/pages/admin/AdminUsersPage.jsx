@@ -5,15 +5,15 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { Spinner } from '@/components/ui/Spinner'
 import { useApi } from '@/hooks/useApi'
 import { api } from '@/lib/api'
-import { formatDate } from '@/lib/format'
+import { formatDate, ROLE_LABEL } from '@/lib/format'
 
 const ROLES = [
   { value: '', label: 'الكل' },
   { value: 'CUSTOMER', label: 'زباين' },
   { value: 'RESTAURANT_OWNER', label: 'أصحاب مطاعم' },
+  { value: 'DRIVER', label: 'سائقين' },
   { value: 'ADMIN', label: 'أدمن' },
 ]
-const ROLE_LABEL = { CUSTOMER: 'زبون', RESTAURANT_OWNER: 'صاحب مطعم', ADMIN: 'أدمن' }
 
 export default function AdminUsersPage() {
   const [search, setSearch] = useState('')
@@ -29,18 +29,26 @@ export default function AdminUsersPage() {
 
   const { data, error, loading, setData } = useApi('/admin/users', { query: { search: debounced, role } })
 
-  const toggle = async (u) => {
-    if (u.isActive && !window.confirm(`إيقاف حساب «${u.name}»؟ ما رح يقدر يسجّل دخول لحد ما ترجّع تفعّله.`)) return
+  const update = async (u, body) => {
     setBusyId(u.id)
     setActionError('')
     try {
-      const { user } = await api(`/admin/users/${u.id}`, { method: 'PATCH', body: { isActive: !u.isActive } })
-      setData((d) => ({ users: d.users.map((x) => (x.id === user.id ? { ...x, isActive: user.isActive } : x)) }))
+      const { user } = await api(`/admin/users/${u.id}`, { method: 'PATCH', body })
+      setData((d) => ({ users: d.users.map((x) => (x.id === user.id ? { ...x, ...user } : x)) }))
     } catch (err) {
       setActionError(err.message)
     } finally {
       setBusyId(null)
     }
+  }
+
+  const toggle = (u) => {
+    if (u.isActive && !window.confirm(`إيقاف حساب «${u.name}»؟ ما رح يقدر يسجّل دخول لحد ما ترجّع تفعّله.`)) return
+    update(u, { isActive: !u.isActive })
+  }
+  const approveDriver = (u, approved) => {
+    if (!approved && !window.confirm(`إلغاء موافقة السائق «${u.name}»؟ ما رح يقدر يشوف الطلبات.`)) return
+    update(u, { driverApproved: approved })
   }
 
   return (
@@ -79,20 +87,41 @@ export default function AdminUsersPage() {
                     <span className="truncate">{u.name}</span>
                     <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs font-normal text-stone-600">{ROLE_LABEL[u.role]}</span>
                     {!u.isActive && <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-normal text-rose-700">موقوف</span>}
+                    {u.role === 'DRIVER' && !u.driverApproved && (
+                      <span className="rounded-full bg-sky-100 px-2 py-0.5 text-xs font-normal text-sky-800">بانتظار الموافقة</span>
+                    )}
                     {!u.emailVerified && <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-normal text-amber-800">الإيميل غير مؤكد</span>}
                   </p>
                   <p className="truncate text-sm text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
                     {u.email}
                   </p>
                   <p className="text-xs text-stone-400">
-                    {u.restaurant ? `مطعم: ${u.restaurant.name} · ` : u.role === 'CUSTOMER' ? `${u.ordersCount} طلب · ` : ''}
+                    {u.restaurant
+                      ? `مطعم: ${u.restaurant.name} · `
+                      : u.role === 'CUSTOMER'
+                      ? `${u.ordersCount} طلب · `
+                      : u.role === 'DRIVER'
+                      ? `${u.phone || ''} · ${u.deliveriesCount} توصيلة · `
+                      : ''}
                     انضم {formatDate(u.createdAt)}
                   </p>
                 </div>
                 {u.role !== 'ADMIN' && (
-                  <button className={u.isActive ? 'btn-danger py-2' : 'btn-secondary py-2'} disabled={busyId === u.id} onClick={() => toggle(u)}>
-                    {u.isActive ? 'إيقاف الحساب' : 'إعادة التفعيل'}
-                  </button>
+                  <div className="flex flex-wrap gap-2">
+                    {u.role === 'DRIVER' &&
+                      (u.driverApproved ? (
+                        <button className="btn-secondary py-2" disabled={busyId === u.id} onClick={() => approveDriver(u, false)}>
+                          إلغاء الموافقة
+                        </button>
+                      ) : (
+                        <button className="btn-primary py-2" disabled={busyId === u.id} onClick={() => approveDriver(u, true)}>
+                          ✓ موافقة على السائق
+                        </button>
+                      ))}
+                    <button className={u.isActive ? 'btn-danger py-2' : 'btn-secondary py-2'} disabled={busyId === u.id} onClick={() => toggle(u)}>
+                      {u.isActive ? 'إيقاف الحساب' : 'إعادة التفعيل'}
+                    </button>
+                  </div>
                 )}
               </li>
             ))}
