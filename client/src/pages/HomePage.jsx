@@ -111,7 +111,7 @@ export default function HomePage() {
 
       <section ref={listRef} className="mx-auto max-w-6xl scroll-mt-16 px-4 pt-4 pb-10 md:scroll-mt-20 md:pb-20">
         <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-end sm:justify-between">
-          <h2 className="text-2xl font-bold sm:text-3xl">المطاعم</h2>
+          <h2 className="text-[28px] font-bold sm:text-3xl">المطاعم</h2>
           <input
             type="search"
             value={search}

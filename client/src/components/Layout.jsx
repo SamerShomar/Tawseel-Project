@@ -176,7 +176,7 @@ export function Page({ title, subtitle, actions, children, narrow = false }) {
       {(title || actions) && (
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3 md:mb-6">
           <div>
-            {title && <h1 className="text-2xl font-bold sm:text-3xl">{title}</h1>}
+            {title && <h1 className="text-[28px] font-bold sm:text-3xl">{title}</h1>}
             {subtitle && <p className="mt-1 text-stone-500">{subtitle}</p>}
           </div>
           {actions}

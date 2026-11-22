@@ -34,7 +34,7 @@ function MenuItemForm({ initial, onSave, onCancel }) {
 
   return (
     <form onSubmit={submit} className="card grid gap-4 p-5 sm:grid-cols-2" noValidate>
-      <h2 className="text-lg font-bold sm:col-span-2">{initial ? `تعديل «${initial.name}»` : 'صنف جديد'}</h2>
+      <h2 className="text-xl font-bold sm:col-span-2">{initial ? `تعديل «${initial.name}»` : 'صنف جديد'}</h2>
       <div className="sm:col-span-2">
         <Alert>{error}</Alert>
       </div>

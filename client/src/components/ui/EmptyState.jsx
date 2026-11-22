@@ -4,7 +4,7 @@ export function EmptyState({ icon = '🍽️', title, children }) {
       <span className="text-5xl" aria-hidden>
         {icon}
       </span>
-      <h2 className="text-lg font-bold">{title}</h2>
+      <h2 className="text-xl font-bold">{title}</h2>
       {children && <div className="text-sm text-stone-500">{children}</div>}
     </div>
   )

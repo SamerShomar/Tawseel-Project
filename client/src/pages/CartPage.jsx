@@ -100,7 +100,7 @@ export default function CartPage() {
         </section>
 
         <form id="checkout-form" onSubmit={submit} className="card flex h-fit flex-col gap-4 p-5 lg:col-span-2" noValidate>
-          <h2 className="text-lg font-bold">معلومات التوصيل</h2>
+          <h2 className="text-xl font-bold">معلومات التوصيل</h2>
           <Alert>{error}</Alert>
           <Field label="عنوان التوصيل" as="textarea" rows={2} required value={form.deliveryAddress} onChange={set('deliveryAddress')} error={errors.deliveryAddress} placeholder="المدينة، الحي، الشارع، أقرب معلم" />
           <Field label="رقم الهاتف" type="tel" dir="ltr" required value={phone} onChange={set('phone')} error={errors.phone} placeholder="059xxxxxxx" />

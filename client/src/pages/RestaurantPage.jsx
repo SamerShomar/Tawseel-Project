@@ -51,7 +51,7 @@ export default function RestaurantPage() {
       <div className="mx-auto max-w-6xl px-4">
         <div className="card relative -mt-6 p-5 sm:-mt-12 sm:p-6">
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl font-bold sm:text-3xl">{restaurant.name}</h1>
+            <h1 className="text-[28px] font-bold sm:text-3xl">{restaurant.name}</h1>
             {restaurant.category && <span className="rounded-full bg-brand-50 px-3 py-1 text-sm text-brand-700">{restaurant.category}</span>}
           </div>
           {restaurant.description && <p className="mt-2 text-stone-600">{restaurant.description}</p>}
@@ -155,7 +155,7 @@ export default function RestaurantPage() {
       </div>
 
       {cart.count > 0 && cart.restaurant?.id === restaurant.id && (
-        <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-stone-200 bg-white/95 px-4 py-3 backdrop-blur md:bottom-0 md:py-4">
+        <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-stone-200 bg-white/95 px-4 py-2 backdrop-blur md:bottom-0 md:py-4">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
             <span className="text-sm">
               <strong>{cart.count}</strong> صنف · <strong>{formatPrice(cart.total)}</strong>
