@@ -44,12 +44,12 @@ export default function RestaurantPage() {
   return (
     <div className="pb-24 md:pb-28">
       <div className="relative">
-        <RestaurantCover restaurant={restaurant} className="h-36 w-full sm:h-64" />
+        <RestaurantCover restaurant={restaurant} className="h-24 w-full sm:h-40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4">
-        <div className="card relative -mt-10 p-5 sm:-mt-12 sm:p-6">
+        <div className="card relative -mt-6 p-5 sm:-mt-12 sm:p-6">
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-2xl font-bold sm:text-3xl">{restaurant.name}</h1>
             {restaurant.category && <span className="rounded-full bg-brand-50 px-3 py-1 text-sm text-brand-700">{restaurant.category}</span>}

@@ -126,7 +126,7 @@ function MobileTabBar() {
               end={t.end}
               className={({ isActive }) =>
                 `flex h-16 flex-col items-center justify-center gap-0.5 text-[11px] font-medium transition ${
-                  isActive ? 'text-brand-600' : 'text-stone-500'
+                  isActive ? 'text-[#c8410f]' : 'text-stone-500'
                 }`
               }
             >

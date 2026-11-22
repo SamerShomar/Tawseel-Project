@@ -51,10 +51,10 @@ function Hero({ onBrowse }) {
         </div>
 
         {/* Food illustration: small and above the text on phones, large beside it on desktop. */}
-        <div className="relative order-first mx-auto h-44 w-full max-w-72 md:order-none md:h-80 md:max-w-none" aria-hidden>
-          <div className="absolute top-1/2 left-1/2 size-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-100 md:size-72" />
-          <span className="hero-food absolute top-1 right-[18%] text-6xl md:top-4 md:right-16 md:text-8xl">🍔</span>
-          <span className="hero-food absolute top-[38%] left-[6%] text-6xl md:top-28 md:left-10 md:text-8xl">🍕</span>
+        <div className="relative order-first mx-auto h-32 w-full max-w-72 md:order-none md:h-80 md:max-w-none" aria-hidden>
+          <div className="absolute top-1/2 left-1/2 size-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-100 md:size-72" />
+          <span className="hero-food absolute top-1 right-[18%] text-5xl md:top-4 md:right-16 md:text-8xl">🍔</span>
+          <span className="hero-food absolute top-[38%] left-[6%] text-5xl md:top-28 md:left-10 md:text-8xl">🍕</span>
           <span className="hero-food absolute right-[30%] bottom-0 text-5xl md:right-28 md:text-7xl">🌯</span>
           <span className="hero-food absolute top-[34%] right-0 text-4xl md:hidden">🧆</span>
           <span className="hero-food absolute bottom-3 left-[34%] text-4xl md:bottom-10 md:left-36 md:text-6xl">🍰</span>
@@ -154,7 +154,7 @@ export default function HomePage() {
                 to={`/restaurants/${r.id}`}
                 className="card group flex items-stretch overflow-hidden transition active:scale-[0.99] sm:block sm:hover:-translate-y-1 sm:hover:shadow-lg"
               >
-                <RestaurantCover restaurant={r} className="w-24 shrink-0 transition duration-500 sm:h-40 sm:w-full sm:group-hover:scale-105" />
+                <RestaurantCover restaurant={r} className="w-24 shrink-0 transition duration-500 sm:h-28 sm:w-full sm:group-hover:scale-105" />
                 <div className="min-w-0 flex-1 p-3.5 sm:p-5">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="truncate font-bold sm:text-lg">{r.name}</h3>
