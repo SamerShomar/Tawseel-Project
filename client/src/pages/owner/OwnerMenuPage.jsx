@@ -66,9 +66,12 @@ function AvailabilitySwitch({ item, onToggle }) {
       aria-checked={item.isAvailable}
       aria-label={`${item.name} متوفر`}
       onClick={() => onToggle(item)}
-      className={`relative h-6 w-11 shrink-0 rounded-full transition ${item.isAvailable ? 'bg-emerald-500' : 'bg-stone-300'}`}
+      className="flex h-11 w-11 shrink-0 items-center"
     >
-      <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-all ${item.isAvailable ? 'start-5.5' : 'start-0.5'}`} />
+      {/* The visible switch stays 44×24; the button around it gives a 44×44 tap area. */}
+      <span className={`relative h-6 w-11 rounded-full transition ${item.isAvailable ? 'bg-emerald-500' : 'bg-stone-300'}`}>
+        <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-all ${item.isAvailable ? 'start-5.5' : 'start-0.5'}`} />
+      </span>
     </button>
   )
 }

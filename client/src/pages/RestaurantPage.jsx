@@ -127,13 +127,13 @@ export default function RestaurantPage() {
                           <span className="font-bold text-brand-700">{formatPrice(item.price)}</span>
                           {!canOrder ? null : qty ? (
                             <div className="flex items-center gap-2">
-                              <button className="btn-secondary size-9 p-0" onClick={() => cart.setQuantity(item.id, qty - 1)} aria-label={`إنقاص ${item.name}`}>
+                              <button className="btn-secondary size-11 p-0" onClick={() => cart.setQuantity(item.id, qty - 1)} aria-label={`إنقاص ${item.name}`}>
                                 −
                               </button>
                               <span className="w-6 text-center font-semibold" aria-live="polite">
                                 {qty}
                               </span>
-                              <button className="btn-primary size-9 p-0" onClick={() => cart.setQuantity(item.id, qty + 1)} aria-label={`زيادة ${item.name}`}>
+                              <button className="btn-primary size-11 p-0" onClick={() => cart.setQuantity(item.id, qty + 1)} aria-label={`زيادة ${item.name}`}>
                                 +
                               </button>
                             </div>
