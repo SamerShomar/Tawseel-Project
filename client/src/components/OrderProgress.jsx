@@ -21,7 +21,7 @@ export function OrderProgress({ status }) {
               <span className={`h-1 flex-1 rounded ${i === 0 ? 'invisible' : done ? 'bg-brand-500' : 'bg-stone-200'}`} />
               <span
                 className={`grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold transition ${
-                  done ? 'bg-brand-500 text-white' : 'bg-stone-200 text-stone-500'
+                  done ? 'bg-brand-500 text-white' : 'bg-stone-200 text-stone-600'
                 } ${i === current && status !== 'DELIVERED' ? 'ring-4 ring-brand-100' : ''}`}
               >
                 {done ? '✓' : i + 1}

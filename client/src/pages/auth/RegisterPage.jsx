@@ -66,7 +66,7 @@ export default function RegisterPage() {
                 {r.icon}
               </span>
               <span className="block font-semibold">{r.label}</span>
-              <span className="block text-xs text-stone-500">{r.hint}</span>
+              <span className="block text-xs text-stone-600">{r.hint}</span>
             </label>
           ))}
         </fieldset>

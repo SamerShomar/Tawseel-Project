@@ -69,12 +69,14 @@ export default function CartPage() {
         <section className="card h-fit p-5 lg:col-span-3">
           <ul className="divide-y divide-stone-100">
             {cart.items.map((item) => (
-              <li key={item.id} className="flex items-center gap-3 py-4 first:pt-0 last:pb-0">
-                <div className="flex-1">
+              <li key={item.id} className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 py-4 first:pt-0 last:pb-0 sm:flex sm:gap-3">
+                {/* Phones: two lines (name + total, then quantity + remove). From sm up: one row as before. */}
+                <div className="min-w-0 sm:order-1 sm:flex-1">
                   <p className="font-semibold">{item.name}</p>
                   <p className="text-sm text-stone-500">{formatPrice(item.price)}</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <span className="text-end font-bold sm:order-3 sm:w-20">{formatPrice(item.price * item.quantity)}</span>
+                <div className="flex items-center gap-2 sm:order-2">
                   <button className="btn-secondary size-11 p-0" onClick={() => cart.setQuantity(item.id, item.quantity - 1)} aria-label={`إنقاص ${item.name}`}>
                     −
                   </button>
@@ -83,8 +85,7 @@ export default function CartPage() {
                     +
                   </button>
                 </div>
-                <span className="w-20 text-end font-bold">{formatPrice(item.price * item.quantity)}</span>
-                <button className="grid size-11 shrink-0 place-items-center text-base text-stone-500 hover:text-rose-600" onClick={() => cart.setQuantity(item.id, 0)} aria-label={`حذف ${item.name}`}>
+                <button className="grid size-11 shrink-0 place-items-center justify-self-end text-base text-stone-500 hover:text-rose-600 sm:order-4" onClick={() => cart.setQuantity(item.id, 0)} aria-label={`حذف ${item.name}`}>
                   ✕
                 </button>
               </li>
