@@ -14,7 +14,7 @@ function Hero({ onBrowse }) {
 
   useGSAP(
     () => {
-      gsap.from('.hero-fade', { y: 24, opacity: 0, duration: 0.8, stagger: 0.12, delay: 0.4, ease: 'power3.out' })
+      gsap.from('.hero-fade', { y: 24, opacity: 0, duration: 0.5, stagger: 0.08, delay: 0.15, ease: 'power3.out' })
       gsap.to('.hero-food', { y: -14, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: 0.4 })
     },
     { scope: ref },
@@ -32,6 +32,8 @@ function Hero({ onBrowse }) {
             tag="h1"
             splitType="words"
             trigger="load"
+            duration={0.6}
+            delay={40}
             textAlign="start"
             className="max-w-[18rem] text-4xl leading-tight font-bold sm:max-w-none sm:text-5xl md:text-6xl"
           />
@@ -159,7 +161,7 @@ export default function HomePage() {
                     {r.category && <span className="shrink-0 rounded-full bg-stone-100 px-2.5 py-0.5 text-xs text-stone-600">{r.category}</span>}
                   </div>
                   {r.description && <p className="mt-1 line-clamp-1 text-sm text-stone-500 sm:line-clamp-2">{r.description}</p>}
-                  {r.address && <p className="mt-1.5 truncate text-xs text-stone-400 sm:mt-3">📍 {r.address}</p>}
+                  {r.address && <p className="mt-1.5 truncate text-xs text-stone-500 sm:mt-3">📍 {r.address}</p>}
                 </div>
               </Link>
             ))}

@@ -57,7 +57,7 @@ export default function AccountPage() {
             <Link to={l.to} className="flex items-center gap-3 px-5 py-4 font-medium active:bg-stone-50">
               <span aria-hidden>{l.icon}</span>
               <span className="flex-1">{l.label}</span>
-              <span className="text-stone-400" aria-hidden>
+              <span className="text-stone-500" aria-hidden>
                 ‹
               </span>
             </Link>

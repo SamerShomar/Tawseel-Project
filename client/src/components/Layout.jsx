@@ -162,7 +162,7 @@ export function Layout() {
       </main>
       <footer className="hidden border-t border-stone-200 py-6 text-center text-sm text-stone-500 md:block">
         <p>© {YEAR} توصيل – فريق ORBA</p>
-        <p className="mt-1 text-xs text-stone-400">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض</p>
+        <p className="mt-1 text-xs text-stone-500">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض</p>
       </footer>
       <MobileTabBar />
     </div>

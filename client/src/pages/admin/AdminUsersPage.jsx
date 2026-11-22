@@ -95,7 +95,7 @@ export default function AdminUsersPage() {
                   <p className="truncate text-sm text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
                     {u.email}
                   </p>
-                  <p className="text-xs text-stone-400">
+                  <p className="text-xs text-stone-500">
                     {u.restaurant
                       ? `مطعم: ${u.restaurant.name} · `
                       : u.role === 'CUSTOMER'

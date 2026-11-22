@@ -84,7 +84,7 @@ export default function CartPage() {
                   </button>
                 </div>
                 <span className="w-20 text-end font-bold">{formatPrice(item.price * item.quantity)}</span>
-                <button className="grid size-11 shrink-0 place-items-center text-base text-stone-400 hover:text-rose-600" onClick={() => cart.setQuantity(item.id, 0)} aria-label={`حذف ${item.name}`}>
+                <button className="grid size-11 shrink-0 place-items-center text-base text-stone-500 hover:text-rose-600" onClick={() => cart.setQuantity(item.id, 0)} aria-label={`حذف ${item.name}`}>
                   ✕
                 </button>
               </li>

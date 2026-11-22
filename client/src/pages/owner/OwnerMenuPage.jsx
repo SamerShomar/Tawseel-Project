@@ -144,7 +144,7 @@ export default function OwnerMenuPage() {
                     {item.description && <p className="line-clamp-1 text-xs text-stone-500">{item.description}</p>}
                     <p className="mt-1 text-sm">
                       <span className="font-bold text-brand-700">{formatPrice(item.price)}</span>
-                      {item.category && <span className="text-stone-400"> · {item.category}</span>}
+                      {item.category && <span className="text-stone-500"> · {item.category}</span>}
                     </p>
                   </div>
                   <AvailabilitySwitch item={item} onToggle={toggle} />
@@ -177,7 +177,7 @@ export default function OwnerMenuPage() {
               </thead>
               <tbody className="divide-y divide-stone-100">
                 {items.map((item) => (
-                  <tr key={item.id} className={item.isAvailable ? '' : 'text-stone-400'}>
+                  <tr key={item.id} className={item.isAvailable ? '' : 'text-stone-500'}>
                     <td className="p-3">
                       <p className="font-semibold">{item.name}</p>
                       {item.description && <p className="line-clamp-1 text-xs text-stone-500">{item.description}</p>}

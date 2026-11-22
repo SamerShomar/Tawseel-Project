@@ -54,7 +54,7 @@ export default function AdminRestaurantsPage() {
                     {!r.owner.isActive && <span className="text-rose-600"> (حساب موقوف)</span>}
                     {!r.owner.emailVerifiedAt && <span className="text-amber-700"> (الإيميل غير مؤكد، المطعم مش ظاهر للزباين)</span>}
                   </p>
-                  <p className="text-xs text-stone-400">
+                  <p className="text-xs text-stone-500">
                     {r.menuItemsCount} صنف · {r.ordersCount} طلب {r.address && `· ${r.address}`}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">
