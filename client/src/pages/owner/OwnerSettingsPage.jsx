@@ -39,7 +39,7 @@ function SettingsForm({ restaurant }) {
     <>
       <Alert>{saveError}</Alert>
       <Alert type="success">{message}</Alert>
-      <form onSubmit={submit} className="card grid gap-4 p-5 sm:grid-cols-2" noValidate>
+      <form onSubmit={submit} className="card grid gap-4 p-5 md:p-7 sm:grid-cols-2" noValidate>
         <Field label="اسم المطعم" required value={form.name} onChange={set('name')} error={errors.name} />
         <Field label="التصنيف" value={form.category} onChange={set('category')} error={errors.category} placeholder="برجر، بيتزا، حلويات…" />
         <Field label="الوصف" as="textarea" rows={3} className="sm:col-span-2" value={form.description} onChange={set('description')} error={errors.description} />

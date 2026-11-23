@@ -1,10 +1,21 @@
 import { Link, Navigate, useNavigate } from 'react-router'
+import {
+  Bike,
+  ChevronLeft,
+  ClipboardList,
+  LayoutDashboard,
+  LogOut,
+  Package,
+  ReceiptText,
+  ShoppingBag,
+  Store,
+  UsersRound,
+} from 'lucide-react'
 import { Page } from '@/components/Layout'
 import { useAuth } from '@/context/AuthContext'
 import { ROLE_LABEL } from '@/lib/format'
 
-
-/** Account page (mainly for the phone tab bar): who is logged in, and logout. */
+/** Account page: who is logged in, shortcuts for their role, and logout. */
 export default function AccountPage() {
   const { user, loading, logout } = useAuth()
   const navigate = useNavigate()
@@ -15,63 +26,62 @@ export default function AccountPage() {
   const links =
     user.role === 'DRIVER'
       ? [
-          { to: '/driver', label: 'الطلبات المتاحة', icon: '📦' },
-          { to: '/driver/mine', label: 'توصيلاتي', icon: '🛵' },
+          { to: '/driver', label: 'الطلبات المتاحة', icon: Package },
+          { to: '/driver/mine', label: 'توصيلاتي', icon: Bike },
         ]
       : user.role === 'ADMIN'
       ? [
-          { to: '/admin', label: 'نظرة عامة', icon: '📊' },
-          { to: '/admin/users', label: 'المستخدمين', icon: '👥' },
-          { to: '/admin/restaurants', label: 'المطاعم', icon: '🏪' },
-          { to: '/admin/orders', label: 'الطلبات', icon: '🧾' },
+          { to: '/admin', label: 'نظرة عامة', icon: LayoutDashboard },
+          { to: '/admin/users', label: 'المستخدمين', icon: UsersRound },
+          { to: '/admin/restaurants', label: 'المطاعم', icon: Store },
+          { to: '/admin/orders', label: 'الطلبات', icon: ReceiptText },
         ]
       : user.role === 'RESTAURANT_OWNER'
       ? [
-          { to: '/dashboard', label: 'لوحة الطلبات', icon: '🧾' },
-          { to: '/dashboard/menu', label: 'إدارة القائمة', icon: '📋' },
-          { to: '/dashboard/settings', label: 'معلومات المطعم', icon: '🏪' },
+          { to: '/dashboard', label: 'لوحة الطلبات', icon: ReceiptText },
+          { to: '/dashboard/menu', label: 'إدارة القائمة', icon: ClipboardList },
+          { to: '/dashboard/settings', label: 'معلومات المطعم', icon: Store },
         ]
       : [
-          { to: '/orders', label: 'طلباتي', icon: '🧾' },
-          { to: '/cart', label: 'السلة', icon: '🛒' },
+          { to: '/orders', label: 'طلباتي', icon: ReceiptText },
+          { to: '/cart', label: 'السلة', icon: ShoppingBag },
         ]
 
   return (
     <Page title="حسابي" narrow>
-      <div className="card flex items-center gap-4 p-5">
-        <span className="grid size-14 shrink-0 place-items-center rounded-full bg-brand-100 text-2xl font-bold text-brand-700">
+      <div className="card flex flex-col items-center p-8 text-center">
+        <span className="animate-pop grid size-20 place-items-center rounded-full bg-gradient-to-br from-accent to-brand-700 text-[32px] font-semibold text-white shadow-lg shadow-accent/30">
           {user.name.trim()[0]}
         </span>
-        <div className="min-w-0">
-          <p className="truncate text-lg font-bold">{user.name}</p>
-          <p className="truncate text-sm text-stone-500" dir="ltr">
-            {user.email}
-          </p>
-          <span className="mt-1 inline-block rounded-full bg-stone-100 px-3 py-1 text-xs text-stone-600">{ROLE_LABEL[user.role]}</span>
-        </div>
+        <p className="mt-4 text-[24px] font-semibold">{user.name}</p>
+        <p className="text-[14px] text-stone-500" dir="ltr">
+          {user.email}
+        </p>
+        <span className="mt-3 rounded-full bg-stone-50 px-3 py-1 text-[12px] text-stone-600">{ROLE_LABEL[user.role]}</span>
       </div>
 
       <ul className="card mt-4 divide-y divide-stone-100 overflow-hidden">
         {links.map((l) => (
           <li key={l.to}>
-            <Link to={l.to} className="flex items-center gap-3 px-5 py-4 font-medium active:bg-stone-50">
-              <span aria-hidden>{l.icon}</span>
-              <span className="flex-1">{l.label}</span>
-              <span className="text-stone-500" aria-hidden>
-                ‹
+            <Link to={l.to} className="flex items-center gap-3 px-5 py-3.5 text-[17px] transition hover:bg-stone-50 active:bg-stone-100">
+              <span className="grid size-8 place-items-center rounded-lg bg-accent text-white" aria-hidden>
+                <l.icon className="size-[18px]" strokeWidth={1.75} />
               </span>
+              <span className="flex-1">{l.label}</span>
+              <ChevronLeft className="size-5 text-stone-400" strokeWidth={1.75} aria-hidden />
             </Link>
           </li>
         ))}
       </ul>
 
       <button
-        className="btn-danger mt-4 w-full py-3"
+        className="btn-danger mt-4 w-full"
         onClick={() => {
           logout()
           navigate('/')
         }}
       >
+        <LogOut className="size-5" strokeWidth={1.75} aria-hidden />
         تسجيل الخروج
       </button>
     </Page>

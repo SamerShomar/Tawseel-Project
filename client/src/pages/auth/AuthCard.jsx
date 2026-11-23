@@ -1,18 +1,21 @@
 import { Link } from 'react-router'
+import { Aurora } from '@/components/motion/Aurora'
 
+/** Sign-in style screen: a frosted-glass card floating over slowly drifting color. */
 export function AuthCard({ title, subtitle, children, footer }) {
   return (
-    <div className="flex min-h-[calc(100vh-8rem)] items-center justify-center bg-gradient-to-b from-brand-50 to-stone-50 px-4 py-10">
-      <div className="w-full max-w-md">
-        <div className="card p-6 shadow-sm sm:p-8">
-          <h1 className="text-2xl font-bold">{title}</h1>
-          {subtitle && <p className="mt-1 text-sm text-stone-500">{subtitle}</p>}
-          <div className="mt-6">{children}</div>
+    <div className="relative flex min-h-[calc(100vh-3rem)] items-center justify-center overflow-hidden bg-stone-50 px-4 py-12">
+      <Aurora />
+      <div className="relative w-full max-w-md">
+        <div className="glass rounded-[28px] p-6 sm:p-10">
+          <h1 className="text-center text-[32px] leading-[1.125] font-semibold">{title}</h1>
+          {subtitle && <p className="mt-2 text-center text-[17px] text-stone-600">{subtitle}</p>}
+          <div className="mt-8">{children}</div>
         </div>
-        {footer && <p className="mt-4 text-center text-sm text-stone-600">{footer}</p>}
+        {footer && <p className="mt-5 text-center text-[14px] text-stone-700">{footer}</p>}
       </div>
     </div>
   )
 }
 
-export const AuthLink = (props) => <Link className="font-semibold text-brand-700 hover:underline" {...props} />
+export const AuthLink = (props) => <Link className="inline-block py-3 font-semibold text-brand-700 hover:underline" {...props} />

@@ -1,149 +1,233 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
+import { ShoppingBag, UserRound } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
-import { scrollToTop, useLenis } from '@/hooks/useLenis'
+import { scrollToTop, setScrollLocked, useLenis } from '@/hooks/useLenis'
 import { homeFor } from '@/lib/format'
 import { VerifyEmailBanner } from './VerifyEmailBanner'
 
 const YEAR = new Date().getFullYear()
 
-const CUSTOMER_TABS = [
-  { to: '/', label: 'المطاعم', icon: '🍽️', end: true },
-  { to: '/cart', label: 'السلة', icon: '🛒', badge: 'cart' },
-  { to: '/orders', label: 'طلباتي', icon: '🧾' },
-  { to: '/account', label: 'حسابي', icon: '👤' },
+const CUSTOMER_LINKS = [
+  { to: '/', label: 'المطاعم', end: true },
+  { to: '/orders', label: 'طلباتي' },
 ]
 
-const OWNER_TABS = [
-  { to: '/dashboard', label: 'الطلبات', icon: '🧾', end: true },
-  { to: '/dashboard/menu', label: 'القائمة', icon: '📋' },
-  { to: '/dashboard/settings', label: 'المطعم', icon: '🏪' },
-  { to: '/account', label: 'حسابي', icon: '👤' },
+const OWNER_LINKS = [
+  { to: '/dashboard', label: 'الطلبات', end: true },
+  { to: '/dashboard/menu', label: 'القائمة' },
+  { to: '/dashboard/settings', label: 'المطعم' },
 ]
 
-const ADMIN_TABS = [
-  { to: '/admin', label: 'نظرة عامة', icon: '📊', end: true },
-  { to: '/admin/users', label: 'المستخدمين', icon: '👥' },
-  { to: '/admin/restaurants', label: 'المطاعم', icon: '🏪' },
-  { to: '/admin/orders', label: 'الطلبات', icon: '🧾' },
-  { to: '/account', label: 'حسابي', icon: '👤' },
+const ADMIN_LINKS = [
+  { to: '/admin', label: 'نظرة عامة', end: true },
+  { to: '/admin/users', label: 'المستخدمين' },
+  { to: '/admin/restaurants', label: 'المطاعم' },
+  { to: '/admin/orders', label: 'الطلبات' },
 ]
 
-const DRIVER_TABS = [
-  { to: '/driver', label: 'طلبات متاحة', icon: '📦', end: true },
-  { to: '/driver/mine', label: 'توصيلاتي', icon: '🛵' },
-  { to: '/account', label: 'حسابي', icon: '👤' },
+const DRIVER_LINKS = [
+  { to: '/driver', label: 'طلبات متاحة', end: true },
+  { to: '/driver/mine', label: 'توصيلاتي' },
 ]
 
-const navClass = ({ isActive }) =>
-  `rounded-lg px-3 py-2 text-sm font-medium transition ${isActive ? 'bg-brand-50 text-brand-700' : 'text-stone-600 hover:text-ink'}`
+function useNavLinks() {
+  const { user, isOwner, isAdmin, isDriver } = useAuth()
+  if (isAdmin) return ADMIN_LINKS
+  if (isDriver) return DRIVER_LINKS
+  if (isOwner) return OWNER_LINKS
+  return user ? CUSTOMER_LINKS : CUSTOMER_LINKS.slice(0, 1)
+}
 
-function CartBadge({ count, className = '' }) {
+function CartBadge({ count }) {
   if (!count) return null
   return (
-    <span className={`grid min-w-5 place-items-center rounded-full bg-brand-500 px-1 text-[11px] leading-5 font-bold text-white ${className}`}>
+    // key={count} replays the pop animation each time the number changes.
+    <span
+      key={count}
+      className="animate-pop absolute -end-1.5 top-1 grid min-w-[18px] place-items-center rounded-full bg-accent px-1 text-[11px] leading-[18px] font-semibold text-white"
+    >
       {count > 99 ? '99+' : count}
     </span>
   )
 }
 
-/** Top bar. On desktop it holds all links; on phones only the logo (the bottom tab bar has the rest). */
-function Navbar() {
-  const { user, isOwner, isAdmin, isDriver, canOrder, logout } = useAuth()
-  const { count } = useCart()
+/** Icon buttons in the bar: 44×44 hit area around an 18px glyph, as on apple.com. */
+const iconBtn = 'relative grid size-11 place-items-center text-ink/80 transition hover:text-ink'
 
-  const links = isAdmin
-    ? ADMIN_TABS.slice(0, 4)
-    : isDriver
-    ? DRIVER_TABS.slice(0, 2)
-    : isOwner
-    ? OWNER_TABS.slice(0, 3)
-    : [{ to: '/', label: 'المطاعم', end: true }, ...(user ? [{ to: '/orders', label: 'طلباتي' }] : [])]
-
+/** Two lines that turn into an ×, like apple.com's mobile menu button. */
+function MenuButton({ open, onClick }) {
+  const line = 'absolute start-3 h-[1.5px] w-[18px] rounded-full bg-current transition-transform duration-300'
   return (
-    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/90 pt-[env(safe-area-inset-top)] backdrop-blur">
-      <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-4 md:h-16">
-        <Link to={user ? homeFor(user) : '/'} className="flex items-center gap-2 text-xl font-bold text-ink">
-          <img src="/favicon.svg" alt="" className="size-8" />
-          توصيل
-        </Link>
-
-        <div className="ms-4 hidden items-center gap-1 md:flex">
-          {links.map((l) => (
-            <NavLink key={l.to} to={l.to} end={l.end} className={navClass}>
-              {l.label}
-            </NavLink>
-          ))}
-        </div>
-
-        <div className="ms-auto flex items-center gap-2">
-          {canOrder && (
-            <Link to="/cart" className="btn-secondary relative hidden px-3 md:inline-flex" aria-label={`السلة (${count})`}>
-              🛒 السلة
-              <CartBadge count={count} className="absolute -top-1.5 -start-1.5" />
-            </Link>
-          )}
-          {user ? (
-            <div className="hidden items-center gap-2 md:flex">
-              <span className="text-sm text-stone-500">أهلاً، {user.name.split(' ')[0]}</span>
-              <button onClick={logout} className="btn-secondary">
-                خروج
-              </button>
-            </div>
-          ) : (
-            <>
-              <Link to="/login" className="btn-secondary py-2 md:py-2.5">
-                دخول
-              </Link>
-              <Link to="/register" className="btn-primary hidden md:inline-flex">
-                حساب جديد
-              </Link>
-            </>
-          )}
-        </div>
-      </nav>
-    </header>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`${iconBtn} md:hidden`}
+      aria-expanded={open}
+      aria-controls="mobile-menu"
+      aria-label={open ? 'إغلاق القائمة' : 'القائمة'}
+    >
+      <span className={`${line} ${open ? 'translate-y-0 rotate-45' : '-translate-y-[3.5px]'}`} />
+      <span className={`${line} ${open ? 'translate-y-0 -rotate-45' : 'translate-y-[3.5px]'}`} />
+    </button>
   )
 }
 
-/** App-style bottom navigation, phones only. */
-function MobileTabBar() {
-  const { isOwner, isAdmin, isDriver } = useAuth()
-  const { count } = useCart()
-  const tabs = isAdmin ? ADMIN_TABS : isDriver ? DRIVER_TABS : isOwner ? OWNER_TABS : CUSTOMER_TABS
+/** Full-screen frosted-glass menu on phones: large links that slide in one after another. */
+function MobileMenu({ open, links, onClose }) {
+  const { user, canOrder, logout } = useAuth()
+
+  const items = [
+    ...links,
+    ...(canOrder ? [{ to: '/cart', label: 'السلة' }] : []),
+    ...(user
+      ? [{ to: '/account', label: 'حسابي' }]
+      : [
+          { to: '/login', label: 'تسجيل الدخول' },
+          { to: '/register', label: 'حساب جديد' },
+        ]),
+  ]
 
   return (
-    <nav
-      aria-label="التنقل الرئيسي"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+    <div
+      id="mobile-menu"
+      className={`fixed inset-x-0 top-[calc(3rem+env(safe-area-inset-top))] bottom-0 z-40 overflow-y-auto bg-white/80 backdrop-blur-2xl backdrop-saturate-[1.8] transition-opacity duration-300 md:hidden ${
+        open ? 'opacity-100' : 'pointer-events-none opacity-0'
+      }`}
+      inert={!open}
     >
-      <ul className={`grid ${{ 3: 'grid-cols-3', 4: 'grid-cols-4', 5: 'grid-cols-5' }[tabs.length]}`}>
-        {tabs.map((t) => (
-          <li key={t.to}>
-            <NavLink
-              to={t.to}
-              end={t.end}
-              className={({ isActive }) =>
-                `flex h-16 flex-col items-center justify-center gap-0.5 text-[11px] font-medium transition ${
-                  isActive ? 'text-[#c8410f]' : 'text-stone-500'
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <span className="relative text-xl" aria-hidden>
-                    <span className={`inline-block transition ${isActive ? 'scale-110' : 'opacity-70 grayscale'}`}>{t.icon}</span>
-                    {t.badge === 'cart' && <CartBadge count={count} className="absolute -top-1.5 -end-3" />}
-                  </span>
-                  {t.label}
-                </>
-              )}
+      <ul className="px-10 pt-6 pb-10">
+        {items.map((l, i) => (
+          <li
+            key={l.to}
+            className={`transition duration-500 ${open ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'}`}
+            style={{ transitionDelay: open ? `${80 + i * 40}ms` : '0ms' }}
+          >
+            <NavLink to={l.to} end={l.end} onClick={onClose} className="block py-2 text-[28px] leading-tight font-semibold text-ink">
+              {l.label}
             </NavLink>
           </li>
         ))}
+        {user && (
+          <li
+            className={`mt-6 transition duration-500 ${open ? 'opacity-100' : 'opacity-0'}`}
+            style={{ transitionDelay: open ? `${80 + items.length * 40}ms` : '0ms' }}
+          >
+            <p className="text-[12px] text-stone-500">مسجّل باسم {user.name}</p>
+            <button
+              type="button"
+              onClick={() => {
+                onClose()
+                logout()
+              }}
+              className="mt-1 py-2 text-[17px] text-brand-700"
+            >
+              تسجيل الخروج
+            </button>
+          </li>
+        )}
       </ul>
-    </nav>
+    </div>
+  )
+}
+
+/** Global navigation: thin translucent bar, centered links on desktop, menu button on phones. */
+function Navbar() {
+  const { user, canOrder, logout } = useAuth()
+  const { count } = useCart()
+  const { pathname } = useLocation()
+  const links = useNavLinks()
+  const [open, setOpen] = useState(false)
+
+  // Close the menu after navigating, and on Escape.
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+  useEffect(() => {
+    if (!open) return
+    setScrollLocked(true)
+    const onKey = (e) => e.key === 'Escape' && setOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => {
+      setScrollLocked(false)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  return (
+    <>
+      <header className={`sticky top-0 z-50 pt-[env(safe-area-inset-top)] transition-colors ${open ? 'bg-white/80 backdrop-blur-2xl' : 'material-bar'}`}>
+        <nav className="mx-auto flex h-12 max-w-5xl items-center gap-1 px-4">
+          <Link to={user ? homeFor(user) : '/'} className="flex h-11 items-center gap-2 text-[17px] font-semibold text-ink">
+            <img src="/favicon.svg" alt="" className="size-6" />
+            توصيل
+          </Link>
+
+          <div className="hidden flex-1 items-center justify-center gap-8 md:flex">
+            {links.map((l) => (
+              <NavLink
+                key={l.to}
+                to={l.to}
+                end={l.end}
+                className={({ isActive }) => `py-3 text-[13px] transition ${isActive ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
+              >
+                {l.label}
+              </NavLink>
+            ))}
+          </div>
+
+          <div className="ms-auto flex items-center md:ms-0">
+            {canOrder && (
+              <Link to="/cart" className={iconBtn} aria-label={`السلة (${count})`}>
+                <ShoppingBag className="size-[18px]" strokeWidth={1.5} aria-hidden />
+                <CartBadge count={count} />
+              </Link>
+            )}
+            {user ? (
+              <>
+                <Link to="/account" className={`${iconBtn} hidden md:grid`} aria-label="حسابي">
+                  <UserRound className="size-[18px]" strokeWidth={1.5} aria-hidden />
+                </Link>
+                <button onClick={logout} className="hidden px-2 py-3 text-[13px] text-ink/70 transition hover:text-ink md:block">
+                  خروج
+                </button>
+              </>
+            ) : (
+              <Link to="/login" className="hidden px-2 py-3 text-[13px] text-ink/70 transition hover:text-ink md:block">
+                تسجيل الدخول
+              </Link>
+            )}
+            <MenuButton open={open} onClick={() => setOpen((o) => !o)} />
+          </div>
+        </nav>
+      </header>
+      <MobileMenu open={open} links={links} onClose={() => setOpen(false)} />
+    </>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className="bg-stone-50 text-[12px] leading-relaxed text-stone-500">
+      <div className="mx-auto max-w-5xl px-4 py-5">
+        <p className="border-b border-stone-200 pb-3">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض. الدفع عند الاستلام.</p>
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-3">
+          <p>© {YEAR} توصيل – فريق ORBA. جميع الحقوق محفوظة.</p>
+          <div className="flex gap-4">
+            <Link to="/" className="py-2 hover:underline">
+              المطاعم
+            </Link>
+            <Link to="/register?role=owner" className="py-2 hover:underline">
+              سجّل مطعمك
+            </Link>
+            <Link to="/register?role=driver" className="py-2 hover:underline">
+              اشتغل سائق
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
   )
 }
 
@@ -159,28 +243,26 @@ export function Layout() {
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <VerifyEmailBanner />
-      {/* Bottom padding on phones keeps content above the tab bar. */}
-      <main className="flex-1 pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
-        <Outlet />
+      <main className="flex-1">
+        {/* Keyed by path, so each page fades and rises in when you navigate. */}
+        <div key={pathname} className="animate-page-in">
+          <Outlet />
+        </div>
       </main>
-      <footer className="hidden border-t border-stone-200 py-6 text-center text-sm text-stone-500 md:block">
-        <p>© {YEAR} توصيل – فريق ORBA</p>
-        <p className="mt-1 text-xs text-stone-500">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض</p>
-      </footer>
-      <MobileTabBar />
+      <Footer />
     </div>
   )
 }
 
-/** Standard page container with a title. */
+/** Standard page container with a large title, like apple.com's section headers. */
 export function Page({ title, subtitle, actions, children, narrow = false }) {
   return (
-    <div className={`mx-auto px-4 py-6 md:py-8 ${narrow ? 'max-w-md' : 'max-w-6xl'}`}>
+    <div className={`mx-auto px-4 pt-8 pb-12 md:pt-14 md:pb-20 ${narrow ? 'max-w-md' : 'max-w-5xl'}`}>
       {(title || actions) && (
-        <div className="mb-5 flex flex-wrap items-end justify-between gap-3 md:mb-6">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4 md:mb-10">
           <div>
-            {title && <h1 className="text-[28px] font-bold sm:text-3xl">{title}</h1>}
-            {subtitle && <p className="mt-1 text-stone-500">{subtitle}</p>}
+            {title && <h1 className="text-[32px] leading-[1.125] font-semibold md:text-5xl">{title}</h1>}
+            {subtitle && <p className="mt-2 text-[17px] text-stone-500 md:text-[21px]">{subtitle}</p>}
           </div>
           {actions}
         </div>

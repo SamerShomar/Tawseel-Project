@@ -1,14 +1,81 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  /* Apple devices get San Francisco (SF Arabic for Arabic); everyone else gets IBM Plex Sans Arabic. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Arabic", "IBM Plex Sans Arabic", system-ui, sans-serif;
   --color-brand-50: #fff4ed;
   --color-brand-100: #ffe6d4;
   --color-brand-200: #ffc9a8;
   --color-brand-500: #f2622e;
   --color-brand-600: #e04a17;
   --color-brand-700: #b93812;
-  --color-ink: #1c1917;
+  --color-ink: #1d1d1f;
+
+  /* apple.com grays replace Tailwind's stone, so every existing stone-* class follows the new look.
+     50 = section background, 100–200 = fills and hairlines, 500 = secondary text (4.5:1 on white and on 50). */
+  --color-stone-50: #f5f5f7;
+  --color-stone-100: #e8e8ed;
+  --color-stone-200: #d2d2d7;
+  --color-stone-300: #c7c7cc;
+  --color-stone-400: #86868b;
+  --color-stone-500: #6e6e73;
+  --color-stone-600: #424245;
+  --color-stone-700: #333336;
+  --color-stone-800: #272729;
+  --color-stone-900: #1d1d1f;
+
+  /* Orange stands in for Apple's blue. Fills use #c8410f (white text 4.98:1); links and text use brand-700 #b93812. */
+  --color-accent: #c8410f;
+
+  /* Motion: Apple-like easing (fast start, long soft landing). */
+  --ease-apple: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-page-in: page-in 0.55s var(--ease-apple) backwards;
+  --animate-pop: pop 0.4s var(--ease-apple);
+  --animate-rise: rise 0.5s var(--ease-apple) both;
+  --animate-drift: drift 18s ease-in-out infinite alternate;
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.6);
+    }
+    60% {
+      transform: scale(1.15);
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+  }
+  @keyframes drift {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(6%, -8%) scale(1.12);
+    }
+    100% {
+      transform: translate(-6%, 6%) scale(0.95);
+    }
+  }
+}
+
+/* Respect "Reduce Motion": everything snaps to its final state. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Lenis recommended styles */
@@ -27,7 +94,7 @@ html.lenis body {
 }
 
 body {
-  @apply bg-stone-50 text-ink antialiased;
+  @apply bg-white text-ink antialiased;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -39,28 +106,57 @@ body {
   }
 }
 
+/* Pill buttons, as on apple.com. */
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-base font-semibold transition md:text-sm
-      disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[17px] leading-tight font-normal transition duration-200 ease-apple active:scale-[0.97]
+      disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
 }
 
 @utility btn-primary {
-    @apply btn bg-[#c8410f] text-white hover:bg-brand-700;
+    @apply btn bg-accent text-white hover:bg-brand-700;
 }
 
 @utility btn-secondary {
-    @apply btn border border-stone-300 bg-white text-ink hover:bg-stone-100;
+    @apply btn border border-brand-700 text-brand-700 hover:bg-brand-700 hover:text-white;
 }
 
 @utility btn-danger {
-    @apply btn bg-rose-50 text-rose-700 hover:bg-rose-100;
+    @apply btn border border-rose-700 text-rose-700 hover:bg-rose-700 hover:text-white;
+}
+
+/* Filter chip; mark the selected one with aria-pressed="true". */
+@utility chip {
+    @apply flex h-11 shrink-0 items-center rounded-full bg-stone-50 px-4 text-[14px] whitespace-nowrap text-ink transition duration-300 hover:bg-stone-100
+      aria-pressed:bg-ink aria-pressed:text-white aria-pressed:hover:bg-ink;
+}
+
+/* Text link with a trailing chevron ("اعرف المزيد ›"). */
+@utility link {
+    @apply inline-flex items-center gap-0.5 text-[17px] text-brand-700 hover:underline;
 }
 
 @utility input {
-    @apply w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-base outline-none transition md:text-sm
-      placeholder:text-stone-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
+    @apply w-full rounded-xl border border-stone-400 bg-white px-4 py-3.5 text-[17px] outline-none transition
+      placeholder:text-stone-500 focus:border-accent focus:ring-4 focus:ring-accent/15;
 }
 
+/* Translucent global navigation bar. */
+@utility material-bar {
+    @apply bg-[rgb(250_250_252/0.72)] backdrop-blur-2xl backdrop-saturate-[1.8];
+}
+
+/* Frosted glass panel: translucent white, blurred backdrop, bright top edge. Opaque enough that text keeps 4.5:1. */
+@utility glass {
+    @apply border border-white/70 bg-white/72 backdrop-blur-2xl backdrop-saturate-[1.8]
+      shadow-[0_8px_32px_rgb(0_0_0/0.08),inset_0_1px_0_rgb(255_255_255/0.9)];
+}
+
+/* Store-style tile: white, large radius, soft shadow. */
 @utility card {
-    @apply rounded-2xl border border-stone-200 bg-white;
+    @apply rounded-[18px] bg-white shadow-[2px_4px_12px_rgb(0_0_0/0.08)];
+}
+
+/* Big centered headline used for page heroes and section titles. */
+@utility headline {
+    @apply text-[40px] leading-[1.1] font-semibold md:text-[56px];
 }

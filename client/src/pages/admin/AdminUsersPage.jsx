@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+import { Check, Search } from 'lucide-react'
 import { Page } from '@/components/Layout'
+import { useReveal } from '@/components/motion/Reveal'
 import { Alert } from '@/components/ui/Alert'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Spinner } from '@/components/ui/Spinner'
@@ -28,6 +30,7 @@ export default function AdminUsersPage() {
   }, [search])
 
   const { data, error, loading, setData } = useApi('/admin/users', { query: { search: debounced, role } })
+  const listRef = useReveal([data?.users])
 
   const update = async (u, body) => {
     setBusyId(u.id)
@@ -53,17 +56,18 @@ export default function AdminUsersPage() {
 
   return (
     <Page title="المستخدمين" subtitle={data ? `${data.users.length} مستخدم` : undefined}>
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <input type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="ابحث بالاسم أو الإيميل…" aria-label="بحث" className="input sm:max-w-xs" />
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative sm:w-72">
+          <Search className="pointer-events-none absolute start-4 top-1/2 size-[18px] -translate-y-1/2 text-stone-500" strokeWidth={1.75} aria-hidden />
+          <input type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="ابحث بالاسم أو الإيميل" aria-label="بحث" className="input rounded-full ps-11" />
+        </div>
         <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:px-0" role="group" aria-label="نوع الحساب">
           {ROLES.map((r) => (
             <button
               key={r.value || 'all'}
               onClick={() => setRole(r.value)}
               aria-pressed={role === r.value}
-              className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium whitespace-nowrap transition ${
-                role === r.value ? 'bg-ink text-white' : 'bg-white text-stone-600 ring-1 ring-stone-200'
-              }`}
+              className="chip"
             >
               {r.label}
             </button>
@@ -76,26 +80,28 @@ export default function AdminUsersPage() {
         {loading && !data ? (
           <Spinner />
         ) : data?.users.length === 0 ? (
-          <EmptyState icon="🔍" title="ما في مستخدمين مطابقين" />
+          <EmptyState icon={Search} title="ما في مستخدمين مطابقين" />
         ) : (
-          <ul className="card divide-y divide-stone-100 overflow-hidden">
+          <ul ref={listRef} className="card divide-y divide-stone-100 overflow-hidden">
             {data?.users.map((u) => (
-              <li key={u.id} className={`flex flex-wrap items-center gap-3 p-4 ${u.isActive ? '' : 'bg-stone-50'}`}>
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-brand-100 font-bold text-brand-700">{u.name.trim()[0]}</span>
+              <li key={u.id} className={`flex flex-wrap items-center gap-3 p-5 ${u.isActive ? '' : 'bg-stone-50'}`}>
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-accent to-brand-700 text-[17px] font-semibold text-white">
+                  {u.name.trim()[0]}
+                </span>
                 <div className="min-w-0 flex-1">
-                  <p className="flex flex-wrap items-center gap-2 font-semibold">
+                  <p className="flex flex-wrap items-center gap-2 text-[17px] font-semibold">
                     <span className="truncate">{u.name}</span>
-                    <span className="rounded-full bg-stone-100 px-2 py-1 text-xs font-normal text-stone-600">{ROLE_LABEL[u.role]}</span>
-                    {!u.isActive && <span className="rounded-full bg-rose-100 px-2 py-1 text-xs font-normal text-rose-700">موقوف</span>}
+                    <span className="rounded-full bg-stone-100 px-2 py-0.5 text-[12px] font-normal text-stone-600">{ROLE_LABEL[u.role]}</span>
+                    {!u.isActive && <span className="rounded-full bg-rose-100 px-2 py-0.5 text-[12px] font-normal text-rose-700">موقوف</span>}
                     {u.role === 'DRIVER' && !u.driverApproved && (
-                      <span className="rounded-full bg-sky-100 px-2 py-1 text-xs font-normal text-sky-800">بانتظار الموافقة</span>
+                      <span className="rounded-full bg-sky-100 px-2 py-0.5 text-[12px] font-normal text-sky-800">بانتظار الموافقة</span>
                     )}
-                    {!u.emailVerified && <span className="rounded-full bg-amber-100 px-2 py-1 text-xs font-normal text-amber-800">الإيميل غير مؤكد</span>}
+                    {!u.emailVerified && <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[12px] font-normal text-amber-800">الإيميل غير مؤكد</span>}
                   </p>
-                  <p className="truncate text-sm text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
+                  <p className="truncate text-[14px] text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
                     {u.email}
                   </p>
-                  <p className="text-xs text-stone-500">
+                  <p className="text-[12px] text-stone-500">
                     {u.restaurant
                       ? `مطعم: ${u.restaurant.name} · `
                       : u.role === 'CUSTOMER'
@@ -110,15 +116,16 @@ export default function AdminUsersPage() {
                   <div className="flex flex-wrap gap-2">
                     {u.role === 'DRIVER' &&
                       (u.driverApproved ? (
-                        <button className="btn-secondary py-2" disabled={busyId === u.id} onClick={() => approveDriver(u, false)}>
+                        <button className="btn-secondary h-11 py-0" disabled={busyId === u.id} onClick={() => approveDriver(u, false)}>
                           إلغاء الموافقة
                         </button>
                       ) : (
-                        <button className="btn-primary py-2" disabled={busyId === u.id} onClick={() => approveDriver(u, true)}>
-                          ✓ موافقة على السائق
+                        <button className="btn-primary h-11 py-0" disabled={busyId === u.id} onClick={() => approveDriver(u, true)}>
+                          <Check className="size-4" strokeWidth={2.25} aria-hidden />
+                          موافقة على السائق
                         </button>
                       ))}
-                    <button className={u.isActive ? 'btn-danger py-2' : 'btn-secondary py-2'} disabled={busyId === u.id} onClick={() => toggle(u)}>
+                    <button className={u.isActive ? 'btn-danger h-11 py-0' : 'btn-secondary h-11 py-0'} disabled={busyId === u.id} onClick={() => toggle(u)}>
                       {u.isActive ? 'إيقاف الحساب' : 'إعادة التفعيل'}
                     </button>
                   </div>

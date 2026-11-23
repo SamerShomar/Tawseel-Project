@@ -33,7 +33,7 @@ export default function ForgotPasswordPage() {
       {message ? (
         <div className="flex flex-col gap-3">
           <Alert type="success">{message}</Alert>
-          <p className="text-sm text-stone-500">
+          <p className="text-[14px] text-stone-600">
             الرابط صالح لمدة 30 دقيقة. إذا ما وصلت الرسالة خلال دقيقتين، شيّك على مجلد الرسائل غير المرغوب فيها (Spam).
           </p>
         </div>
@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
         <form onSubmit={submit} className="flex flex-col gap-4">
           <Alert>{error}</Alert>
           <Field label="البريد الإلكتروني" type="email" dir="ltr" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-          <button className="btn-primary py-3" disabled={submitting}>
+          <button className="btn-primary mt-2" disabled={submitting}>
             {submitting ? 'جاري الإرسال…' : 'أرسل الرابط'}
           </button>
         </form>

@@ -1,33 +1,28 @@
-// Shows the restaurant image, or a colored placeholder with an emoji for its category.
-const EMOJI = {
-  برجر: '🍔',
-  بيتزا: '🍕',
-  حلويات: '🍰',
-  شاورما: '🌯',
-  مشروبات: '☕',
-  فلافل: '🧆',
-  مشاوي: '🍢',
-  'مأكولات بحرية': '🐟',
-  'مأكولات شعبية': '🍲',
-  فطائر: '🥙',
+import { Beef, CakeSlice, Coffee, Croissant, Fish, Pizza, Salad, Sandwich, Soup, Flame, UtensilsCrossed } from 'lucide-react'
+
+// Shows the restaurant image, or a soft tinted placeholder with a line icon for its category.
+const ICONS = {
+  برجر: Beef,
+  بيتزا: Pizza,
+  حلويات: CakeSlice,
+  شاورما: Sandwich,
+  مشروبات: Coffee,
+  فلافل: Salad,
+  مشاوي: Flame,
+  'مأكولات بحرية': Fish,
+  'مأكولات شعبية': Soup,
+  فطائر: Croissant,
 }
-const GRADIENTS = [
-  'from-orange-200 to-rose-200',
-  'from-amber-200 to-orange-300',
-  'from-rose-200 to-pink-300',
-  'from-lime-200 to-emerald-200',
-  'from-sky-200 to-indigo-200',
-]
+const TINTS = ['from-orange-50 to-amber-100', 'from-rose-50 to-orange-100', 'from-amber-50 to-yellow-100', 'from-stone-50 to-stone-100', 'from-red-50 to-rose-100']
 
 export function RestaurantCover({ restaurant, className = '' }) {
   if (restaurant.imageUrl) {
     return <img src={restaurant.imageUrl} alt="" className={`object-cover ${className}`} loading="lazy" />
   }
+  const Icon = ICONS[restaurant.category] || UtensilsCrossed
   return (
-    <div className={`grid place-items-center bg-gradient-to-br ${GRADIENTS[restaurant.id % GRADIENTS.length]} ${className}`}>
-      <span className="text-4xl drop-shadow-sm sm:text-5xl" aria-hidden>
-        {EMOJI[restaurant.category] || '🍽️'}
-      </span>
+    <div className={`grid place-items-center bg-gradient-to-br ${TINTS[restaurant.id % TINTS.length]} ${className}`}>
+      <Icon className="size-10 text-brand-700 sm:size-12" strokeWidth={1.25} aria-hidden />
     </div>
   )
 }

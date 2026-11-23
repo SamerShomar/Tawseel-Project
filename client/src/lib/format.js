@@ -24,7 +24,7 @@ export const NEXT_ACTION = {
 export const DRIVER_ACTION = {
   ACCEPTED: { status: 'ON_THE_WAY', label: 'استلمت الطلب من المطعم' },
   PREPARING: { status: 'ON_THE_WAY', label: 'استلمت الطلب من المطعم' },
-  ON_THE_WAY: { status: 'DELIVERED', label: 'تم التوصيل ✓' },
+  ON_THE_WAY: { status: 'DELIVERED', label: 'تم التوصيل' },
 }
 
 export const isActiveOrder = (status) => !['DELIVERED', 'REJECTED'].includes(status)
