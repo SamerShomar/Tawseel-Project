@@ -158,7 +158,12 @@ function Navbar() {
 
   return (
     <>
-      <header className={`sticky top-0 z-50 pt-[env(safe-area-inset-top)] transition-colors ${open ? 'bg-white/80 backdrop-blur-2xl' : 'material-bar'}`}>
+      {/* On the home page the global bar scrolls away and the page's own glass bar sticks instead, as on a product page. */}
+      <header
+        className={`${pathname === '/' && !open ? 'relative' : 'sticky top-0'} z-50 pt-[env(safe-area-inset-top)] transition-colors ${
+          open ? 'bg-white/80 backdrop-blur-2xl' : 'material-bar'
+        }`}
+      >
         <nav className="mx-auto flex h-12 max-w-5xl items-center gap-1 px-4">
           <Link to={user ? homeFor(user) : '/'} className="flex h-11 items-center gap-2 text-[17px] font-semibold text-ink">
             <img src="/favicon.svg" alt="" className="size-6" />

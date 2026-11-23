@@ -1,0 +1,271 @@
+import { useRef } from "react";
+import { Link } from "react-router";
+import {
+  Banknote,
+  Bike,
+  ChevronLeft,
+  ChevronRight,
+  ChefHat,
+  CircleCheck,
+  House,
+  PhoneOff,
+  ReceiptText,
+  Store,
+} from "lucide-react";
+import { CountUp } from "@/components/motion/CountUp";
+import { useReveal } from "@/components/motion/Reveal";
+import { RestaurantCover } from "@/components/RestaurantCover";
+import { gsap, useGSAP } from "@/lib/gsap";
+
+const DOTS = [ReceiptText, CircleCheck, ChefHat, Bike, House];
+
+/** "Why Tawseel": a bento grid of glass tiles that rise in as you scroll. */
+export function Bento({ restaurantCount }) {
+  const gridRef = useReveal([restaurantCount]);
+  const tile = "card relative overflow-hidden p-6 md:p-8";
+
+  return (
+    <section id="why" className="scroll-mt-14 px-4 py-24 md:py-36">
+      <div className="mx-auto max-w-5xl">
+        <h2 className="text-center text-[40px] leading-[1.1] font-semibold md:text-[64px]">
+          ليش توصيل؟
+        </h2>
+        <div
+          ref={gridRef}
+          className="mt-12 grid grid-cols-2 gap-4 md:mt-16 md:grid-cols-4 md:gap-5"
+        >
+          {/* Big dark tile. */}
+          <div className="relative col-span-2 overflow-hidden rounded-[28px] bg-black p-8 text-white md:row-span-2 md:p-10">
+            <div className="pointer-events-none absolute -end-24 -bottom-24 size-80 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.6),transparent)]" />
+            <Banknote
+              className="relative size-14 text-[#ff9f6b]"
+              strokeWidth={1.25}
+              aria-hidden
+            />
+            <p className="relative mt-10 text-[40px] leading-[1.05] font-semibold md:mt-24 md:text-[56px]">
+              الدفع عند الاستلام.
+            </p>
+            <p className="relative mt-3 max-w-sm text-[17px] text-[#d2d2d7]">
+              ما في بطاقات ولا تحويلات. بتدفع نقداً للسائق لما يوصلك أكلك.
+            </p>
+          </div>
+
+          <div className={`${tile} col-span-2`}>
+            <p className="bg-gradient-to-l from-brand-700 to-accent bg-clip-text text-[64px] leading-none font-semibold text-transparent tabular-nums md:text-[80px]">
+              <CountUp value={restaurantCount} />
+            </p>
+            <p className="mt-2 text-[21px] font-semibold">مطعم من غزة</p>
+            <p className="text-[17px] text-stone-500">
+              من الشاورما للكنافة، كلها بمكان واحد.
+            </p>
+          </div>
+
+          <div className={tile}>
+            <div className="flex gap-1" aria-hidden>
+              {DOTS.map((Icon, i) => (
+                <span
+                  key={i}
+                  className="grid size-7 place-items-center rounded-full bg-accent text-white"
+                  style={{ opacity: 0.35 + i * 0.16 }}
+                >
+                  <Icon className="size-3.5" strokeWidth={2} />
+                </span>
+              ))}
+            </div>
+            <p className="mt-6 text-[21px] leading-tight font-semibold">
+              تتبّع مباشر
+            </p>
+            <p className="mt-1 text-[14px] text-stone-500">
+              5 مراحل، بتتحدّث لحالها.
+            </p>
+          </div>
+
+          <div className={tile}>
+            <PhoneOff
+              className="size-8 text-brand-700"
+              strokeWidth={1.5}
+              aria-hidden
+            />
+            <p className="mt-6 text-[21px] leading-tight font-semibold">
+              ولا مكالمة
+            </p>
+            <p className="mt-1 text-[14px] text-stone-500">
+              كل شي بيصير من الموقع.
+            </p>
+          </div>
+
+          <div className={`${tile} col-span-2`}>
+            <Store
+              className="size-8 text-brand-700"
+              strokeWidth={1.5}
+              aria-hidden
+            />
+            <p className="mt-6 text-[24px] font-semibold">عندك مطعم؟</p>
+            <p className="mt-1 text-[17px] text-stone-500">
+              استقبل الطلبات، عدّل قائمتك، وتابع كل طلب من لوحة وحدة.
+            </p>
+            <Link to="/register?role=owner" className="link mt-3 py-2">
+              سجّل مطعمك
+              <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
+            </Link>
+          </div>
+
+          <div className={`${tile} col-span-2`}>
+            <Bike
+              className="size-8 text-brand-700"
+              strokeWidth={1.5}
+              aria-hidden
+            />
+            <p className="mt-6 text-[24px] font-semibold">بدك تشتغل سائق؟</p>
+            <p className="mt-1 text-[17px] text-stone-500">
+              اختار الطلبات اللي بتناسبك، ووصّلها بوقتك.
+            </p>
+            <Link to="/register?role=driver" className="link mt-3 py-2">
+              اشتغل سائق
+              <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** "Get the highlights": a row of large restaurant cards you swipe through (or step with the arrows). */
+export function Highlights({ restaurants }) {
+  const rowRef = useRef(null);
+  const listRef = useReveal([restaurants.length]);
+
+  // In RTL the row scrolls toward negative scrollLeft, so "next" moves left.
+  const step = (dir) => {
+    const row = rowRef.current;
+    const card = row?.firstElementChild;
+    if (!card) return;
+    row.scrollBy({ left: -dir * (card.offsetWidth + 16), behavior: "smooth" });
+  };
+
+  if (!restaurants.length) return null;
+  return (
+    <section className="py-24 md:py-36">
+      <div className="mx-auto max-w-5xl px-4">
+        <h2 className="text-[40px] leading-[1.1] font-semibold md:text-[64px]">
+          مطاعم بتحبها.
+        </h2>
+        <p className="mt-2 text-[19px] text-stone-500 md:text-[24px]">
+          اسحب وشوف شو في اليوم.
+        </p>
+      </div>
+      <div
+        ref={rowRef}
+        className="no-scrollbar mt-10 overflow-x-auto scroll-smooth"
+      >
+        <ul
+          ref={listRef}
+          className="flex snap-x snap-mandatory gap-4 px-4 md:px-[max(1rem,calc((100vw-64rem)/2+1rem))]"
+        >
+          {restaurants.map((r) => (
+            <li
+              key={r.id}
+              className="w-[78vw] max-w-[380px] shrink-0 snap-start"
+            >
+              <Link
+                to={`/restaurants/${r.id}`}
+                className="group relative block h-[440px] overflow-hidden rounded-[28px] shadow-[0_8px_30px_rgb(120_40_0/0.12)] md:h-[500px]"
+              >
+                <RestaurantCover
+                  restaurant={r}
+                  className="absolute inset-0 size-full transition duration-700 ease-apple group-hover:scale-105"
+                  iconClassName="size-28 -translate-y-12"
+                />
+                {/* Glass caption over the cover. */}
+                <div className="glass absolute inset-x-3 bottom-3 rounded-[22px] p-5">
+                  <p className="text-[12px] font-semibold text-brand-700">
+                    {r.category}
+                  </p>
+                  <p className="mt-1 text-[24px] leading-tight font-semibold">
+                    {r.name}
+                  </p>
+                  {r.description && (
+                    <p className="mt-1 line-clamp-2 text-[14px] text-stone-600">
+                      {r.description}
+                    </p>
+                  )}
+                  <span className="link mt-2 text-[14px]">
+                    شوف القائمة
+                    <ChevronLeft
+                      className="size-4"
+                      strokeWidth={2}
+                      aria-hidden
+                    />
+                  </span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="mx-auto mt-6 flex max-w-5xl justify-end gap-3 px-4">
+        <button
+          onClick={() => step(-1)}
+          className="glass grid size-11 place-items-center rounded-full transition active:scale-90"
+          aria-label="السابق"
+        >
+          <ChevronRight className="size-5" strokeWidth={2} aria-hidden />
+        </button>
+        <button
+          onClick={() => step(1)}
+          className="glass grid size-11 place-items-center rounded-full transition active:scale-90"
+          aria-label="التالي"
+        >
+          <ChevronLeft className="size-5" strokeWidth={2} aria-hidden />
+        </button>
+      </div>
+    </section>
+  );
+}
+
+/** Closing dark section with a huge headline that scales up as it scrolls into view. */
+export function ClosingCta({ onJump }) {
+  const ref = useRef(null);
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".cta-title", {
+          scale: 0.7,
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top 90%",
+            end: "top 30%",
+            scrub: true,
+          },
+        });
+      });
+      return () => mm.revert();
+    },
+    { scope: ref },
+  );
+
+  return (
+    <section
+      ref={ref}
+      className="relative overflow-hidden bg-black px-4 py-28 text-center text-white md:py-40"
+    >
+      <div className="pointer-events-none absolute top-1/2 left-1/2 size-[800px] -translate-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.45),transparent)]" />
+      <p className="cta-title relative bg-gradient-to-l from-[#ffb36b] to-[#ff7a3d] bg-clip-text text-[72px] leading-none font-semibold text-transparent md:text-[128px]">
+        جوعان؟
+      </p>
+      <p className="relative mt-5 text-[19px] text-[#d2d2d7] md:text-[24px]">
+        اختار مطعمك واطلب، والباقي علينا.
+      </p>
+      <button
+        onClick={() => onJump("restaurants")}
+        className="btn-primary relative mt-8"
+      >
+        اطلب الآن
+      </button>
+    </section>
+  );
+}

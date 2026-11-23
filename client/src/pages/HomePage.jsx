@@ -1,167 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
-import { Banknote, Bike, ChefHat, ChevronLeft, House, MapPin, ReceiptText, Search, ShoppingBag, Store } from 'lucide-react'
-import AnimatedContent from '@/components/react-bits/AnimatedContent/AnimatedContent'
-import SplitText from '@/components/react-bits/SplitText/SplitText'
-import { Aurora } from '@/components/motion/Aurora'
+import { MapPin, Search } from 'lucide-react'
 import { useReveal } from '@/components/motion/Reveal'
 import { RestaurantCover } from '@/components/RestaurantCover'
 import { Alert } from '@/components/ui/Alert'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Spinner } from '@/components/ui/Spinner'
 import { useApi } from '@/hooks/useApi'
-import { gsap, useGSAP } from '@/lib/gsap'
+import { scrollToElement } from '@/hooks/useLenis'
+import { Bento, ClosingCta, Highlights } from './home/Features'
+import { Hero, LocalNav, Statement } from './home/Hero'
+import { Story } from './home/Story'
 
-const TRACK_STEPS = [
-  { icon: ReceiptText, label: 'استلمنا طلبك' },
-  { icon: ChefHat, label: 'قيد التحضير' },
-  { icon: Bike, label: 'في الطريق' },
-  { icon: House, label: 'وصل' },
-]
-
-/** The "product shot": a sample order being tracked, drawn in HTML instead of a photo.
- *  The steps light up one after another on a loop, so the hero shows the product moving. */
-function OrderPreview() {
-  const [done, setDone] = useState(1)
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return setDone(3)
-    const id = setInterval(() => setDone((d) => (d >= TRACK_STEPS.length ? 1 : d + 1)), 1400)
-    return () => clearInterval(id)
-  }, [])
-  return (
-    <div className="glass relative mx-auto w-full max-w-sm rounded-[24px] p-5 text-start md:p-6" aria-hidden>
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-[12px] text-stone-500">طلب رقم 1042</p>
-          <p className="text-[17px] font-semibold">شاورما البيدر</p>
-        </div>
-        <span key={done} className="animate-pop rounded-full bg-white/80 px-3 py-1 text-[12px] font-semibold text-brand-700">
-          {TRACK_STEPS[done - 1].label}
-        </span>
-      </div>
-
-      <ol className="mt-6 grid grid-cols-4">
-        {TRACK_STEPS.map(({ icon: Icon, label }, i) => (
-          <li key={label} className="relative flex flex-col items-center gap-2 text-center">
-            {i > 0 && <span className={`absolute top-5 end-1/2 h-0.5 w-full transition-colors duration-500 ${i < done ? 'bg-accent' : 'bg-white'}`} />}
-            <span
-              className={`relative grid size-10 place-items-center rounded-full transition-all duration-500 ease-apple ${
-                i < done ? 'bg-accent text-white' : 'bg-white text-stone-400'
-              } ${i === done - 1 ? 'scale-110 shadow-lg shadow-accent/40' : ''}`}
-            >
-              <Icon className="size-5" strokeWidth={1.75} />
-            </span>
-            <span className={`text-[11px] ${i < done ? 'text-ink' : 'text-stone-500'}`}>{label}</span>
-          </li>
-        ))}
-      </ol>
-
-      <dl className="mt-6 space-y-2 border-t border-black/5 pt-4 text-[14px]">
-        <div className="flex justify-between">
-          <dt>سندويش شاورما دجاج × 2</dt>
-          <dd>₪ 40</dd>
-        </div>
-        <div className="flex justify-between">
-          <dt>بطاطا مقلية</dt>
-          <dd>₪ 10</dd>
-        </div>
-        <div className="flex justify-between border-t border-black/5 pt-2 text-[17px] font-semibold">
-          <dt>المجموع</dt>
-          <dd>₪ 50</dd>
-        </div>
-      </dl>
-      <p className="mt-3 flex items-center gap-1.5 text-[12px] text-stone-600">
-        <Banknote className="size-4" strokeWidth={1.5} />
-        الدفع عند الاستلام
-      </p>
-    </div>
-  )
-}
-
-function Hero({ onBrowse }) {
-  const ref = useRef(null)
-
-  useGSAP(
-    () => {
-      // Only animate when the person hasn't asked their device to reduce motion.
-      const mm = gsap.matchMedia()
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('.hero-fade', { y: 24, opacity: 0, duration: 0.6, stagger: 0.08, delay: 0.15, ease: 'power3.out' })
-        gsap.from('.hero-device', { y: 60, scale: 0.94, opacity: 0, duration: 0.9, delay: 0.35, ease: 'power3.out' })
-        // As you scroll past, the order card lifts slightly faster than the page (parallax).
-        gsap.to('.hero-card', {
-          y: -50,
-          ease: 'none',
-          scrollTrigger: { trigger: '.hero-device', start: 'top 80%', end: 'bottom top', scrub: true },
-        })
-      })
-      return () => mm.revert()
-    },
-    { scope: ref },
-  )
-
-  return (
-    <section ref={ref} className="overflow-hidden px-4 pt-12 text-center md:pt-20">
-      <p className="hero-fade text-[17px] font-semibold text-brand-700 md:text-[21px]">توصيل</p>
-      <SplitText
-        text="أكلك المفضل، لحد باب البيت."
-        tag="h1"
-        splitType="words"
-        trigger="load"
-        duration={0.6}
-        delay={40}
-        textAlign="center"
-        className="mx-auto mt-2 max-w-4xl text-[40px] leading-[1.1] font-semibold text-balance md:text-[64px] lg:text-[76px]"
-      />
-      <p className="hero-fade mx-auto mt-4 max-w-xl text-[19px] leading-snug text-balance text-stone-500 md:text-[24px]">
-        تصفّح قوائم مطاعم غزة بالأسعار، اطلب بكبسة زر، وتابع طلبك خطوة بخطوة.
-      </p>
-      <div className="hero-fade mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-        <button onClick={onBrowse} className="btn-primary">
-          تصفّح المطاعم
-        </button>
-        <Link to="/register?role=owner" className="link py-3">
-          سجّل مطعمك
-          <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
-        </Link>
-      </div>
-
-      <div className="hero-device relative mx-auto mt-12 max-w-3xl overflow-hidden rounded-[28px] bg-white/30 px-5 pt-10 pb-14 md:mt-16 md:pt-16 md:pb-20">
-        <Aurora />
-        <div className="hero-card">
-          <div className="animate-float">
-            <OrderPreview />
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-const STEPS = [
-  { icon: Store, title: 'اختر المطعم', text: 'شوف القائمة كاملة مع الأسعار قبل ما تطلب.' },
-  { icon: ShoppingBag, title: 'اطلب بسهولة', text: 'أضف للسلة، اكتب عنوانك، وادفع عند الاستلام.' },
-  { icon: Bike, title: 'تابع طلبك', text: 'اعرف وين وصل طلبك أول بأول، بدون ولا مكالمة.' },
-]
-
-function HowItWorks() {
-  return (
-    <section className="px-4 py-16 md:py-24">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="text-center text-[32px] leading-[1.125] font-semibold md:text-5xl">ثلاث خطوات، والأكل عندك.</h2>
-        <AnimatedContent distance={40} duration={0.5} stagger={0.12} className="mt-10 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-5">
-          {STEPS.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="card p-7 md:p-8">
-              <Icon className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
-              <h3 className="mt-4 text-[21px] font-semibold">{title}</h3>
-              <p className="mt-1 text-[17px] text-stone-500">{text}</p>
-            </div>
-          ))}
-        </AnimatedContent>
-      </div>
-    </section>
-  )
-}
+/*
+ * The home page is laid out like a product page:
+ * glass local nav → dark hero with the phone → statement that lights up as you read →
+ * pinned "how it works" story → "why" bento → swipeable highlights → the full restaurant list → closing call to action.
+ */
 
 export default function HomePage() {
   const listRef = useRef(null)
@@ -176,21 +31,27 @@ export default function HomePage() {
 
   const { data: cats } = useApi('/restaurants/categories')
   const { data, error, loading } = useApi('/restaurants', { query: { search: debounced, category } })
+  const { data: all } = useApi('/restaurants')
 
   const gridRef = useReveal([data?.restaurants])
 
-  const scrollToList = () => listRef.current?.scrollIntoView({ behavior: 'smooth' })
+  // Jump to a section, leaving room for the sticky local nav (56px).
+  const jump = (id) => scrollToElement(document.getElementById(id), 56)
 
   return (
     <>
-      <Hero onBrowse={scrollToList} />
-      <HowItWorks />
+      <LocalNav onJump={jump} />
+      <Hero onJump={jump} />
+      <Statement />
+      <Story />
+      <Bento restaurantCount={all?.restaurants.length ?? 0} />
+      <Highlights restaurants={all?.restaurants.slice(0, 8) ?? []} />
 
-      <section ref={listRef} className="mx-auto max-w-5xl scroll-mt-12 px-4 py-16 md:py-24">
+      <section ref={listRef} id="restaurants" className="mx-auto max-w-5xl scroll-mt-14 px-4 py-16 md:py-24">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between md:mb-8">
           <div>
-            <h2 className="text-[32px] leading-[1.125] font-semibold md:text-5xl">المطاعم</h2>
-            <p className="mt-2 text-[17px] text-stone-500 md:text-[21px]">اختر مطعمك، والباقي علينا.</p>
+            <h2 className="text-[40px] leading-[1.1] font-semibold md:text-[64px]">كل المطاعم.</h2>
+            <p className="mt-2 text-[19px] text-stone-500 md:text-[24px]">ابحث، اختار، واطلب.</p>
           </div>
           <div className="relative sm:w-72">
             <Search className="pointer-events-none absolute start-4 top-1/2 size-[18px] -translate-y-1/2 text-stone-500" strokeWidth={1.75} aria-hidden />
@@ -254,6 +115,8 @@ export default function HomePage() {
           </div>
         )}
       </section>
+
+      <ClosingCta onJump={jump} />
     </>
   )
 }
