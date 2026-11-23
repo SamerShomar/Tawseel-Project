@@ -1,5 +1,17 @@
 import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
+import {
+  Bike,
+  ClipboardList,
+  LayoutDashboard,
+  Package,
+  ReceiptText,
+  ShoppingBag,
+  Store,
+  UserRound,
+  UsersRound,
+  UtensilsCrossed,
+} from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { scrollToTop, useLenis } from '@/hooks/useLenis'
@@ -9,40 +21,40 @@ import { VerifyEmailBanner } from './VerifyEmailBanner'
 const YEAR = new Date().getFullYear()
 
 const CUSTOMER_TABS = [
-  { to: '/', label: 'المطاعم', icon: '🍽️', end: true },
-  { to: '/cart', label: 'السلة', icon: '🛒', badge: 'cart' },
-  { to: '/orders', label: 'طلباتي', icon: '🧾' },
-  { to: '/account', label: 'حسابي', icon: '👤' },
+  { to: '/', label: 'المطاعم', icon: UtensilsCrossed, end: true },
+  { to: '/cart', label: 'السلة', icon: ShoppingBag, badge: 'cart' },
+  { to: '/orders', label: 'طلباتي', icon: ReceiptText },
+  { to: '/account', label: 'حسابي', icon: UserRound },
 ]
 
 const OWNER_TABS = [
-  { to: '/dashboard', label: 'الطلبات', icon: '🧾', end: true },
-  { to: '/dashboard/menu', label: 'القائمة', icon: '📋' },
-  { to: '/dashboard/settings', label: 'المطعم', icon: '🏪' },
-  { to: '/account', label: 'حسابي', icon: '👤' },
+  { to: '/dashboard', label: 'الطلبات', icon: ReceiptText, end: true },
+  { to: '/dashboard/menu', label: 'القائمة', icon: ClipboardList },
+  { to: '/dashboard/settings', label: 'المطعم', icon: Store },
+  { to: '/account', label: 'حسابي', icon: UserRound },
 ]
 
 const ADMIN_TABS = [
-  { to: '/admin', label: 'نظرة عامة', icon: '📊', end: true },
-  { to: '/admin/users', label: 'المستخدمين', icon: '👥' },
-  { to: '/admin/restaurants', label: 'المطاعم', icon: '🏪' },
-  { to: '/admin/orders', label: 'الطلبات', icon: '🧾' },
-  { to: '/account', label: 'حسابي', icon: '👤' },
+  { to: '/admin', label: 'نظرة عامة', icon: LayoutDashboard, end: true },
+  { to: '/admin/users', label: 'المستخدمين', icon: UsersRound },
+  { to: '/admin/restaurants', label: 'المطاعم', icon: Store },
+  { to: '/admin/orders', label: 'الطلبات', icon: ReceiptText },
+  { to: '/account', label: 'حسابي', icon: UserRound },
 ]
 
 const DRIVER_TABS = [
-  { to: '/driver', label: 'طلبات متاحة', icon: '📦', end: true },
-  { to: '/driver/mine', label: 'توصيلاتي', icon: '🛵' },
-  { to: '/account', label: 'حسابي', icon: '👤' },
+  { to: '/driver', label: 'طلبات متاحة', icon: Package, end: true },
+  { to: '/driver/mine', label: 'توصيلاتي', icon: Bike },
+  { to: '/account', label: 'حسابي', icon: UserRound },
 ]
 
 const navClass = ({ isActive }) =>
-  `rounded-lg px-3 py-2 text-sm font-medium transition ${isActive ? 'bg-brand-50 text-brand-700' : 'text-stone-600 hover:text-ink'}`
+  `rounded-lg px-3 py-2 text-sm font-medium transition ${isActive ? 'text-brand-700' : 'text-stone-600 hover:text-ink'}`
 
 function CartBadge({ count, className = '' }) {
   if (!count) return null
   return (
-    <span className={`grid min-w-5 place-items-center rounded-full bg-brand-500 px-1 text-[11px] leading-5 font-bold text-white ${className}`}>
+    <span className={`grid min-w-5 place-items-center rounded-full bg-accent px-1 text-[11px] leading-5 font-bold text-white ${className}`}>
       {count > 99 ? '99+' : count}
     </span>
   )
@@ -62,10 +74,10 @@ function Navbar() {
     : [{ to: '/', label: 'المطاعم', end: true }, ...(user ? [{ to: '/orders', label: 'طلباتي' }] : [])]
 
   return (
-    <header className="sticky top-0 z-40 border-b border-stone-200/80 bg-white/90 pt-[env(safe-area-inset-top)] backdrop-blur">
-      <nav className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-4 md:h-16">
-        <Link to={user ? homeFor(user) : '/'} className="flex items-center gap-2 text-xl font-bold text-ink">
-          <img src="/favicon.svg" alt="" className="size-8" />
+    <header className="material-bar sticky top-0 z-40 border-b border-black/10 pt-[env(safe-area-inset-top)]">
+      <nav className="mx-auto flex h-12 max-w-6xl items-center gap-2 px-4 md:h-14">
+        <Link to={user ? homeFor(user) : '/'} className="flex items-center gap-2 text-[17px] font-semibold text-ink">
+          <img src="/favicon.svg" alt="" className="size-7" />
           توصيل
         </Link>
 
@@ -80,7 +92,8 @@ function Navbar() {
         <div className="ms-auto flex items-center gap-2">
           {canOrder && (
             <Link to="/cart" className="btn-secondary relative hidden px-3 md:inline-flex" aria-label={`السلة (${count})`}>
-              🛒 السلة
+              <ShoppingBag className="size-5" strokeWidth={1.75} aria-hidden />
+              السلة
               <CartBadge count={count} className="absolute -top-1.5 -start-1.5" />
             </Link>
           )}
@@ -116,7 +129,7 @@ function MobileTabBar() {
   return (
     <nav
       aria-label="التنقل الرئيسي"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-stone-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+      className="material-bar fixed inset-x-0 bottom-0 z-40 border-t border-black/10 pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       <ul className={`grid ${{ 3: 'grid-cols-3', 4: 'grid-cols-4', 5: 'grid-cols-5' }[tabs.length]}`}>
         {tabs.map((t) => (
@@ -125,15 +138,16 @@ function MobileTabBar() {
               to={t.to}
               end={t.end}
               className={({ isActive }) =>
-                `flex h-16 flex-col items-center justify-center gap-0.5 text-[11px] font-medium transition ${
-                  isActive ? 'text-[#c8410f]' : 'text-stone-500'
+                `flex h-[50px] flex-col items-center justify-center gap-0.5 text-[11px] font-medium transition ${
+                  isActive ? 'text-accent' : 'text-stone-500'
                 }`
               }
             >
               {({ isActive }) => (
                 <>
-                  <span className="relative text-xl" aria-hidden>
-                    <span className={`inline-block transition ${isActive ? 'scale-110' : 'opacity-70 grayscale'}`}>{t.icon}</span>
+                  <span className="relative" aria-hidden>
+                    {/* Heavier stroke marks the selected tab, like SF Symbols' filled variant. */}
+                    <t.icon className="size-6" strokeWidth={isActive ? 2.25 : 1.75} />
                     {t.badge === 'cart' && <CartBadge count={count} className="absolute -top-1.5 -end-3" />}
                   </span>
                   {t.label}
@@ -160,7 +174,7 @@ export function Layout() {
       <Navbar />
       <VerifyEmailBanner />
       {/* Bottom padding on phones keeps content above the tab bar. */}
-      <main className="flex-1 pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
+      <main className="flex-1 pb-[calc(50px+env(safe-area-inset-bottom))] md:pb-0">
         <Outlet />
       </main>
       <footer className="hidden border-t border-stone-200 py-6 text-center text-sm text-stone-500 md:block">
@@ -179,7 +193,7 @@ export function Page({ title, subtitle, actions, children, narrow = false }) {
       {(title || actions) && (
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3 md:mb-6">
           <div>
-            {title && <h1 className="text-[28px] font-bold sm:text-3xl">{title}</h1>}
+            {title && <h1 className="text-[34px] leading-tight font-bold">{title}</h1>}
             {subtitle && <p className="mt-1 text-stone-500">{subtitle}</p>}
           </div>
           {actions}

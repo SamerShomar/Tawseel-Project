@@ -1,14 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "IBM Plex Sans Arabic", ui-sans-serif, system-ui, sans-serif;
+  /* Apple devices get San Francisco (SF Arabic for Arabic); everyone else gets IBM Plex Sans Arabic. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Arabic", "IBM Plex Sans Arabic", system-ui, sans-serif;
   --color-brand-50: #fff4ed;
   --color-brand-100: #ffe6d4;
   --color-brand-200: #ffc9a8;
   --color-brand-500: #f2622e;
   --color-brand-600: #e04a17;
   --color-brand-700: #b93812;
-  --color-ink: #1c1917;
+  --color-ink: #1d1d1f;
+
+  /* Apple system grays replace Tailwind's stone, so every existing stone-* class follows the new look.
+     50 = grouped background, 100–400 = fills and separators, 500 = secondary label (4.5:1 on white and on 50). */
+  --color-stone-50: #f2f2f7;
+  --color-stone-100: #e5e5ea;
+  --color-stone-200: #d1d1d6;
+  --color-stone-300: #c7c7cc;
+  --color-stone-400: #aeaeb2;
+  --color-stone-500: #6e6e73;
+  --color-stone-600: #48484a;
+  --color-stone-700: #3a3a3c;
+  --color-stone-800: #2c2c2e;
+  --color-stone-900: #1c1c1e;
+
+  /* Accent: fills use #c8410f (white text 4.98:1); text uses brand-700 #b93812 (4.5:1 on gray fills). */
+  --color-accent: #c8410f;
 }
 
 /* Lenis recommended styles */
@@ -40,16 +57,17 @@ body {
 }
 
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-base font-semibold transition md:text-sm
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-base font-semibold transition active:opacity-70 md:text-sm
       disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500;
 }
 
 @utility btn-primary {
-    @apply btn bg-[#c8410f] text-white hover:bg-brand-700;
+    @apply btn bg-accent text-white hover:bg-brand-700;
 }
 
 @utility btn-secondary {
-    @apply btn border border-stone-300 bg-white text-ink hover:bg-stone-100;
+    /* Apple "gray" button: translucent system fill with accent text. */
+    @apply btn bg-[rgb(118_118_128/0.12)] text-brand-700;
 }
 
 @utility btn-danger {
@@ -57,10 +75,16 @@ body {
 }
 
 @utility input {
-    @apply w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-base outline-none transition md:text-sm
+    @apply w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-base outline-none transition md:text-sm
       placeholder:text-stone-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
 }
 
+/* Translucent bars (navigation bar, tab bar). */
+@utility material-bar {
+    @apply bg-[rgb(249_249_249/0.94)] backdrop-blur-xl backdrop-saturate-150;
+}
+
 @utility card {
-    @apply rounded-2xl border border-stone-200 bg-white;
+    /* Inset grouped style: white on the gray background, no outline. */
+    @apply rounded-2xl bg-white;
 }
