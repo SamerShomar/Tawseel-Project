@@ -48,7 +48,7 @@ export default function AdminRestaurantsPage() {
                 <div className="min-w-0 flex-1 p-5">
                   <div className="flex flex-wrap items-center gap-2">
                     <h2 className="truncate text-[17px] font-semibold">{r.name}</h2>
-                    {r.category && <span className="rounded-full bg-stone-50 px-2 py-0.5 text-[12px] text-stone-600">{r.category}</span>}
+                    {r.category && <span className="rounded-full bg-black/[0.05] px-2 py-0.5 text-[12px] text-stone-600">{r.category}</span>}
                     <span className={`rounded-full px-2 py-0.5 text-[12px] ${r.isActive ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-700'}`}>
                       {r.isActive ? 'ظاهر' : 'مخفي'}
                     </span>

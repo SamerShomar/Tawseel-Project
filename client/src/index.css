@@ -8,36 +8,48 @@
   --color-brand-200: #ffc9a8;
   --color-brand-500: #f2622e;
   --color-brand-600: #e04a17;
-  --color-brand-700: #b93812;
+  --color-brand-700: #a3300f;
   --color-ink: #1d1d1f;
 
   /* apple.com grays replace Tailwind's stone, so every existing stone-* class follows the new look.
-     50 = section background, 100–200 = fills and hairlines, 500 = secondary text (4.5:1 on white and on 50). */
+     50 = page background, 100–200 = fills and hairlines, 500 = secondary text (darker than Apple's #6e6e73 so it
+     keeps 4.5:1 on the colored backdrop). */
   --color-stone-50: #f5f5f7;
   --color-stone-100: #e8e8ed;
   --color-stone-200: #d2d2d7;
   --color-stone-300: #c7c7cc;
   --color-stone-400: #86868b;
-  --color-stone-500: #6e6e73;
+  --color-stone-500: #58585d;
   --color-stone-600: #424245;
   --color-stone-700: #333336;
   --color-stone-800: #272729;
   --color-stone-900: #1d1d1f;
 
-  /* Orange stands in for Apple's blue. Fills use #c8410f (white text 4.98:1); links and text use brand-700 #b93812. */
+  /* Orange stands in for Apple's blue. Fills use #c8410f (white text 4.98:1); links and text use brand-700 #a3300f,
+     dark enough to keep 4.5:1 on the colored backdrop behind the glass. */
   --color-accent: #c8410f;
 
   /* Motion: Apple-like easing (fast start, long soft landing). */
   --ease-apple: cubic-bezier(0.22, 1, 0.36, 1);
-  --animate-page-in: page-in 0.55s var(--ease-apple) backwards;
+  --animate-page-in: page-in 0.8s var(--ease-apple) backwards;
   --animate-pop: pop 0.4s var(--ease-apple);
   --animate-rise: rise 0.5s var(--ease-apple) both;
-  --animate-drift: drift 18s ease-in-out infinite alternate;
+  --animate-drift: drift 14s ease-in-out infinite alternate;
+  --animate-float: float 4s ease-in-out infinite alternate;
 
   @keyframes page-in {
     from {
       opacity: 0;
-      transform: translateY(14px);
+      transform: translateY(40px) scale(0.97);
+      filter: blur(12px);
+    }
+  }
+  @keyframes float {
+    from {
+      transform: translateY(0) rotate(-1deg);
+    }
+    to {
+      transform: translateY(-14px) rotate(1deg);
     }
   }
   @keyframes pop {
@@ -59,10 +71,10 @@
       transform: translate(0, 0) scale(1);
     }
     50% {
-      transform: translate(6%, -8%) scale(1.12);
+      transform: translate(18%, -14%) scale(1.25);
     }
     100% {
-      transform: translate(-6%, 6%) scale(0.95);
+      transform: translate(-14%, 16%) scale(0.9);
     }
   }
 }
@@ -94,7 +106,7 @@ html.lenis body {
 }
 
 body {
-  @apply bg-white text-ink antialiased;
+  @apply bg-stone-50 text-ink antialiased;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -126,7 +138,7 @@ body {
 
 /* Filter chip; mark the selected one with aria-pressed="true". */
 @utility chip {
-    @apply flex h-11 shrink-0 items-center rounded-full bg-stone-50 px-4 text-[14px] whitespace-nowrap text-ink transition duration-300 hover:bg-stone-100
+    @apply flex h-11 shrink-0 items-center rounded-full bg-white/60 px-4 text-[14px] whitespace-nowrap text-ink ring-1 ring-white/80 transition duration-300 hover:bg-white/90
       aria-pressed:bg-ink aria-pressed:text-white aria-pressed:hover:bg-ink;
 }
 
@@ -146,14 +158,19 @@ body {
 }
 
 /* Frosted glass panel: translucent white, blurred backdrop, bright top edge. Opaque enough that text keeps 4.5:1. */
+/* Liquid glass: strong blur and saturation of what's behind, a bright rim, and a sheen that fades down the panel. */
 @utility glass {
-    @apply border border-white/70 bg-white/72 backdrop-blur-2xl backdrop-saturate-[1.8]
-      shadow-[0_8px_32px_rgb(0_0_0/0.08),inset_0_1px_0_rgb(255_255_255/0.9)];
+    @apply border border-white/80 bg-white/60 backdrop-blur-2xl backdrop-saturate-[2]
+      shadow-[0_10px_40px_rgb(120_40_0/0.12),inset_0_1px_0_rgb(255_255_255),inset_0_-1px_0_rgb(255_255_255/0.4)];
+    background-image: linear-gradient(160deg, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0.1) 45%, rgb(255 255 255 / 0.25));
 }
 
 /* Store-style tile: white, large radius, soft shadow. */
+/* Cards are translucent glass over the site's color backdrop (the backdrop is already blurred, so no backdrop-filter is needed). */
 @utility card {
-    @apply rounded-[18px] bg-white shadow-[2px_4px_12px_rgb(0_0_0/0.08)];
+    @apply rounded-[22px] border border-white/80 bg-white/65
+      shadow-[0_8px_30px_rgb(120_40_0/0.08),inset_0_1px_0_rgb(255_255_255)];
+    background-image: linear-gradient(160deg, rgb(255 255 255 / 0.6), rgb(255 255 255 / 0) 50%);
 }
 
 /* Big centered headline used for page heroes and section titles. */

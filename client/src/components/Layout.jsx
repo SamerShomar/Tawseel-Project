@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { scrollToTop, setScrollLocked, useLenis } from '@/hooks/useLenis'
 import { homeFor } from '@/lib/format'
+import { Backdrop } from './motion/Backdrop'
 import { VerifyEmailBanner } from './VerifyEmailBanner'
 
 const YEAR = new Date().getFullYear()
@@ -209,9 +210,9 @@ function Navbar() {
 
 function Footer() {
   return (
-    <footer className="bg-stone-50 text-[12px] leading-relaxed text-stone-500">
+    <footer className="border-t border-white/60 bg-white/55 text-[12px] leading-relaxed text-stone-600 backdrop-blur-xl">
       <div className="mx-auto max-w-5xl px-4 py-5">
-        <p className="border-b border-stone-200 pb-3">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض. الدفع عند الاستلام.</p>
+        <p className="border-b border-black/10 pb-3">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض. الدفع عند الاستلام.</p>
         <div className="flex flex-wrap items-center justify-between gap-2 pt-3">
           <p>© {YEAR} توصيل – فريق ORBA. جميع الحقوق محفوظة.</p>
           <div className="flex gap-4">
@@ -241,6 +242,7 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <Backdrop />
       <Navbar />
       <VerifyEmailBanner />
       <main className="flex-1">

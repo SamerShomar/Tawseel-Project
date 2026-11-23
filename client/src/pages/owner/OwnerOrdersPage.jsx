@@ -33,7 +33,7 @@ function OrderCard({ order, onStatus, busy }) {
       </header>
 
       {['ACCEPTED', 'PREPARING', 'ON_THE_WAY'].includes(order.status) && (
-        <p className={`mt-3 flex flex-wrap items-center gap-1.5 rounded-2xl px-3 py-2 text-[14px] ${order.driver ? 'bg-sky-50 text-sky-900' : 'bg-stone-50 text-stone-600'}`}>
+        <p className={`mt-3 flex flex-wrap items-center gap-1.5 rounded-2xl px-3 py-2 text-[14px] ${order.driver ? 'bg-sky-50 text-sky-900' : 'bg-black/[0.04] text-stone-600'}`}>
           <Bike className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
           {order.driver ? (
             <>
@@ -59,7 +59,7 @@ function OrderCard({ order, onStatus, busy }) {
         ))}
       </ul>
 
-      <div className="mt-4 space-y-1.5 rounded-2xl bg-stone-50 p-3 text-[14px]">
+      <div className="mt-4 space-y-1.5 rounded-2xl bg-black/[0.04] p-3 text-[14px]">
         <p className="flex items-start gap-1.5">
           <MapPin className="mt-0.5 size-4 shrink-0 text-stone-500" strokeWidth={1.75} aria-hidden />
           {order.deliveryAddress}
