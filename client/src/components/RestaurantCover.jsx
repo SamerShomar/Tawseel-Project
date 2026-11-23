@@ -15,14 +15,14 @@ const ICONS = {
 }
 const TINTS = ['from-orange-50 to-amber-100', 'from-rose-50 to-orange-100', 'from-amber-50 to-yellow-100', 'from-stone-50 to-stone-100', 'from-red-50 to-rose-100']
 
-export function RestaurantCover({ restaurant, className = '' }) {
+export function RestaurantCover({ restaurant, className = '', iconClassName = 'size-10 sm:size-12' }) {
   if (restaurant.imageUrl) {
     return <img src={restaurant.imageUrl} alt="" className={`object-cover ${className}`} loading="lazy" />
   }
   const Icon = ICONS[restaurant.category] || UtensilsCrossed
   return (
     <div className={`grid place-items-center bg-gradient-to-br ${TINTS[restaurant.id % TINTS.length]} ${className}`}>
-      <Icon className="size-10 text-brand-700 sm:size-12" strokeWidth={1.25} aria-hidden />
+      <Icon className={`text-brand-700 ${iconClassName}`} strokeWidth={1.25} aria-hidden />
     </div>
   )
 }
