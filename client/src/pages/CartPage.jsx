@@ -114,8 +114,8 @@ export default function CartPage() {
         </form>
       </div>
 
-      {/* Phones: the confirm button stays visible above the tab bar instead of being below the form. */}
-      <div className="fixed inset-x-0 bottom-[calc(50px+env(safe-area-inset-bottom))] z-30 border-t border-stone-200 bg-white/95 px-4 py-3 backdrop-blur md:hidden">
+      {/* Phones: the confirm button stays pinned to the bottom of the screen instead of being below the form. */}
+      <div className="material-bar fixed inset-x-0 bottom-0 z-30 border-t border-black/10 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] md:hidden">
         <div className="flex items-center justify-between gap-3">
           <span className="text-sm">
             المجموع <strong>{formatPrice(cart.total)}</strong>

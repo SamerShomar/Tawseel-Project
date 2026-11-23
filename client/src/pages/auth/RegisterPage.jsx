@@ -16,7 +16,7 @@ export default function RegisterPage() {
   const { user, register } = useAuth()
   const navigate = useNavigate()
   const [params] = useSearchParams()
-  const [form, setForm] = useState({ role: params.get('role') === 'owner' ? 'RESTAURANT_OWNER' : 'CUSTOMER', name: '', email: '', phone: '', password: '', restaurantName: '' })
+  const [form, setForm] = useState({ role: { owner: 'RESTAURANT_OWNER', driver: 'DRIVER' }[params.get('role')] || 'CUSTOMER', name: '', email: '', phone: '', password: '', restaurantName: '' })
   const [errors, setErrors] = useState({})
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)

@@ -7,6 +7,12 @@ let lenisInstance = null
 /** Scrolls to the top instantly (used on page change). */
 export const scrollToTop = () => (lenisInstance ? lenisInstance.scrollTo(0, { immediate: true }) : window.scrollTo(0, 0))
 
+/** Freezes page scrolling (e.g. while the full-screen menu is open). */
+export function setScrollLocked(locked) {
+  document.documentElement.style.overflow = locked ? 'hidden' : ''
+  if (lenisInstance) locked ? lenisInstance.stop() : lenisInstance.start()
+}
+
 /** Smooth scrolling with Lenis, driven by GSAP's ticker so ScrollTrigger stays in sync. */
 export function useLenis() {
   useEffect(() => {

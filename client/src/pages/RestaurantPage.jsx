@@ -155,7 +155,7 @@ export default function RestaurantPage() {
       </div>
 
       {cart.count > 0 && cart.restaurant?.id === restaurant.id && (
-        <div className="fixed inset-x-0 bottom-[calc(50px+env(safe-area-inset-bottom))] z-30 border-t border-stone-200 bg-white/95 px-4 py-2 backdrop-blur md:bottom-0 md:py-4">
+        <div className="material-bar fixed inset-x-0 bottom-0 z-30 border-t border-black/10 px-4 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] md:py-4">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
             <span className="text-sm">
               <strong>{cart.count}</strong> صنف · <strong>{formatPrice(cart.total)}</strong>

@@ -11,20 +11,20 @@
   --color-brand-700: #b93812;
   --color-ink: #1d1d1f;
 
-  /* Apple system grays replace Tailwind's stone, so every existing stone-* class follows the new look.
-     50 = grouped background, 100–400 = fills and separators, 500 = secondary label (4.5:1 on white and on 50). */
-  --color-stone-50: #f2f2f7;
-  --color-stone-100: #e5e5ea;
-  --color-stone-200: #d1d1d6;
+  /* apple.com grays replace Tailwind's stone, so every existing stone-* class follows the new look.
+     50 = section background, 100–200 = fills and hairlines, 500 = secondary text (4.5:1 on white and on 50). */
+  --color-stone-50: #f5f5f7;
+  --color-stone-100: #e8e8ed;
+  --color-stone-200: #d2d2d7;
   --color-stone-300: #c7c7cc;
-  --color-stone-400: #aeaeb2;
+  --color-stone-400: #86868b;
   --color-stone-500: #6e6e73;
-  --color-stone-600: #48484a;
-  --color-stone-700: #3a3a3c;
-  --color-stone-800: #2c2c2e;
-  --color-stone-900: #1c1c1e;
+  --color-stone-600: #424245;
+  --color-stone-700: #333336;
+  --color-stone-800: #272729;
+  --color-stone-900: #1d1d1f;
 
-  /* Accent: fills use #c8410f (white text 4.98:1); text uses brand-700 #b93812 (4.5:1 on gray fills). */
+  /* Orange stands in for Apple's blue. Fills use #c8410f (white text 4.98:1); links and text use brand-700 #b93812. */
   --color-accent: #c8410f;
 }
 
@@ -44,7 +44,7 @@ html.lenis body {
 }
 
 body {
-  @apply bg-stone-50 text-ink antialiased;
+  @apply bg-white text-ink antialiased;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -56,9 +56,10 @@ body {
   }
 }
 
+/* Pill buttons, as on apple.com. */
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-base font-semibold transition active:opacity-70 md:text-sm
-      disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[17px] leading-tight font-normal transition
+      disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
 }
 
 @utility btn-primary {
@@ -66,25 +67,34 @@ body {
 }
 
 @utility btn-secondary {
-    /* Apple "gray" button: translucent system fill with accent text. */
-    @apply btn bg-[rgb(118_118_128/0.12)] text-brand-700;
+    @apply btn border border-brand-700 text-brand-700 hover:bg-brand-700 hover:text-white;
 }
 
 @utility btn-danger {
-    @apply btn bg-rose-50 text-rose-700 hover:bg-rose-100;
+    @apply btn border border-rose-700 text-rose-700 hover:bg-rose-700 hover:text-white;
+}
+
+/* Text link with a trailing chevron ("اعرف المزيد ›"). */
+@utility link {
+    @apply inline-flex items-center gap-0.5 text-[17px] text-brand-700 hover:underline;
 }
 
 @utility input {
-    @apply w-full rounded-xl border border-stone-200 bg-white px-4 py-3 text-base outline-none transition md:text-sm
-      placeholder:text-stone-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
+    @apply w-full rounded-xl border border-stone-400 bg-white px-4 py-3.5 text-[17px] outline-none transition
+      placeholder:text-stone-500 focus:border-accent focus:ring-4 focus:ring-accent/15;
 }
 
-/* Translucent bars (navigation bar, tab bar). */
+/* Translucent global navigation bar. */
 @utility material-bar {
-    @apply bg-[rgb(249_249_249/0.94)] backdrop-blur-xl backdrop-saturate-150;
+    @apply bg-[rgb(250_250_252/0.8)] backdrop-blur-xl backdrop-saturate-[1.8];
 }
 
+/* Store-style tile: white, large radius, soft shadow. */
 @utility card {
-    /* Inset grouped style: white on the gray background, no outline. */
-    @apply rounded-2xl bg-white;
+    @apply rounded-[18px] bg-white shadow-[2px_4px_12px_rgb(0_0_0/0.08)];
+}
+
+/* Big centered headline used for page heroes and section titles. */
+@utility headline {
+    @apply text-[40px] leading-[1.1] font-semibold md:text-[56px];
 }
