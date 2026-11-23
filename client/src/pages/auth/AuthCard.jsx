@@ -1,11 +1,9 @@
 import { Link } from 'react-router'
-import { Aurora } from '@/components/motion/Aurora'
 
 /** Sign-in style screen: a frosted-glass card floating over slowly drifting color. */
 export function AuthCard({ title, subtitle, children, footer }) {
   return (
-    <div className="relative flex min-h-[calc(100vh-3rem)] items-center justify-center overflow-hidden bg-stone-50 px-4 py-12">
-      <Aurora />
+    <div className="relative flex min-h-[calc(100vh-3rem)] items-center justify-center px-4 py-12">
       <div className="relative w-full max-w-md">
         <div className="glass rounded-[28px] p-6 sm:p-10">
           <h1 className="text-center text-[32px] leading-[1.125] font-semibold">{title}</h1>

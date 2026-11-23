@@ -19,9 +19,15 @@ const TRACK_STEPS = [
   { icon: House, label: 'وصل' },
 ]
 
-/** The "product shot": a sample order being tracked, drawn in HTML instead of a photo. */
+/** The "product shot": a sample order being tracked, drawn in HTML instead of a photo.
+ *  The steps light up one after another on a loop, so the hero shows the product moving. */
 function OrderPreview() {
-  const done = 3
+  const [done, setDone] = useState(1)
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return setDone(3)
+    const id = setInterval(() => setDone((d) => (d >= TRACK_STEPS.length ? 1 : d + 1)), 1400)
+    return () => clearInterval(id)
+  }, [])
   return (
     <div className="glass relative mx-auto w-full max-w-sm rounded-[24px] p-5 text-start md:p-6" aria-hidden>
       <div className="flex items-start justify-between gap-3">
@@ -29,14 +35,20 @@ function OrderPreview() {
           <p className="text-[12px] text-stone-500">طلب رقم 1042</p>
           <p className="text-[17px] font-semibold">شاورما البيدر</p>
         </div>
-        <span className="rounded-full bg-white/80 px-3 py-1 text-[12px] font-semibold text-brand-700">في الطريق إليك</span>
+        <span key={done} className="animate-pop rounded-full bg-white/80 px-3 py-1 text-[12px] font-semibold text-brand-700">
+          {TRACK_STEPS[done - 1].label}
+        </span>
       </div>
 
       <ol className="mt-6 grid grid-cols-4">
         {TRACK_STEPS.map(({ icon: Icon, label }, i) => (
           <li key={label} className="relative flex flex-col items-center gap-2 text-center">
-            {i > 0 && <span className={`absolute top-5 end-1/2 h-0.5 w-full ${i < done ? 'bg-accent' : 'bg-white'}`} />}
-            <span className={`relative grid size-10 place-items-center rounded-full ${i < done ? 'bg-accent text-white' : 'bg-white text-stone-400'}`}>
+            {i > 0 && <span className={`absolute top-5 end-1/2 h-0.5 w-full transition-colors duration-500 ${i < done ? 'bg-accent' : 'bg-white'}`} />}
+            <span
+              className={`relative grid size-10 place-items-center rounded-full transition-all duration-500 ease-apple ${
+                i < done ? 'bg-accent text-white' : 'bg-white text-stone-400'
+              } ${i === done - 1 ? 'scale-110 shadow-lg shadow-accent/40' : ''}`}
+            >
               <Icon className="size-5" strokeWidth={1.75} />
             </span>
             <span className={`text-[11px] ${i < done ? 'text-ink' : 'text-stone-500'}`}>{label}</span>
@@ -89,7 +101,7 @@ function Hero({ onBrowse }) {
   )
 
   return (
-    <section ref={ref} className="overflow-hidden bg-white px-4 pt-12 text-center md:pt-20">
+    <section ref={ref} className="overflow-hidden px-4 pt-12 text-center md:pt-20">
       <p className="hero-fade text-[17px] font-semibold text-brand-700 md:text-[21px]">توصيل</p>
       <SplitText
         text="أكلك المفضل، لحد باب البيت."
@@ -114,10 +126,12 @@ function Hero({ onBrowse }) {
         </Link>
       </div>
 
-      <div className="hero-device relative mx-auto mt-12 max-w-3xl overflow-hidden rounded-t-[28px] bg-gradient-to-b from-brand-50 to-stone-50 px-5 pt-10 pb-14 md:mt-16 md:pt-16 md:pb-20">
+      <div className="hero-device relative mx-auto mt-12 max-w-3xl overflow-hidden rounded-[28px] bg-white/30 px-5 pt-10 pb-14 md:mt-16 md:pt-16 md:pb-20">
         <Aurora />
         <div className="hero-card">
-          <OrderPreview />
+          <div className="animate-float">
+            <OrderPreview />
+          </div>
         </div>
       </div>
     </section>
@@ -132,7 +146,7 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section className="bg-stone-50 px-4 py-16 md:py-24">
+    <section className="px-4 py-16 md:py-24">
       <div className="mx-auto max-w-5xl">
         <h2 className="text-center text-[32px] leading-[1.125] font-semibold md:text-5xl">ثلاث خطوات، والأكل عندك.</h2>
         <AnimatedContent distance={40} duration={0.5} stagger={0.12} className="mt-10 grid gap-4 md:mt-14 md:grid-cols-3 md:gap-5">
@@ -225,7 +239,7 @@ export default function HomePage() {
                 <div className="min-w-0 flex-1 p-4 sm:p-5">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="truncate text-[17px] font-semibold sm:text-[19px]">{r.name}</h3>
-                    {r.category && <span className="shrink-0 rounded-full bg-stone-50 px-3 py-1 text-[12px] text-stone-600">{r.category}</span>}
+                    {r.category && <span className="shrink-0 rounded-full bg-black/[0.05] px-3 py-1 text-[12px] text-stone-600">{r.category}</span>}
                   </div>
                   {r.description && <p className="mt-1 line-clamp-1 text-[14px] text-stone-500 sm:line-clamp-2">{r.description}</p>}
                   {r.address && (

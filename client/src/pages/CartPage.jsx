@@ -110,7 +110,7 @@ export default function CartPage() {
           <Field label="عنوان التوصيل" as="textarea" rows={2} required value={form.deliveryAddress} onChange={set('deliveryAddress')} error={errors.deliveryAddress} placeholder="المدينة، الحي، الشارع، أقرب معلم" />
           <Field label="رقم الهاتف" type="tel" dir="ltr" required value={phone} onChange={set('phone')} error={errors.phone} placeholder="059xxxxxxx" />
           <Field label="ملاحظات (اختياري)" as="textarea" rows={2} value={form.notes} onChange={set('notes')} error={errors.notes} placeholder="مثلاً: بدون بصل" />
-          <p className="flex items-center gap-2 rounded-2xl bg-stone-50 px-4 py-3 text-[14px] text-stone-600">
+          <p className="flex items-center gap-2 rounded-2xl bg-black/[0.04] px-4 py-3 text-[14px] text-stone-600">
             <Banknote className="size-5 shrink-0" strokeWidth={1.5} aria-hidden />
             الدفع نقداً عند الاستلام
           </p>

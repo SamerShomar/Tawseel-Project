@@ -21,7 +21,7 @@ export function SegmentedControl({ options, value, onChange, label }) {
 
   return (
     <div className="no-scrollbar -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-      <div role="tablist" aria-label={label} className="relative inline-flex rounded-full bg-stone-100 p-1">
+      <div role="tablist" aria-label={label} className="relative inline-flex rounded-full bg-black/[0.06] p-1">
         {indicator && (
           <span
             className="absolute top-1 bottom-1 rounded-full bg-white shadow-[0_3px_8px_rgb(0_0_0/0.12)] transition-all duration-400 ease-apple"

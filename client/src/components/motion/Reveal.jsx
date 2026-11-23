@@ -19,13 +19,13 @@ export function useReveal(deps = []) {
     const fresh = [...el.children].filter((c) => !shown.current.has(c))
     if (!fresh.length) return
 
-    gsap.set(fresh, { opacity: 0, y: 28 })
+    gsap.set(fresh, { opacity: 0, y: 60, scale: 0.94 })
     const triggers = ScrollTrigger.batch(fresh, {
       start: 'top 96%',
       once: true,
       onEnter: (batch) => {
         batch.forEach((c) => shown.current.add(c))
-        gsap.to(batch, { opacity: 1, y: 0, duration: 0.6, stagger: 0.06, ease: 'expo.out', overwrite: true })
+        gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 0.9, stagger: 0.08, ease: 'expo.out', overwrite: true })
       },
     })
 
@@ -33,7 +33,7 @@ export function useReveal(deps = []) {
     // (the next run hides it again if it is still waiting to appear).
     return () => {
       triggers.forEach((t) => t.kill())
-      fresh.filter((c) => !shown.current.has(c)).forEach((c) => gsap.set(c, { clearProps: 'opacity,transform' }))
+      fresh.filter((c) => !shown.current.has(c)).forEach((c) => gsap.set(c, { clearProps: 'opacity,transform,scale' }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)

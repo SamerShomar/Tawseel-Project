@@ -57,13 +57,13 @@ export default function AccountPage() {
         <p className="text-[14px] text-stone-500" dir="ltr">
           {user.email}
         </p>
-        <span className="mt-3 rounded-full bg-stone-50 px-3 py-1 text-[12px] text-stone-600">{ROLE_LABEL[user.role]}</span>
+        <span className="mt-3 rounded-full bg-black/[0.05] px-3 py-1 text-[12px] text-stone-600">{ROLE_LABEL[user.role]}</span>
       </div>
 
       <ul className="card mt-4 divide-y divide-stone-100 overflow-hidden">
         {links.map((l) => (
           <li key={l.to}>
-            <Link to={l.to} className="flex items-center gap-3 px-5 py-3.5 text-[17px] transition hover:bg-stone-50 active:bg-stone-100">
+            <Link to={l.to} className="flex items-center gap-3 px-5 py-3.5 text-[17px] transition hover:bg-white/60 active:bg-white/80">
               <span className="grid size-8 place-items-center rounded-lg bg-accent text-white" aria-hidden>
                 <l.icon className="size-[18px]" strokeWidth={1.75} />
               </span>

@@ -34,7 +34,7 @@ function ActiveDelivery({ order, onAction, onRelease, busy }) {
       <ol className="relative space-y-5 p-5 text-[14px]">
         <span className="absolute start-[35px] top-14 bottom-14 border-s-2 border-dotted border-stone-300" aria-hidden />
         <li className={`relative flex items-start gap-3 transition-opacity duration-500 ${pickedUp ? 'opacity-50' : ''}`}>
-          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-stone-50 text-brand-700 ring-1 ring-black/5">
+          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-white/80 text-brand-700 ring-1 ring-black/5">
             <Store className="size-4" strokeWidth={1.75} aria-hidden />
           </span>
           <div className="min-w-0 flex-1">
@@ -75,7 +75,7 @@ function ActiveDelivery({ order, onAction, onRelease, busy }) {
       </details>
 
       {/* Phones: total on its own line, then the buttons side by side across the full width. */}
-      <div className="flex flex-col gap-3 bg-stone-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 bg-black/[0.04] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-[14px]">
           حصّل من الزبون: <b className="text-[17px]">{formatPrice(order.total)}</b>
         </p>

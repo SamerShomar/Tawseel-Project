@@ -42,7 +42,7 @@ export default function OrderDetailsPage() {
         {state?.justPlaced && <Alert type="success">تم إرسال طلبك بنجاح! رح يوصلك إشعار هون لما المطعم يأكّده.</Alert>}
 
         {/* Tracker on frosted glass over slowly drifting color. */}
-        <section className="relative overflow-hidden rounded-[24px] bg-stone-50 p-3 sm:p-5">
+        <section className="relative overflow-hidden rounded-[24px] bg-white/40 p-3 sm:p-5">
           <Aurora />
           <div className="glass relative rounded-[20px] p-5 sm:p-7">
             <OrderProgress status={order.status} />
@@ -52,7 +52,7 @@ export default function OrderDetailsPage() {
 
         {order.driver && isActiveOrder(order.status) && (
           <section className="card flex items-center gap-4 p-5">
-            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-stone-50 text-brand-700" aria-hidden>
+            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-white/80 text-brand-700" aria-hidden>
               <Bike className="size-6" strokeWidth={1.5} />
             </span>
             <div className="min-w-0 flex-1">

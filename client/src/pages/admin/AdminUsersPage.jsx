@@ -84,7 +84,7 @@ export default function AdminUsersPage() {
         ) : (
           <ul ref={listRef} className="card divide-y divide-stone-100 overflow-hidden">
             {data?.users.map((u) => (
-              <li key={u.id} className={`flex flex-wrap items-center gap-3 p-5 ${u.isActive ? '' : 'bg-stone-50'}`}>
+              <li key={u.id} className={`flex flex-wrap items-center gap-3 p-5 ${u.isActive ? '' : 'bg-black/[0.04]'}`}>
                 <span className="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-accent to-brand-700 text-[17px] font-semibold text-white">
                   {u.name.trim()[0]}
                 </span>
