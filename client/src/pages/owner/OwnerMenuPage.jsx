@@ -70,7 +70,7 @@ function AvailabilitySwitch({ item, onToggle }) {
     >
       {/* The visible switch stays 44×24; the button around it gives a 44×44 tap area. */}
       <span className={`relative h-6 w-12 rounded-full transition ${item.isAvailable ? 'bg-emerald-500' : 'bg-stone-300'}`}>
-        <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-all ${item.isAvailable ? 'start-6' : 'start-0.5'}`} />
+        <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-all ${item.isAvailable ? 'start-6' : 'start-1'}`} />
       </span>
     </button>
   )

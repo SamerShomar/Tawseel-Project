@@ -150,7 +150,10 @@ function MobileTabBar() {
 export function Layout() {
   useLenis()
   const { pathname } = useLocation()
-  useEffect(() => scrollToTop(), [pathname])
+  // Braces matter: window.scrollTo can return a Promise, and an effect must return nothing or a cleanup function.
+  useEffect(() => {
+    scrollToTop()
+  }, [pathname])
 
   return (
     <div className="flex min-h-screen flex-col">
