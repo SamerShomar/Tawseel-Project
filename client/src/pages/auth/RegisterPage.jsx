@@ -53,7 +53,7 @@ export default function RegisterPage() {
     >
       <form onSubmit={submit} className="flex flex-col gap-4" noValidate>
         <fieldset className="grid grid-cols-3 gap-2 sm:gap-3">
-          <legend className="mb-1.5 text-sm font-medium text-stone-700">نوع الحساب</legend>
+          <legend className="mb-2 text-sm font-medium text-stone-700">نوع الحساب</legend>
           {ROLES.map((r) => (
             <label
               key={r.value}

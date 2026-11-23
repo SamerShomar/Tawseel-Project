@@ -28,7 +28,7 @@ export function OrderProgress({ status }) {
               </span>
               <span className={`h-1 flex-1 rounded ${i === ORDER_STEPS.length - 1 ? 'invisible' : i < current ? 'bg-brand-500' : 'bg-stone-200'}`} />
             </div>
-            <span className={`text-[11px] leading-tight sm:text-xs ${done ? 'font-semibold text-ink' : 'text-stone-500'}`}>
+            <span className={`text-xs leading-tight ${done ? 'font-semibold text-ink' : 'text-stone-500'}`}>
               {STATUS[step].label}
             </span>
           </li>

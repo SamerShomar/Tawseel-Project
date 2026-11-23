@@ -14,15 +14,20 @@ function Hero({ onBrowse }) {
 
   useGSAP(
     () => {
-      gsap.from('.hero-fade', { y: 24, opacity: 0, duration: 0.5, stagger: 0.08, delay: 0.15, ease: 'power3.out' })
-      gsap.to('.hero-food', { y: -14, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: 0.4 })
+      // Only animate when the person hasn't asked their device to reduce motion.
+      const mm = gsap.matchMedia()
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.from('.hero-fade', { y: 24, opacity: 0, duration: 0.5, stagger: 0.08, delay: 0.15, ease: 'power3.out' })
+        gsap.to('.hero-food', { y: -14, duration: 2.4, ease: 'sine.inOut', yoyo: true, repeat: -1, stagger: 0.4 })
+      })
+      return () => mm.revert()
     },
     { scope: ref },
   )
 
   return (
     <section ref={ref} className="relative overflow-hidden bg-gradient-to-b from-brand-50 to-stone-50">
-      <div className="mx-auto grid max-w-6xl items-center gap-2 px-4 pt-4 pb-8 md:grid-cols-2 md:gap-10 md:py-24">
+      <div className="mx-auto grid max-w-6xl items-center gap-2 px-4 pt-4 pb-8 md:grid-cols-2 md:gap-10 md:py-16">
         <div>
           <p className="hero-fade mb-3 inline-block rounded-full bg-white px-3 py-1 text-sm font-medium text-brand-700 shadow-sm md:mb-4">
             الدفع عند الاستلام 💵
@@ -73,7 +78,7 @@ const STEPS = [
 function HowItWorks() {
   return (
     <section className="mx-auto max-w-6xl px-4 pb-4 md:py-14">
-      <AnimatedContent distance={40} stagger={0.12} className="grid grid-cols-3 gap-2 md:gap-4">
+      <AnimatedContent distance={40} duration={0.5} stagger={0.12} className="grid grid-cols-3 gap-2 md:gap-4">
         {STEPS.map((s) => (
           <div key={s.title} className="card p-3 text-center md:p-6 md:text-start">
             <span className="text-2xl md:text-3xl" aria-hidden>
@@ -154,14 +159,14 @@ export default function HomePage() {
                 to={`/restaurants/${r.id}`}
                 className="card group flex items-stretch overflow-hidden transition active:scale-[0.99] sm:block sm:hover:-translate-y-1 sm:hover:shadow-lg"
               >
-                <RestaurantCover restaurant={r} className="w-24 shrink-0 transition duration-500 sm:h-28 sm:w-full sm:group-hover:scale-105" />
+                <RestaurantCover restaurant={r} className="w-24 shrink-0 transition duration-300 sm:h-28 sm:w-full sm:group-hover:scale-105" />
                 <div className="min-w-0 flex-1 p-3.5 sm:p-5">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="truncate font-bold sm:text-lg">{r.name}</h3>
-                    {r.category && <span className="shrink-0 rounded-full bg-stone-100 px-2.5 py-0.5 text-xs text-stone-600">{r.category}</span>}
+                    {r.category && <span className="shrink-0 rounded-full bg-stone-100 px-3 py-1 text-xs text-stone-600">{r.category}</span>}
                   </div>
                   {r.description && <p className="mt-1 line-clamp-1 text-sm text-stone-500 sm:line-clamp-2">{r.description}</p>}
-                  {r.address && <p className="mt-1.5 truncate text-xs text-stone-500 sm:mt-3">📍 {r.address}</p>}
+                  {r.address && <p className="mt-2 truncate text-xs text-stone-500 sm:mt-3">📍 {r.address}</p>}
                 </div>
               </Link>
             ))}

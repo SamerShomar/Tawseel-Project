@@ -57,7 +57,7 @@ body {
 }
 
 @utility input {
-    @apply w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-base outline-none transition md:text-sm
+    @apply w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-base outline-none transition md:text-sm
       placeholder:text-stone-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
 }
 
