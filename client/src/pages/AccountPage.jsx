@@ -47,7 +47,7 @@ export default function AccountPage() {
           <p className="truncate text-sm text-stone-500" dir="ltr">
             {user.email}
           </p>
-          <span className="mt-1 inline-block rounded-full bg-stone-100 px-2.5 py-0.5 text-xs text-stone-600">{ROLE_LABEL[user.role]}</span>
+          <span className="mt-1 inline-block rounded-full bg-stone-100 px-3 py-1 text-xs text-stone-600">{ROLE_LABEL[user.role]}</span>
         </div>
       </div>
 
@@ -57,7 +57,7 @@ export default function AccountPage() {
             <Link to={l.to} className="flex items-center gap-3 px-5 py-4 font-medium active:bg-stone-50">
               <span aria-hidden>{l.icon}</span>
               <span className="flex-1">{l.label}</span>
-              <span className="text-stone-400" aria-hidden>
+              <span className="text-stone-500" aria-hidden>
                 ‹
               </span>
             </Link>

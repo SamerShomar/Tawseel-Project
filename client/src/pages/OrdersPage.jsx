@@ -12,7 +12,7 @@ function OrderRow({ order }) {
     <Link to={`/orders/${order.id}`} className="card flex flex-wrap items-center gap-x-4 gap-y-2 p-4 transition hover:shadow-md">
       <div className="flex-1">
         <p className="font-bold">
-          {order.restaurant.name} <span className="text-sm font-normal text-stone-400">#{order.id}</span>
+          {order.restaurant.name} <span className="text-sm font-normal text-stone-500">#{order.id}</span>
         </p>
         <p className="text-sm text-stone-500">
           {formatDate(order.createdAt)} · {order.items.reduce((n, i) => n + i.quantity, 0)} صنف

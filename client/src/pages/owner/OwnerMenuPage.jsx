@@ -34,7 +34,7 @@ function MenuItemForm({ initial, onSave, onCancel }) {
 
   return (
     <form onSubmit={submit} className="card grid gap-4 p-5 sm:grid-cols-2" noValidate>
-      <h2 className="text-lg font-bold sm:col-span-2">{initial ? `تعديل «${initial.name}»` : 'صنف جديد'}</h2>
+      <h2 className="text-xl font-bold sm:col-span-2">{initial ? `تعديل «${initial.name}»` : 'صنف جديد'}</h2>
       <div className="sm:col-span-2">
         <Alert>{error}</Alert>
       </div>
@@ -66,9 +66,12 @@ function AvailabilitySwitch({ item, onToggle }) {
       aria-checked={item.isAvailable}
       aria-label={`${item.name} متوفر`}
       onClick={() => onToggle(item)}
-      className={`relative h-6 w-11 shrink-0 rounded-full transition ${item.isAvailable ? 'bg-emerald-500' : 'bg-stone-300'}`}
+      className="flex h-11 w-12 shrink-0 items-center"
     >
-      <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-all ${item.isAvailable ? 'start-5.5' : 'start-0.5'}`} />
+      {/* The visible switch stays 44×24; the button around it gives a 44×44 tap area. */}
+      <span className={`relative h-6 w-12 rounded-full transition ${item.isAvailable ? 'bg-emerald-500' : 'bg-stone-300'}`}>
+        <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-all ${item.isAvailable ? 'start-6' : 'start-1'}`} />
+      </span>
     </button>
   )
 }
@@ -141,7 +144,7 @@ export default function OwnerMenuPage() {
                     {item.description && <p className="line-clamp-1 text-xs text-stone-500">{item.description}</p>}
                     <p className="mt-1 text-sm">
                       <span className="font-bold text-brand-700">{formatPrice(item.price)}</span>
-                      {item.category && <span className="text-stone-400"> · {item.category}</span>}
+                      {item.category && <span className="text-stone-500"> · {item.category}</span>}
                     </p>
                   </div>
                   <AvailabilitySwitch item={item} onToggle={toggle} />
@@ -174,7 +177,7 @@ export default function OwnerMenuPage() {
               </thead>
               <tbody className="divide-y divide-stone-100">
                 {items.map((item) => (
-                  <tr key={item.id} className={item.isAvailable ? '' : 'text-stone-400'}>
+                  <tr key={item.id} className={item.isAvailable ? '' : 'text-stone-500'}>
                     <td className="p-3">
                       <p className="font-semibold">{item.name}</p>
                       {item.description && <p className="line-clamp-1 text-xs text-stone-500">{item.description}</p>}

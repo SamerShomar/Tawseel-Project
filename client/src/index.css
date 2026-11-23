@@ -40,12 +40,12 @@ body {
 }
 
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-base font-semibold transition md:text-sm
       disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500;
 }
 
 @utility btn-primary {
-    @apply btn bg-brand-500 text-white hover:bg-brand-600;
+    @apply btn bg-[#c8410f] text-white hover:bg-brand-700;
 }
 
 @utility btn-secondary {
@@ -57,8 +57,8 @@ body {
 }
 
 @utility input {
-    @apply w-full rounded-xl border border-stone-300 bg-white px-3.5 py-2.5 text-base outline-none transition md:text-sm
-      placeholder:text-stone-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
+    @apply w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-base outline-none transition md:text-sm
+      placeholder:text-stone-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
 }
 
 @utility card {

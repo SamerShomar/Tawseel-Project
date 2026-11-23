@@ -44,14 +44,14 @@ export default function RestaurantPage() {
   return (
     <div className="pb-24 md:pb-28">
       <div className="relative">
-        <RestaurantCover restaurant={restaurant} className="h-36 w-full sm:h-64" />
+        <RestaurantCover restaurant={restaurant} className="h-24 w-full sm:h-40" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
       </div>
 
       <div className="mx-auto max-w-6xl px-4">
-        <div className="card relative -mt-10 p-5 sm:-mt-12 sm:p-6">
+        <div className="card relative -mt-6 p-5 sm:-mt-12 sm:p-6">
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl font-bold sm:text-3xl">{restaurant.name}</h1>
+            <h1 className="text-[28px] font-bold sm:text-3xl">{restaurant.name}</h1>
             {restaurant.category && <span className="rounded-full bg-brand-50 px-3 py-1 text-sm text-brand-700">{restaurant.category}</span>}
           </div>
           {restaurant.description && <p className="mt-2 text-stone-600">{restaurant.description}</p>}
@@ -127,13 +127,13 @@ export default function RestaurantPage() {
                           <span className="font-bold text-brand-700">{formatPrice(item.price)}</span>
                           {!canOrder ? null : qty ? (
                             <div className="flex items-center gap-2">
-                              <button className="btn-secondary size-9 p-0" onClick={() => cart.setQuantity(item.id, qty - 1)} aria-label={`إنقاص ${item.name}`}>
+                              <button className="btn-secondary size-11 p-0" onClick={() => cart.setQuantity(item.id, qty - 1)} aria-label={`إنقاص ${item.name}`}>
                                 −
                               </button>
                               <span className="w-6 text-center font-semibold" aria-live="polite">
                                 {qty}
                               </span>
-                              <button className="btn-primary size-9 p-0" onClick={() => cart.setQuantity(item.id, qty + 1)} aria-label={`زيادة ${item.name}`}>
+                              <button className="btn-primary size-11 p-0" onClick={() => cart.setQuantity(item.id, qty + 1)} aria-label={`زيادة ${item.name}`}>
                                 +
                               </button>
                             </div>
@@ -155,7 +155,7 @@ export default function RestaurantPage() {
       </div>
 
       {cart.count > 0 && cart.restaurant?.id === restaurant.id && (
-        <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-stone-200 bg-white/95 px-4 py-3 backdrop-blur md:bottom-0 md:py-4">
+        <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-stone-200 bg-white/95 px-4 py-2 backdrop-blur md:bottom-0 md:py-4">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
             <span className="text-sm">
               <strong>{cart.count}</strong> صنف · <strong>{formatPrice(cart.total)}</strong>

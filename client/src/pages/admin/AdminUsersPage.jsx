@@ -85,17 +85,17 @@ export default function AdminUsersPage() {
                 <div className="min-w-0 flex-1">
                   <p className="flex flex-wrap items-center gap-2 font-semibold">
                     <span className="truncate">{u.name}</span>
-                    <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs font-normal text-stone-600">{ROLE_LABEL[u.role]}</span>
-                    {!u.isActive && <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-normal text-rose-700">موقوف</span>}
+                    <span className="rounded-full bg-stone-100 px-2 py-1 text-xs font-normal text-stone-600">{ROLE_LABEL[u.role]}</span>
+                    {!u.isActive && <span className="rounded-full bg-rose-100 px-2 py-1 text-xs font-normal text-rose-700">موقوف</span>}
                     {u.role === 'DRIVER' && !u.driverApproved && (
-                      <span className="rounded-full bg-sky-100 px-2 py-0.5 text-xs font-normal text-sky-800">بانتظار الموافقة</span>
+                      <span className="rounded-full bg-sky-100 px-2 py-1 text-xs font-normal text-sky-800">بانتظار الموافقة</span>
                     )}
-                    {!u.emailVerified && <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-normal text-amber-800">الإيميل غير مؤكد</span>}
+                    {!u.emailVerified && <span className="rounded-full bg-amber-100 px-2 py-1 text-xs font-normal text-amber-800">الإيميل غير مؤكد</span>}
                   </p>
                   <p className="truncate text-sm text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
                     {u.email}
                   </p>
-                  <p className="text-xs text-stone-400">
+                  <p className="text-xs text-stone-500">
                     {u.restaurant
                       ? `مطعم: ${u.restaurant.name} · `
                       : u.role === 'CUSTOMER'

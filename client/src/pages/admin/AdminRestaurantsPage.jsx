@@ -44,8 +44,8 @@ export default function AdminRestaurantsPage() {
                 <div className="min-w-0 flex-1 p-4">
                   <div className="flex flex-wrap items-center gap-2">
                     <h2 className="truncate font-bold">{r.name}</h2>
-                    {r.category && <span className="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-600">{r.category}</span>}
-                    <span className={`rounded-full px-2 py-0.5 text-xs ${r.isActive ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-700'}`}>
+                    {r.category && <span className="rounded-full bg-stone-100 px-2 py-1 text-xs text-stone-600">{r.category}</span>}
+                    <span className={`rounded-full px-2 py-1 text-xs ${r.isActive ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-700'}`}>
                       {r.isActive ? 'ظاهر' : 'مخفي'}
                     </span>
                   </div>
@@ -54,7 +54,7 @@ export default function AdminRestaurantsPage() {
                     {!r.owner.isActive && <span className="text-rose-600"> (حساب موقوف)</span>}
                     {!r.owner.emailVerifiedAt && <span className="text-amber-700"> (الإيميل غير مؤكد، المطعم مش ظاهر للزباين)</span>}
                   </p>
-                  <p className="text-xs text-stone-400">
+                  <p className="text-xs text-stone-500">
                     {r.menuItemsCount} صنف · {r.ordersCount} طلب {r.address && `· ${r.address}`}
                   </p>
                   <div className="mt-3 flex flex-wrap gap-2">

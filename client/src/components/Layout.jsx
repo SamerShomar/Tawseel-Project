@@ -126,7 +126,7 @@ function MobileTabBar() {
               end={t.end}
               className={({ isActive }) =>
                 `flex h-16 flex-col items-center justify-center gap-0.5 text-[11px] font-medium transition ${
-                  isActive ? 'text-brand-600' : 'text-stone-500'
+                  isActive ? 'text-[#c8410f]' : 'text-stone-500'
                 }`
               }
             >
@@ -150,7 +150,10 @@ function MobileTabBar() {
 export function Layout() {
   useLenis()
   const { pathname } = useLocation()
-  useEffect(() => scrollToTop(), [pathname])
+  // Braces matter: window.scrollTo can return a Promise, and an effect must return nothing or a cleanup function.
+  useEffect(() => {
+    scrollToTop()
+  }, [pathname])
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -162,7 +165,7 @@ export function Layout() {
       </main>
       <footer className="hidden border-t border-stone-200 py-6 text-center text-sm text-stone-500 md:block">
         <p>© {YEAR} توصيل – فريق ORBA</p>
-        <p className="mt-1 text-xs text-stone-400">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض</p>
+        <p className="mt-1 text-xs text-stone-500">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض</p>
       </footer>
       <MobileTabBar />
     </div>
@@ -176,7 +179,7 @@ export function Page({ title, subtitle, actions, children, narrow = false }) {
       {(title || actions) && (
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3 md:mb-6">
           <div>
-            {title && <h1 className="text-2xl font-bold sm:text-3xl">{title}</h1>}
+            {title && <h1 className="text-[28px] font-bold sm:text-3xl">{title}</h1>}
             {subtitle && <p className="mt-1 text-stone-500">{subtitle}</p>}
           </div>
           {actions}

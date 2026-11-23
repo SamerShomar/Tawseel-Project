@@ -41,7 +41,7 @@ export default function OrderDetailsPage() {
 
         <section className="card p-5 sm:p-6">
           <OrderProgress status={order.status} />
-          {isActiveOrder(order.status) && <p className="mt-4 text-center text-xs text-stone-400">يتم تحديث الحالة تلقائياً</p>}
+          {isActiveOrder(order.status) && <p className="mt-4 text-center text-xs text-stone-500">يتم تحديث الحالة تلقائياً</p>}
         </section>
 
         {order.driver && isActiveOrder(order.status) && (
