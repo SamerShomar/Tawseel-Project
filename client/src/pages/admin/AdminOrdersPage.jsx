@@ -1,4 +1,6 @@
 import { Link, useSearchParams } from 'react-router'
+import { ChevronLeft, ReceiptText, X } from 'lucide-react'
+import { useReveal } from '@/components/motion/Reveal'
 import { Page } from '@/components/Layout'
 import { StatusBadge } from '@/components/StatusBadge'
 import { Alert } from '@/components/ui/Alert'
@@ -21,6 +23,7 @@ export default function AdminOrdersPage() {
   }
 
   const orders = data?.orders || []
+  const listRef = useReveal([orders])
   const restaurantName = restaurantId && orders[0]?.restaurant.name
 
   return (
@@ -29,21 +32,20 @@ export default function AdminOrdersPage() {
       subtitle={restaurantId ? `طلبات ${restaurantName || 'المطعم'}` : data ? `${orders.length} طلب` : undefined}
       actions={
         restaurantId && (
-          <Link to={status ? `/admin/orders?status=${status}` : '/admin/orders'} className="btn-secondary py-2">
-            كل المطاعم ✕
+          <Link to={status ? `/admin/orders?status=${status}` : '/admin/orders'} className="btn-secondary">
+            كل المطاعم
+            <X className="size-4" strokeWidth={2} aria-hidden />
           </Link>
         )
       }
     >
-      <div className="no-scrollbar -mx-4 mb-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="الحالة">
+      <div className="no-scrollbar -mx-4 mb-6 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="الحالة">
         {['', ...ORDER_STEPS, 'REJECTED'].map((s) => (
           <button
             key={s || 'all'}
             onClick={() => setStatus(s)}
             aria-pressed={status === s}
-            className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium whitespace-nowrap transition ${
-              status === s ? 'bg-ink text-white' : 'bg-white text-stone-600 ring-1 ring-stone-200'
-            }`}
+            className="chip"
           >
             {s ? STATUS[s].label : 'الكل'}
           </button>
@@ -54,22 +56,26 @@ export default function AdminOrdersPage() {
       {loading && !data ? (
         <Spinner />
       ) : orders.length === 0 ? (
-        <EmptyState icon="🧾" title="ما في طلبات هون" />
+        <EmptyState icon={ReceiptText} title="ما في طلبات هون" />
       ) : (
-        <ul className="space-y-3">
+        <ul ref={listRef} className="space-y-3">
           {orders.map((o) => (
             <li key={o.id}>
-              <Link to={`/orders/${o.id}`} className="card flex flex-wrap items-center gap-x-4 gap-y-2 p-4 transition hover:shadow-md">
+              <Link
+                to={`/orders/${o.id}`}
+                className="card flex flex-wrap items-center gap-x-4 gap-y-2 p-5 transition duration-300 active:scale-[0.99] sm:hover:scale-[1.01] sm:hover:shadow-[2px_4px_16px_rgb(0_0_0/0.16)]"
+              >
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-bold">
+                  <p className="truncate text-[17px] font-semibold">
                     #{o.id} · {o.restaurant.name}
                   </p>
-                  <p className="truncate text-sm text-stone-500">
+                  <p className="truncate text-[14px] text-stone-500">
                     {o.customer.name} · {o.items.reduce((n, i) => n + i.quantity, 0)} صنف · {formatDate(o.createdAt)}
                   </p>
                 </div>
                 <StatusBadge status={o.status} />
-                <span className="w-20 text-end font-bold">{formatPrice(o.total)}</span>
+                <span className="w-20 text-end text-[17px] font-semibold">{formatPrice(o.total)}</span>
+                <ChevronLeft className="size-5 text-stone-400" strokeWidth={1.75} aria-hidden />
               </Link>
             </li>
           ))}

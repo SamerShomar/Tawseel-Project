@@ -1,5 +1,7 @@
+import { UtensilsCrossed } from 'lucide-react'
+
 /** Centered message for empty lists. `icon` is a lucide icon component (an emoji string still works). */
-export function EmptyState({ icon: Icon = '🍽️', title, children }) {
+export function EmptyState({ icon: Icon = UtensilsCrossed, title, children }) {
   return (
     <div className="card flex flex-col items-center gap-3 px-6 py-14 text-center">
       {typeof Icon === 'string' ? (

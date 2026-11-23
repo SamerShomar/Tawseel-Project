@@ -1,39 +1,56 @@
+import { useEffect, useState } from 'react'
+import { Bike, ChefHat, CircleCheck, CircleX, House, ReceiptText } from 'lucide-react'
 import { ORDER_STEPS, STATUS } from '@/lib/format'
+
+const ICONS = { PENDING: ReceiptText, ACCEPTED: CircleCheck, PREPARING: ChefHat, ON_THE_WAY: Bike, DELIVERED: House }
 
 /** Step-by-step tracker: Pending → Accepted → Preparing → On the way → Delivered. */
 export function OrderProgress({ status }) {
+  const current = ORDER_STEPS.indexOf(status)
+  // Start the line empty, then let it grow to the current step (CSS transition).
+  const [fill, setFill] = useState(0)
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setFill(Math.max(current, 0) / (ORDER_STEPS.length - 1)))
+    return () => cancelAnimationFrame(id)
+  }, [current])
+
   if (status === 'REJECTED') {
     return (
-      <div className="rounded-xl bg-rose-50 p-4 text-center text-sm font-medium text-rose-700">
+      <div className="flex items-center justify-center gap-2 rounded-2xl bg-rose-50 p-4 text-[14px] font-medium text-rose-800">
+        <CircleX className="size-5" strokeWidth={1.75} aria-hidden />
         نعتذر، المطعم رفض هذا الطلب.
       </div>
     )
   }
 
-  const current = ORDER_STEPS.indexOf(status)
   return (
-    <ol className="grid grid-cols-5 gap-1" aria-label="حالة الطلب">
-      {ORDER_STEPS.map((step, i) => {
-        const done = i <= current
-        return (
-          <li key={step} className="flex flex-col items-center gap-2 text-center" aria-current={i === current ? 'step' : undefined}>
-            <div className="flex w-full items-center">
-              <span className={`h-1 flex-1 rounded ${i === 0 ? 'invisible' : done ? 'bg-brand-500' : 'bg-stone-200'}`} />
-              <span
-                className={`grid size-8 shrink-0 place-items-center rounded-full text-xs font-bold transition ${
-                  done ? 'bg-brand-500 text-white' : 'bg-stone-200 text-stone-600'
-                } ${i === current && status !== 'DELIVERED' ? 'ring-4 ring-brand-100' : ''}`}
-              >
-                {done ? '✓' : i + 1}
+    <div className="relative">
+      {/* Track from the first icon's center to the last one's; the orange part grows with progress. */}
+      <div className="absolute inset-x-[10%] top-5 h-1 rounded-full bg-black/5" aria-hidden>
+        <div className="absolute inset-y-0 start-0 rounded-full bg-accent transition-[width] duration-1000 ease-apple" style={{ width: `${fill * 100}%` }} />
+      </div>
+      <ol className="relative grid grid-cols-5 gap-1" aria-label="حالة الطلب">
+        {ORDER_STEPS.map((step, i) => {
+          const done = i <= current
+          const isCurrent = i === current && status !== 'DELIVERED'
+          const Icon = ICONS[step]
+          return (
+            <li key={step} className="flex flex-col items-center gap-2 text-center" aria-current={i === current ? 'step' : undefined}>
+              <span className="relative grid size-10 place-items-center">
+                {isCurrent && <span className="absolute inset-0 animate-ping rounded-full bg-accent/30" aria-hidden />}
+                <span
+                  className={`relative grid size-10 place-items-center rounded-full transition-colors delay-300 duration-500 ${
+                    done ? 'bg-accent text-white' : 'bg-white text-stone-400 ring-1 ring-black/5'
+                  }`}
+                >
+                  <Icon className="size-5" strokeWidth={1.75} aria-hidden />
+                </span>
               </span>
-              <span className={`h-1 flex-1 rounded ${i === ORDER_STEPS.length - 1 ? 'invisible' : i < current ? 'bg-brand-500' : 'bg-stone-200'}`} />
-            </div>
-            <span className={`text-xs leading-tight ${done ? 'font-semibold text-ink' : 'text-stone-500'}`}>
-              {STATUS[step].label}
-            </span>
-          </li>
-        )
-      })}
-    </ol>
+              <span className={`text-[12px] leading-tight ${done ? 'font-semibold text-ink' : 'text-stone-500'}`}>{STATUS[step].label}</span>
+            </li>
+          )
+        })}
+      </ol>
+    </div>
   )
 }

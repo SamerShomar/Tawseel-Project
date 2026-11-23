@@ -34,7 +34,7 @@ export default function LoginPage() {
   return (
     <AuthCard
       title="تسجيل الدخول"
-      subtitle="أهلاً فيك من جديد 👋"
+      subtitle="أهلاً فيك من جديد."
       footer={
         <>
           ما عندك حساب؟ <AuthLink to="/register">أنشئ حساب جديد</AuthLink>
@@ -45,10 +45,10 @@ export default function LoginPage() {
         <Alert>{error}</Alert>
         <Field label="البريد الإلكتروني" type="email" dir="ltr" autoComplete="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
         <Field label="كلمة المرور" type="password" dir="ltr" autoComplete="current-password" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-        <div className="-mt-2 text-end text-sm">
+        <div className="-mt-3 text-end text-[14px]">
           <AuthLink to="/forgot-password">نسيت كلمة المرور؟</AuthLink>
         </div>
-        <button className="btn-primary py-3" disabled={submitting}>
+        <button className="btn-primary mt-2" disabled={submitting}>
           {submitting ? 'جاري الدخول…' : 'دخول'}
         </button>
       </form>

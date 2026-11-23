@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { Bike, MapPin, Package, Store } from 'lucide-react'
 import { Page } from '@/components/Layout'
+import { useReveal } from '@/components/motion/Reveal'
 import { StatusBadge } from '@/components/StatusBadge'
 import { Alert } from '@/components/ui/Alert'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -30,9 +32,11 @@ export default function DriverAvailablePage() {
     }
   }
 
+  const orders = data?.orders || []
+  const listRef = useReveal([orders.length])
+
   if (loading) return <Spinner />
   const gate = <DriverGate error={error} />
-  const orders = data?.orders || []
 
   return (
     <Page title="طلبات متاحة للتوصيل" subtitle={data ? 'تتحدّث تلقائياً' : undefined}>
@@ -42,41 +46,56 @@ export default function DriverAvailablePage() {
         <div className="space-y-3">
           <Alert>{actionError}</Alert>
           {orders.length === 0 ? (
-            <EmptyState icon="📦" title="ما في طلبات بتستنى سائق هلأ">
+            <EmptyState icon={Package} title="ما في طلبات بتستنى سائق هلأ">
               أول ما مطعم يقبل طلب جديد رح يظهر هون.
             </EmptyState>
           ) : (
-            orders.map((o) => (
-              <article key={o.id} className="card p-4 sm:p-5">
+            <div ref={listRef} className="space-y-4">
+            {orders.map((o) => (
+              <article key={o.id} className="card p-5 md:p-6">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <h2 className="truncate font-bold">
+                    <h2 className="truncate text-[17px] font-semibold">
                       #{o.id} · {o.restaurant.name}
                     </h2>
-                    <p className="text-xs text-stone-500">{formatDate(o.createdAt)}</p>
+                    <p className="text-[12px] text-stone-500">{formatDate(o.createdAt)}</p>
                   </div>
                   <StatusBadge status={o.status} />
                 </div>
-                <div className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
-                  <p className="rounded-xl bg-stone-50 p-3">
-                    <span className="block text-xs text-stone-500">الاستلام من</span>
-                    🏪 {o.restaurant.address || o.restaurant.name}
-                  </p>
-                  <p className="rounded-xl bg-stone-50 p-3">
-                    <span className="block text-xs text-stone-500">التوصيل إلى</span>
-                    📍 {o.deliveryAddress}
-                  </p>
-                </div>
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                  <p className="text-sm">
+                {/* Route: pickup → drop-off, joined by a dotted line. */}
+                <ol className="relative mt-4 space-y-4 rounded-2xl bg-stone-50 p-4 text-[14px]">
+                  <span className="absolute start-[31px] top-11 bottom-11 border-s-2 border-dotted border-stone-300" aria-hidden />
+                  <li className="relative flex items-start gap-3">
+                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-white text-brand-700 shadow-sm">
+                      <Store className="size-4" strokeWidth={1.75} aria-hidden />
+                    </span>
+                    <div>
+                      <span className="block text-[12px] text-stone-500">الاستلام من</span>
+                      {o.restaurant.address || o.restaurant.name}
+                    </div>
+                  </li>
+                  <li className="relative flex items-start gap-3">
+                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-accent text-white shadow-sm">
+                      <MapPin className="size-4" strokeWidth={1.75} aria-hidden />
+                    </span>
+                    <div>
+                      <span className="block text-[12px] text-stone-500">التوصيل إلى</span>
+                      {o.deliveryAddress}
+                    </div>
+                  </li>
+                </ol>
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-[14px]">
                     {o.items.reduce((n, i) => n + i.quantity, 0)} صنف · التحصيل من الزبون: <b>{formatPrice(o.total)}</b>
                   </p>
                   <button className="btn-primary" disabled={busyId === o.id} onClick={() => claim(o)}>
-                    {busyId === o.id ? 'جاري الحجز…' : '🛵 أنا بوصّله'}
+                    <Bike className="size-5" strokeWidth={1.75} aria-hidden />
+                    {busyId === o.id ? 'جاري الحجز…' : 'أنا بوصّله'}
                   </button>
                 </div>
               </article>
-            ))
+            ))}
+            </div>
           )}
         </div>
       )}

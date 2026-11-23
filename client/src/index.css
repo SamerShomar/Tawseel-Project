@@ -26,6 +26,56 @@
 
   /* Orange stands in for Apple's blue. Fills use #c8410f (white text 4.98:1); links and text use brand-700 #b93812. */
   --color-accent: #c8410f;
+
+  /* Motion: Apple-like easing (fast start, long soft landing). */
+  --ease-apple: cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-page-in: page-in 0.55s var(--ease-apple) backwards;
+  --animate-pop: pop 0.4s var(--ease-apple);
+  --animate-rise: rise 0.5s var(--ease-apple) both;
+  --animate-drift: drift 18s ease-in-out infinite alternate;
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.6);
+    }
+    60% {
+      transform: scale(1.15);
+    }
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+  }
+  @keyframes drift {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(6%, -8%) scale(1.12);
+    }
+    100% {
+      transform: translate(-6%, 6%) scale(0.95);
+    }
+  }
+}
+
+/* Respect "Reduce Motion": everything snaps to its final state. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Lenis recommended styles */
@@ -58,7 +108,7 @@ body {
 
 /* Pill buttons, as on apple.com. */
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[17px] leading-tight font-normal transition
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[17px] leading-tight font-normal transition duration-200 ease-apple active:scale-[0.97]
       disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
 }
 
@@ -74,6 +124,12 @@ body {
     @apply btn border border-rose-700 text-rose-700 hover:bg-rose-700 hover:text-white;
 }
 
+/* Filter chip; mark the selected one with aria-pressed="true". */
+@utility chip {
+    @apply flex h-11 shrink-0 items-center rounded-full bg-stone-50 px-4 text-[14px] whitespace-nowrap text-ink transition duration-300 hover:bg-stone-100
+      aria-pressed:bg-ink aria-pressed:text-white aria-pressed:hover:bg-ink;
+}
+
 /* Text link with a trailing chevron ("اعرف المزيد ›"). */
 @utility link {
     @apply inline-flex items-center gap-0.5 text-[17px] text-brand-700 hover:underline;
@@ -86,7 +142,13 @@ body {
 
 /* Translucent global navigation bar. */
 @utility material-bar {
-    @apply bg-[rgb(250_250_252/0.8)] backdrop-blur-xl backdrop-saturate-[1.8];
+    @apply bg-[rgb(250_250_252/0.72)] backdrop-blur-2xl backdrop-saturate-[1.8];
+}
+
+/* Frosted glass panel: translucent white, blurred backdrop, bright top edge. Opaque enough that text keeps 4.5:1. */
+@utility glass {
+    @apply border border-white/70 bg-white/72 backdrop-blur-2xl backdrop-saturate-[1.8]
+      shadow-[0_8px_32px_rgb(0_0_0/0.08),inset_0_1px_0_rgb(255_255_255/0.9)];
 }
 
 /* Store-style tile: white, large radius, soft shadow. */

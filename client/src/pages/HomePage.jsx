@@ -3,6 +3,8 @@ import { Link } from 'react-router'
 import { Banknote, Bike, ChefHat, ChevronLeft, House, MapPin, ReceiptText, Search, ShoppingBag, Store } from 'lucide-react'
 import AnimatedContent from '@/components/react-bits/AnimatedContent/AnimatedContent'
 import SplitText from '@/components/react-bits/SplitText/SplitText'
+import { Aurora } from '@/components/motion/Aurora'
+import { useReveal } from '@/components/motion/Reveal'
 import { RestaurantCover } from '@/components/RestaurantCover'
 import { Alert } from '@/components/ui/Alert'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -21,20 +23,20 @@ const TRACK_STEPS = [
 function OrderPreview() {
   const done = 3
   return (
-    <div className="card mx-auto w-full max-w-sm p-5 text-start md:p-6" aria-hidden>
+    <div className="glass relative mx-auto w-full max-w-sm rounded-[24px] p-5 text-start md:p-6" aria-hidden>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-[12px] text-stone-500">طلب رقم 1042</p>
           <p className="text-[17px] font-semibold">شاورما البيدر</p>
         </div>
-        <span className="rounded-full bg-brand-50 px-3 py-1 text-[12px] font-semibold text-brand-700">في الطريق إليك</span>
+        <span className="rounded-full bg-white/80 px-3 py-1 text-[12px] font-semibold text-brand-700">في الطريق إليك</span>
       </div>
 
       <ol className="mt-6 grid grid-cols-4">
         {TRACK_STEPS.map(({ icon: Icon, label }, i) => (
           <li key={label} className="relative flex flex-col items-center gap-2 text-center">
-            {i > 0 && <span className={`absolute top-5 end-1/2 h-0.5 w-full ${i < done ? 'bg-accent' : 'bg-stone-100'}`} />}
-            <span className={`relative grid size-10 place-items-center rounded-full ${i < done ? 'bg-accent text-white' : 'bg-stone-100 text-stone-400'}`}>
+            {i > 0 && <span className={`absolute top-5 end-1/2 h-0.5 w-full ${i < done ? 'bg-accent' : 'bg-white'}`} />}
+            <span className={`relative grid size-10 place-items-center rounded-full ${i < done ? 'bg-accent text-white' : 'bg-white text-stone-400'}`}>
               <Icon className="size-5" strokeWidth={1.75} />
             </span>
             <span className={`text-[11px] ${i < done ? 'text-ink' : 'text-stone-500'}`}>{label}</span>
@@ -42,7 +44,7 @@ function OrderPreview() {
         ))}
       </ol>
 
-      <dl className="mt-6 space-y-2 border-t border-stone-100 pt-4 text-[14px]">
+      <dl className="mt-6 space-y-2 border-t border-black/5 pt-4 text-[14px]">
         <div className="flex justify-between">
           <dt>سندويش شاورما دجاج × 2</dt>
           <dd>₪ 40</dd>
@@ -51,12 +53,12 @@ function OrderPreview() {
           <dt>بطاطا مقلية</dt>
           <dd>₪ 10</dd>
         </div>
-        <div className="flex justify-between border-t border-stone-100 pt-2 text-[17px] font-semibold">
+        <div className="flex justify-between border-t border-black/5 pt-2 text-[17px] font-semibold">
           <dt>المجموع</dt>
           <dd>₪ 50</dd>
         </div>
       </dl>
-      <p className="mt-3 flex items-center gap-1.5 text-[12px] text-stone-500">
+      <p className="mt-3 flex items-center gap-1.5 text-[12px] text-stone-600">
         <Banknote className="size-4" strokeWidth={1.5} />
         الدفع عند الاستلام
       </p>
@@ -74,6 +76,12 @@ function Hero({ onBrowse }) {
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap.from('.hero-fade', { y: 24, opacity: 0, duration: 0.6, stagger: 0.08, delay: 0.15, ease: 'power3.out' })
         gsap.from('.hero-device', { y: 60, scale: 0.94, opacity: 0, duration: 0.9, delay: 0.35, ease: 'power3.out' })
+        // As you scroll past, the order card lifts slightly faster than the page (parallax).
+        gsap.to('.hero-card', {
+          y: -50,
+          ease: 'none',
+          scrollTrigger: { trigger: '.hero-device', start: 'top 80%', end: 'bottom top', scrub: true },
+        })
       })
       return () => mm.revert()
     },
@@ -106,8 +114,11 @@ function Hero({ onBrowse }) {
         </Link>
       </div>
 
-      <div className="hero-device mx-auto mt-12 max-w-3xl rounded-t-[28px] bg-gradient-to-b from-brand-50 to-stone-50 px-5 pt-10 pb-12 md:mt-16 md:pt-16 md:pb-16">
-        <OrderPreview />
+      <div className="hero-device relative mx-auto mt-12 max-w-3xl overflow-hidden rounded-t-[28px] bg-gradient-to-b from-brand-50 to-stone-50 px-5 pt-10 pb-14 md:mt-16 md:pt-16 md:pb-20">
+        <Aurora />
+        <div className="hero-card">
+          <OrderPreview />
+        </div>
       </div>
     </section>
   )
@@ -152,6 +163,8 @@ export default function HomePage() {
   const { data: cats } = useApi('/restaurants/categories')
   const { data, error, loading } = useApi('/restaurants', { query: { search: debounced, category } })
 
+  const gridRef = useReveal([data?.restaurants])
+
   const scrollToList = () => listRef.current?.scrollIntoView({ behavior: 'smooth' })
 
   return (
@@ -185,9 +198,7 @@ export default function HomePage() {
                 key={c || 'all'}
                 onClick={() => setCategory(c)}
                 aria-pressed={category === c}
-                className={`h-11 shrink-0 rounded-full px-5 text-[14px] whitespace-nowrap transition ${
-                  category === c ? 'bg-ink text-white' : 'bg-stone-50 text-ink hover:bg-stone-100'
-                }`}
+                className="chip px-5"
               >
                 {c || 'الكل'}
               </button>
@@ -203,7 +214,7 @@ export default function HomePage() {
             جرّب كلمة بحث أو تصنيف ثاني
           </EmptyState>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          <div ref={gridRef} className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {data?.restaurants.map((r) => (
               <Link
                 key={r.id}

@@ -43,7 +43,11 @@ function useNavLinks() {
 function CartBadge({ count }) {
   if (!count) return null
   return (
-    <span className="absolute -end-1.5 top-1 grid min-w-[18px] place-items-center rounded-full bg-accent px-1 text-[11px] leading-[18px] font-semibold text-white">
+    // key={count} replays the pop animation each time the number changes.
+    <span
+      key={count}
+      className="animate-pop absolute -end-1.5 top-1 grid min-w-[18px] place-items-center rounded-full bg-accent px-1 text-[11px] leading-[18px] font-semibold text-white"
+    >
       {count > 99 ? '99+' : count}
     </span>
   )
@@ -70,7 +74,7 @@ function MenuButton({ open, onClick }) {
   )
 }
 
-/** Full-screen menu on phones: large links that fade in one after another. */
+/** Full-screen frosted-glass menu on phones: large links that slide in one after another. */
 function MobileMenu({ open, links, onClose }) {
   const { user, canOrder, logout } = useAuth()
 
@@ -88,7 +92,7 @@ function MobileMenu({ open, links, onClose }) {
   return (
     <div
       id="mobile-menu"
-      className={`fixed inset-x-0 top-[calc(3rem+env(safe-area-inset-top))] bottom-0 z-40 overflow-y-auto bg-white transition-opacity duration-300 md:hidden ${
+      className={`fixed inset-x-0 top-[calc(3rem+env(safe-area-inset-top))] bottom-0 z-40 overflow-y-auto bg-white/80 backdrop-blur-2xl backdrop-saturate-[1.8] transition-opacity duration-300 md:hidden ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
       inert={!open}
@@ -153,7 +157,7 @@ function Navbar() {
 
   return (
     <>
-      <header className={`sticky top-0 z-50 pt-[env(safe-area-inset-top)] transition-colors ${open ? 'bg-white' : 'material-bar'}`}>
+      <header className={`sticky top-0 z-50 pt-[env(safe-area-inset-top)] transition-colors ${open ? 'bg-white/80 backdrop-blur-2xl' : 'material-bar'}`}>
         <nav className="mx-auto flex h-12 max-w-5xl items-center gap-1 px-4">
           <Link to={user ? homeFor(user) : '/'} className="flex h-11 items-center gap-2 text-[17px] font-semibold text-ink">
             <img src="/favicon.svg" alt="" className="size-6" />
@@ -240,7 +244,10 @@ export function Layout() {
       <Navbar />
       <VerifyEmailBanner />
       <main className="flex-1">
-        <Outlet />
+        {/* Keyed by path, so each page fades and rises in when you navigate. */}
+        <div key={pathname} className="animate-page-in">
+          <Outlet />
+        </div>
       </main>
       <Footer />
     </div>

@@ -1,5 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router'
+import { ChevronLeft, MapPin, Phone, Plus } from 'lucide-react'
+import { FloatingBar } from '@/components/FloatingBar'
+import { useReveal } from '@/components/motion/Reveal'
+import { QuantityStepper } from '@/components/QuantityStepper'
 import { RestaurantCover } from '@/components/RestaurantCover'
 import { Alert } from '@/components/ui/Alert'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -8,6 +12,85 @@ import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { useApi } from '@/hooks/useApi'
 import { formatPrice } from '@/lib/format'
+
+const sectionId = (name) => `section-${name}`
+
+/** One menu section; its cards rise in as they scroll into view. */
+function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
+  const gridRef = useReveal([items])
+  return (
+    <section id={sectionId(name)} className="mt-10 scroll-mt-28 md:mt-14">
+      <h2 className="mb-4 text-[24px] font-semibold md:text-[28px]">{name}</h2>
+      <div ref={gridRef} className="grid gap-4 md:grid-cols-2">
+        {items.map((item) => {
+          const qty = qtyInCart(item.id)
+          return (
+            <article key={item.id} className="card flex gap-4 p-5">
+              {item.imageUrl && <img src={item.imageUrl} alt="" className="size-24 shrink-0 rounded-2xl object-cover" loading="lazy" />}
+              <div className="flex flex-1 flex-col">
+                <h3 className="text-[17px] font-semibold">{item.name}</h3>
+                {item.description && <p className="mt-1 text-[14px] text-stone-500">{item.description}</p>}
+                <div className="mt-auto flex items-center justify-between gap-3 pt-3">
+                  <span className="text-[17px] font-semibold">{formatPrice(item.price)}</span>
+                  {!canOrder ? null : qty ? (
+                    <QuantityStepper name={item.name} quantity={qty} onChange={(q) => onQuantity(item.id, q)} />
+                  ) : (
+                    <button className="btn-primary h-11 py-0 ps-3.5 pe-4" onClick={() => onAdd(item)}>
+                      <Plus className="size-4" strokeWidth={2.25} aria-hidden />
+                      أضف
+                    </button>
+                  )}
+                </div>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+/** Sticky glass row of section chips; the chip for the section you're reading lights up. */
+function SectionNav({ sections }) {
+  const [active, setActive] = useState(sections[0])
+
+  useEffect(() => {
+    // A section counts as "current" while it crosses a thin line 40% down the screen.
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id.slice('section-'.length))),
+      { rootMargin: '-40% 0px -59% 0px' },
+    )
+    sections.forEach((s) => {
+      const el = document.getElementById(sectionId(s))
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [sections])
+
+  return (
+    <nav
+      aria-label="أقسام القائمة"
+      className="material-bar no-scrollbar sticky top-[calc(3rem+env(safe-area-inset-top))] z-20 -mx-4 mt-8 flex gap-2 overflow-x-auto border-b border-black/5 px-4 py-2"
+    >
+      {sections.map((s) => (
+        <a
+          key={s}
+          href={`#${sectionId(s)}`}
+          aria-current={active === s ? 'true' : undefined}
+          onClick={(e) => {
+            e.preventDefault()
+            document.getElementById(sectionId(s))?.scrollIntoView({ behavior: 'smooth' })
+          }}
+          className={`flex h-11 shrink-0 items-center rounded-full px-4 text-[14px] whitespace-nowrap transition duration-300 ${
+            active === s ? 'bg-ink text-white' : 'text-ink hover:bg-black/5'
+          }`}
+        >
+          {s}
+        </a>
+      ))}
+    </nav>
+  )
+}
 
 export default function RestaurantPage() {
   const { id } = useParams()
@@ -25,11 +108,12 @@ export default function RestaurantPage() {
     }
     return [...groups]
   }, [restaurant])
+  const sectionNames = useMemo(() => sections.map(([name]) => name), [sections])
 
   if (loading) return <Spinner />
   if (error)
     return (
-      <div className="mx-auto max-w-6xl px-4 py-10">
+      <div className="mx-auto max-w-5xl px-4 py-10">
         <Alert>{error.message}</Alert>
       </div>
     )
@@ -41,23 +125,33 @@ export default function RestaurantPage() {
     else cart.add(restaurant, item)
   }
 
-  return (
-    <div className="pb-24 md:pb-28">
-      <div className="relative">
-        <RestaurantCover restaurant={restaurant} className="h-24 w-full sm:h-40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent" />
-      </div>
+  const showBar = cart.count > 0 && cart.restaurant?.id === restaurant.id
 
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="card relative -mt-6 p-5 sm:-mt-12 sm:p-6">
+  return (
+    <div className="pb-28">
+      <RestaurantCover restaurant={restaurant} className="h-44 w-full sm:h-72" />
+
+      <div className="mx-auto max-w-5xl px-4">
+        {/* Glass header card overlapping the cover. */}
+        <div className="glass relative -mt-16 rounded-[24px] p-5 sm:-mt-24 sm:p-8">
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-[28px] font-bold sm:text-3xl">{restaurant.name}</h1>
-            {restaurant.category && <span className="rounded-full bg-brand-50 px-3 py-1 text-sm text-brand-700">{restaurant.category}</span>}
+            <h1 className="text-[32px] leading-[1.125] font-semibold md:text-5xl">{restaurant.name}</h1>
+            {restaurant.category && <span className="rounded-full bg-white/80 px-3 py-1 text-[12px] font-semibold text-brand-700">{restaurant.category}</span>}
           </div>
-          {restaurant.description && <p className="mt-2 text-stone-600">{restaurant.description}</p>}
-          <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm text-stone-500">
-            {restaurant.address && <span>📍 {restaurant.address}</span>}
-            {restaurant.phone && <span dir="ltr">📞 {restaurant.phone}</span>}
+          {restaurant.description && <p className="mt-2 text-[17px] text-stone-600 md:text-[19px]">{restaurant.description}</p>}
+          <div className="mt-3 flex flex-wrap gap-x-5 text-[14px] text-stone-600">
+            {restaurant.address && (
+              <span className="flex items-center gap-1 py-1">
+                <MapPin className="size-4" strokeWidth={1.75} aria-hidden />
+                {restaurant.address}
+              </span>
+            )}
+            {restaurant.phone && (
+              <a href={`tel:${restaurant.phone}`} className="flex items-center gap-1 py-1 hover:text-brand-700">
+                <Phone className="size-4" strokeWidth={1.75} aria-hidden />
+                <span dir="ltr">{restaurant.phone}</span>
+              </a>
+            )}
           </div>
         </div>
 
@@ -67,7 +161,7 @@ export default function RestaurantPage() {
               <p>السلة فيها أصناف من «{cart.restaurant.name}». بدك تفضّيها وتبدأ طلب جديد من «{restaurant.name}»؟</p>
               <div className="mt-3 flex gap-2">
                 <button
-                  className="btn-primary py-1.5"
+                  className="btn-primary"
                   onClick={() => {
                     cart.clear()
                     cart.add(restaurant, pending)
@@ -76,7 +170,7 @@ export default function RestaurantPage() {
                 >
                   نعم، طلب جديد
                 </button>
-                <button className="btn-secondary py-1.5" onClick={() => setPending(null)}>
+                <button className="btn-secondary" onClick={() => setPending(null)}>
                   إلغاء
                 </button>
               </div>
@@ -90,82 +184,35 @@ export default function RestaurantPage() {
           </div>
         ) : (
           <>
-            {/* Jump to a menu section (useful on phones with long menus). */}
-            {sections.length > 1 && (
-              <nav
-                aria-label="أقسام القائمة"
-                className="no-scrollbar sticky top-[calc(3.5rem+env(safe-area-inset-top))] z-20 -mx-4 mt-5 flex gap-2 overflow-x-auto border-b border-stone-200 bg-stone-50/95 px-4 py-2.5 backdrop-blur md:top-16"
-              >
-                {sections.map(([section]) => (
-                  <a
-                    key={section}
-                    href={`#section-${section}`}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      document.getElementById(`section-${section}`)?.scrollIntoView({ behavior: 'smooth' })
-                    }}
-                    className="shrink-0 rounded-full bg-white px-3.5 py-1.5 text-sm font-medium whitespace-nowrap text-stone-700 ring-1 ring-stone-200"
-                  >
-                    {section}
-                  </a>
-                ))}
-              </nav>
-            )}
-          {sections.map(([section, items]) => (
-            <section key={section} id={`section-${section}`} className="mt-6 scroll-mt-32 md:mt-10 md:scroll-mt-36">
-              <h2 className="mb-4 text-xl font-bold">{section}</h2>
-              <div className="grid gap-4 md:grid-cols-2">
-                {items.map((item) => {
-                  const qty = qtyInCart(item.id)
-                  return (
-                    <article key={item.id} className="card flex gap-4 p-4">
-                      {item.imageUrl && <img src={item.imageUrl} alt="" className="size-24 shrink-0 rounded-xl object-cover" loading="lazy" />}
-                      <div className="flex flex-1 flex-col">
-                        <h3 className="font-bold">{item.name}</h3>
-                        {item.description && <p className="mt-1 text-sm text-stone-500">{item.description}</p>}
-                        <div className="mt-auto flex items-center justify-between pt-3">
-                          <span className="font-bold text-brand-700">{formatPrice(item.price)}</span>
-                          {!canOrder ? null : qty ? (
-                            <div className="flex items-center gap-2">
-                              <button className="btn-secondary size-11 p-0" onClick={() => cart.setQuantity(item.id, qty - 1)} aria-label={`إنقاص ${item.name}`}>
-                                −
-                              </button>
-                              <span className="w-6 text-center font-semibold" aria-live="polite">
-                                {qty}
-                              </span>
-                              <button className="btn-primary size-11 p-0" onClick={() => cart.setQuantity(item.id, qty + 1)} aria-label={`زيادة ${item.name}`}>
-                                +
-                              </button>
-                            </div>
-                          ) : (
-                            <button className="btn-primary py-2" onClick={() => handleAdd(item)}>
-                              أضف للسلة
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </article>
-                  )
-                })}
-              </div>
-            </section>
-          ))}
+            {sections.length > 1 && <SectionNav sections={sectionNames} />}
+            {sections.map(([name, items]) => (
+              <MenuSection
+                key={name}
+                name={name}
+                items={items}
+                canOrder={canOrder}
+                qtyInCart={qtyInCart}
+                onAdd={handleAdd}
+                onQuantity={cart.setQuantity}
+              />
+            ))}
           </>
         )}
       </div>
 
-      {cart.count > 0 && cart.restaurant?.id === restaurant.id && (
-        <div className="material-bar fixed inset-x-0 bottom-0 z-30 border-t border-black/10 px-4 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] md:py-4">
-          <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
-            <span className="text-sm">
-              <strong>{cart.count}</strong> صنف · <strong>{formatPrice(cart.total)}</strong>
-            </span>
-            <Link to="/cart" className="btn-primary px-6">
-              <span className="sm:hidden">إتمام الطلب</span>
-              <span className="hidden sm:inline">عرض السلة وإتمام الطلب</span>
-            </Link>
-          </div>
-        </div>
+      {showBar && (
+        <FloatingBar>
+          <span className="text-[14px]">
+            <strong key={cart.count} className="animate-pop inline-block">
+              {cart.count}
+            </strong>{' '}
+            صنف · <strong>{formatPrice(cart.total)}</strong>
+          </span>
+          <Link to="/cart" className="btn-primary h-11 py-0 ps-5 pe-4">
+            عرض السلة
+            <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
+          </Link>
+        </FloatingBar>
       )}
     </div>
   )

@@ -1,4 +1,6 @@
 import { Link, useLocation, useParams } from 'react-router'
+import { Bike, ChevronRight, Phone } from 'lucide-react'
+import { Aurora } from '@/components/motion/Aurora'
 import { Page } from '@/components/Layout'
 import { OrderProgress } from '@/components/OrderProgress'
 import { StatusBadge } from '@/components/StatusBadge'
@@ -39,34 +41,39 @@ export default function OrderDetailsPage() {
       <div className="mx-auto max-w-3xl space-y-5">
         {state?.justPlaced && <Alert type="success">تم إرسال طلبك بنجاح! رح يوصلك إشعار هون لما المطعم يأكّده.</Alert>}
 
-        <section className="card p-5 sm:p-6">
-          <OrderProgress status={order.status} />
-          {isActiveOrder(order.status) && <p className="mt-4 text-center text-xs text-stone-500">يتم تحديث الحالة تلقائياً</p>}
+        {/* Tracker on frosted glass over slowly drifting color. */}
+        <section className="relative overflow-hidden rounded-[24px] bg-stone-50 p-3 sm:p-5">
+          <Aurora />
+          <div className="glass relative rounded-[20px] p-5 sm:p-7">
+            <OrderProgress status={order.status} />
+            {isActiveOrder(order.status) && <p className="mt-5 text-center text-[12px] text-stone-600">يتم تحديث الحالة تلقائياً</p>}
+          </div>
         </section>
 
         {order.driver && isActiveOrder(order.status) && (
           <section className="card flex items-center gap-4 p-5">
-            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-sky-100 text-2xl" aria-hidden>
-              🛵
+            <span className="grid size-12 shrink-0 place-items-center rounded-full bg-stone-50 text-brand-700" aria-hidden>
+              <Bike className="size-6" strokeWidth={1.5} />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-sm text-stone-500">سائق التوصيل</p>
-              <p className="font-bold">{order.driver.name}</p>
-              <p className="text-sm text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
+              <p className="text-[12px] text-stone-500">سائق التوصيل</p>
+              <p className="text-[17px] font-semibold">{order.driver.name}</p>
+              <p className="text-[14px] text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
                 {order.driver.phone}
               </p>
             </div>
             <a href={`tel:${order.driver.phone}`} className="btn-primary shrink-0" aria-label={`اتصال بالسائق ${order.driver.phone}`}>
-              📞 اتصال
+              <Phone className="size-4" strokeWidth={2} aria-hidden />
+              اتصال
             </a>
           </section>
         )}
 
-        <section className="card p-5">
-          <h2 className="mb-3 font-bold">تفاصيل الطلب</h2>
-          <ul className="divide-y divide-stone-100 text-sm">
+        <section className="card p-5 md:p-7">
+          <h2 className="mb-3 text-[21px] font-semibold">تفاصيل الطلب</h2>
+          <ul className="divide-y divide-stone-100 text-[17px]">
             {order.items.map((i) => (
-              <li key={i.id} className="flex justify-between py-2">
+              <li key={i.id} className="flex justify-between py-3">
                 <span>
                   {i.quantity} × {i.name}
                 </span>
@@ -74,33 +81,34 @@ export default function OrderDetailsPage() {
               </li>
             ))}
           </ul>
-          <div className="mt-3 flex justify-between border-t border-stone-200 pt-3 font-bold">
+          <div className="mt-3 flex justify-between border-t border-stone-200 pt-4 text-[17px] font-semibold">
             <span>المجموع (الدفع عند الاستلام)</span>
             <span>{formatPrice(order.total)}</span>
           </div>
         </section>
 
-        <section className="card grid gap-3 p-5 text-sm sm:grid-cols-2">
+        <section className="card grid gap-4 p-5 text-[17px] md:p-7 sm:grid-cols-2">
           <div>
-            <p className="text-stone-500">عنوان التوصيل</p>
+            <p className="text-[12px] text-stone-500">عنوان التوصيل</p>
             <p className="font-medium">{order.deliveryAddress}</p>
           </div>
           <div>
-            <p className="text-stone-500">رقم الهاتف</p>
+            <p className="text-[12px] text-stone-500">رقم الهاتف</p>
             <p className="font-medium" dir="ltr">
               {order.phone}
             </p>
           </div>
           {order.notes && (
             <div className="sm:col-span-2">
-              <p className="text-stone-500">ملاحظات</p>
+              <p className="text-[12px] text-stone-500">ملاحظات</p>
               <p className="font-medium">{order.notes}</p>
             </div>
           )}
         </section>
 
-        <Link to={BACK[user?.role]?.to || '/orders'} className="inline-block text-sm text-brand-700 hover:underline">
-          → {BACK[user?.role]?.label || 'كل طلباتي'}
+        <Link to={BACK[user?.role]?.to || '/orders'} className="link py-2.5">
+          <ChevronRight className="size-4" strokeWidth={2} aria-hidden />
+          {BACK[user?.role]?.label || 'كل طلباتي'}
         </Link>
       </div>
     </Page>

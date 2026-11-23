@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { ClipboardList, Pencil, Plus, Trash2 } from 'lucide-react'
 import { Page } from '@/components/Layout'
+import { useReveal } from '@/components/motion/Reveal'
 import { Alert } from '@/components/ui/Alert'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Field } from '@/components/ui/Field'
@@ -33,8 +35,8 @@ function MenuItemForm({ initial, onSave, onCancel }) {
   }
 
   return (
-    <form onSubmit={submit} className="card grid gap-4 p-5 sm:grid-cols-2" noValidate>
-      <h2 className="text-xl font-bold sm:col-span-2">{initial ? `تعديل «${initial.name}»` : 'صنف جديد'}</h2>
+    <form onSubmit={submit} className="card animate-page-in grid gap-4 p-5 md:p-7 sm:grid-cols-2" noValidate>
+      <h2 className="text-[21px] font-semibold sm:col-span-2">{initial ? `تعديل «${initial.name}»` : 'صنف جديد'}</h2>
       <div className="sm:col-span-2">
         <Alert>{error}</Alert>
       </div>
@@ -43,8 +45,8 @@ function MenuItemForm({ initial, onSave, onCancel }) {
       <Field label="التصنيف" value={form.category} onChange={set('category')} error={errors.category} placeholder="مثلاً: سندويشات، مشروبات" />
       <Field label="رابط صورة (اختياري)" type="url" dir="ltr" value={form.imageUrl} onChange={set('imageUrl')} error={errors.imageUrl} placeholder="https://…" />
       <Field label="الوصف" as="textarea" rows={2} className="sm:col-span-2" value={form.description} onChange={set('description')} error={errors.description} />
-      <label className="flex items-center gap-2 text-sm font-medium sm:col-span-2">
-        <input type="checkbox" checked={form.isAvailable} onChange={set('isAvailable')} className="size-4 accent-brand-500" />
+      <label className="flex min-h-11 items-center gap-3 text-[17px] sm:col-span-2">
+        <input type="checkbox" checked={form.isAvailable} onChange={set('isAvailable')} className="size-5 accent-accent" />
         متوفر للطلب
       </label>
       <div className="flex gap-2 sm:col-span-2">
@@ -66,11 +68,15 @@ function AvailabilitySwitch({ item, onToggle }) {
       aria-checked={item.isAvailable}
       aria-label={`${item.name} متوفر`}
       onClick={() => onToggle(item)}
-      className="flex h-11 w-12 shrink-0 items-center"
+      className="flex h-11 w-[51px] shrink-0 items-center"
     >
-      {/* The visible switch stays 44×24; the button around it gives a 44×44 tap area. */}
-      <span className={`relative h-6 w-12 rounded-full transition ${item.isAvailable ? 'bg-emerald-500' : 'bg-stone-300'}`}>
-        <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-all ${item.isAvailable ? 'start-6' : 'start-1'}`} />
+      {/* iOS-size switch (51×31) inside a 44pt-tall tap area; the knob glides with a soft spring. */}
+      <span className={`relative h-[31px] w-[51px] rounded-full transition-colors duration-300 ${item.isAvailable ? 'bg-[#34c759]' : 'bg-stone-200'}`}>
+        <span
+          className={`absolute top-0.5 size-[27px] rounded-full bg-white shadow-[0_3px_8px_rgb(0_0_0/0.15)] transition-all duration-300 ease-apple ${
+            item.isAvailable ? 'start-[22px]' : 'start-0.5'
+          }`}
+        />
       </span>
     </button>
   )
@@ -109,8 +115,10 @@ export default function OwnerMenuPage() {
     }
   }
 
-  if (loading) return <Spinner />
   const items = data?.menuItems || []
+  const listRef = useReveal([items.length])
+
+  if (loading) return <Spinner />
 
   return (
     <Page
@@ -119,7 +127,8 @@ export default function OwnerMenuPage() {
       actions={
         !editing && (
           <button className="btn-primary" onClick={() => setEditing('new')}>
-            + صنف جديد
+            <Plus className="size-4" strokeWidth={2.25} aria-hidden />
+            صنف جديد
           </button>
         )
       }
@@ -129,31 +138,33 @@ export default function OwnerMenuPage() {
         {editing && <MenuItemForm key={editing === 'new' ? 'new' : editing.id} initial={editing === 'new' ? null : editing} onSave={save} onCancel={() => setEditing(null)} />}
 
         {items.length === 0 && !editing ? (
-          <EmptyState icon="📋" title="القائمة فارغة">
+          <EmptyState icon={ClipboardList} title="القائمة فارغة">
             أضف أول صنف عشان الزباين يقدروا يطلبوا
           </EmptyState>
         ) : (
           <>
           {/* Phones: one card per item */}
-          <ul className="space-y-3 sm:hidden">
+          <ul ref={listRef} className="space-y-3 sm:hidden">
             {items.map((item) => (
-              <li key={item.id} className={`card p-4 ${item.isAvailable ? '' : 'opacity-60'}`}>
+              <li key={item.id} className={`card p-5 transition-opacity duration-300 ${item.isAvailable ? '' : 'opacity-60'}`}>
                 <div className="flex items-start gap-3">
                   <div className="min-w-0 flex-1">
-                    <p className="font-semibold">{item.name}</p>
-                    {item.description && <p className="line-clamp-1 text-xs text-stone-500">{item.description}</p>}
-                    <p className="mt-1 text-sm">
-                      <span className="font-bold text-brand-700">{formatPrice(item.price)}</span>
+                    <p className="text-[17px] font-semibold">{item.name}</p>
+                    {item.description && <p className="line-clamp-1 text-[12px] text-stone-500">{item.description}</p>}
+                    <p className="mt-1 text-[14px]">
+                      <span className="font-semibold">{formatPrice(item.price)}</span>
                       {item.category && <span className="text-stone-500"> · {item.category}</span>}
                     </p>
                   </div>
                   <AvailabilitySwitch item={item} onToggle={toggle} />
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-2">
-                  <button className="btn-secondary py-2" onClick={() => setEditing(item)}>
+                  <button className="btn-secondary h-11 py-0" onClick={() => setEditing(item)}>
+                    <Pencil className="size-4" strokeWidth={1.75} aria-hidden />
                     تعديل
                   </button>
-                  <button className="btn-danger py-2" onClick={() => remove(item)}>
+                  <button className="btn-danger h-11 py-0" onClick={() => remove(item)}>
+                    <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
                     حذف
                   </button>
                 </div>
@@ -163,8 +174,8 @@ export default function OwnerMenuPage() {
 
           {/* Tablets and desktop: table */}
           <div className="card hidden overflow-hidden sm:block">
-            <table className="w-full text-sm">
-              <thead className="bg-stone-50 text-stone-500">
+            <table className="w-full text-[14px]">
+              <thead className="bg-stone-50 text-[12px] text-stone-500">
                 <tr>
                   <th className="p-3 text-start font-medium">الصنف</th>
                   <th className="hidden p-3 text-start font-medium sm:table-cell">التصنيف</th>
@@ -189,11 +200,11 @@ export default function OwnerMenuPage() {
                     </td>
                     <td className="p-3">
                       <div className="flex justify-end gap-1">
-                        <button className="btn-secondary px-3 py-1.5" onClick={() => setEditing(item)}>
-                          تعديل
+                        <button className="btn-secondary size-11 p-0" onClick={() => setEditing(item)} aria-label={`تعديل ${item.name}`} title="تعديل">
+                          <Pencil className="size-4" strokeWidth={1.75} aria-hidden />
                         </button>
-                        <button className="btn-danger px-3 py-1.5" onClick={() => remove(item)}>
-                          حذف
+                        <button className="btn-danger size-11 p-0" onClick={() => remove(item)} aria-label={`حذف ${item.name}`} title="حذف">
+                          <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
                         </button>
                       </div>
                     </td>

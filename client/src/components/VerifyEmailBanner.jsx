@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Mail } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { api } from '@/lib/api'
 
@@ -29,9 +30,9 @@ export function VerifyEmailBanner() {
   }
 
   return (
-    <div role="status" className="border-b border-amber-200 bg-amber-50 text-amber-900">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5 text-sm">
-        <span aria-hidden>📧</span>
+    <div role="status" className="bg-amber-50 text-amber-900">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2 text-[14px]">
+        <Mail className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
         <p className="min-w-0 flex-1">
           {state === 'sent' || state === 'error' ? (
             message
@@ -42,7 +43,7 @@ export function VerifyEmailBanner() {
           )}
         </p>
         {state !== 'sent' && (
-          <button onClick={resend} disabled={state === 'sending'} className="font-semibold text-amber-900 underline underline-offset-2 disabled:opacity-50">
+          <button onClick={resend} disabled={state === 'sending'} className="py-2 font-semibold text-amber-900 underline underline-offset-2 disabled:opacity-50">
             {state === 'sending' ? 'جاري الإرسال…' : 'إعادة إرسال الرابط'}
           </button>
         )}

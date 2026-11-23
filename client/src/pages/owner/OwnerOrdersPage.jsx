@@ -1,5 +1,8 @@
 import { useState } from 'react'
+import { Bike, MapPin, NotebookPen, Phone, ReceiptText } from 'lucide-react'
 import { Page } from '@/components/Layout'
+import { useReveal } from '@/components/motion/Reveal'
+import { SegmentedControl } from '@/components/SegmentedControl'
 import { StatusBadge } from '@/components/StatusBadge'
 import { Alert } from '@/components/ui/Alert'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -17,20 +20,21 @@ const TABS = [
 function OrderCard({ order, onStatus, busy }) {
   const next = NEXT_ACTION[order.status]
   return (
-    <article className="card flex flex-col p-5">
+    // New orders get an orange ring so they stand out.
+    <article className={`card flex flex-col p-5 md:p-6 ${order.status === 'PENDING' ? 'ring-2 ring-accent/40' : ''}`}>
       <header className="flex items-start justify-between gap-2">
         <div>
-          <h3 className="font-bold">
+          <h3 className="text-[17px] font-semibold">
             طلب #{order.id} · {order.customer.name}
           </h3>
-          <p className="text-xs text-stone-500">{formatDate(order.createdAt)}</p>
+          <p className="text-[12px] text-stone-500">{formatDate(order.createdAt)}</p>
         </div>
         <StatusBadge status={order.status} />
       </header>
 
       {['ACCEPTED', 'PREPARING', 'ON_THE_WAY'].includes(order.status) && (
-        <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${order.driver ? 'bg-sky-50 text-sky-900' : 'bg-stone-50 text-stone-600'}`}>
-          🛵{' '}
+        <p className={`mt-3 flex flex-wrap items-center gap-1.5 rounded-2xl px-3 py-2 text-[14px] ${order.driver ? 'bg-sky-50 text-sky-900' : 'bg-stone-50 text-stone-600'}`}>
+          <Bike className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
           {order.driver ? (
             <>
               السائق: <b>{order.driver.name}</b>{' '}
@@ -44,7 +48,7 @@ function OrderCard({ order, onStatus, busy }) {
         </p>
       )}
 
-      <ul className="mt-4 space-y-1 text-sm">
+      <ul className="mt-4 space-y-1 text-[14px]">
         {order.items.map((i) => (
           <li key={i.id} className="flex justify-between">
             <span>
@@ -55,16 +59,27 @@ function OrderCard({ order, onStatus, busy }) {
         ))}
       </ul>
 
-      <div className="mt-4 space-y-1 rounded-xl bg-stone-50 p-3 text-sm">
-        <p>📍 {order.deliveryAddress}</p>
-        <p dir="ltr" className="text-end">
-          📞 {order.phone}
+      <div className="mt-4 space-y-1.5 rounded-2xl bg-stone-50 p-3 text-[14px]">
+        <p className="flex items-start gap-1.5">
+          <MapPin className="mt-0.5 size-4 shrink-0 text-stone-500" strokeWidth={1.75} aria-hidden />
+          {order.deliveryAddress}
         </p>
-        {order.notes && <p className="text-amber-800">📝 {order.notes}</p>}
+        <p className="flex items-center gap-1.5">
+          <Phone className="size-4 shrink-0 text-stone-500" strokeWidth={1.75} aria-hidden />
+          <a href={`tel:${order.phone}`} dir="ltr" className="-my-3 inline-block py-3 hover:underline">
+            {order.phone}
+          </a>
+        </p>
+        {order.notes && (
+          <p className="flex items-start gap-1.5 text-amber-800">
+            <NotebookPen className="mt-0.5 size-4 shrink-0" strokeWidth={1.75} aria-hidden />
+            {order.notes}
+          </p>
+        )}
       </div>
 
       <footer className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-stone-100 pt-4">
-        <span className="font-bold">{formatPrice(order.total)}</span>
+        <span className="text-[17px] font-semibold">{formatPrice(order.total)}</span>
         <div className="flex gap-2">
           {order.status === 'PENDING' && (
             <>
@@ -108,43 +123,35 @@ export default function OwnerOrdersPage() {
     }
   }
 
-  if (loading) return <Spinner />
   const orders = data?.orders || []
   const current = TABS.find((t) => t.key === tab)
   const shown = orders.filter((o) => current.match(o.status))
+  const gridRef = useReveal([tab, shown.length])
+
+  if (loading) return <Spinner />
 
   return (
     <Page title="لوحة الطلبات" subtitle="تتحدّث تلقائياً كل 10 ثواني">
-      <div className="mb-6 flex gap-2 overflow-x-auto" role="tablist">
-        {TABS.map((t) => {
-          const count = orders.filter((o) => t.match(o.status)).length
-          return (
-            <button
-              key={t.key}
-              role="tab"
-              aria-selected={tab === t.key}
-              onClick={() => setTab(t.key)}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold whitespace-nowrap transition ${
-                tab === t.key ? 'bg-ink text-white' : 'bg-white text-stone-600 ring-1 ring-stone-200'
-              }`}
-            >
-              {t.label}
-              <span className={`rounded-full px-2 text-xs ${tab === t.key ? 'bg-white/20' : t.key === 'new' && count ? 'bg-brand-500 text-white' : 'bg-stone-100'}`}>
-                {count}
-              </span>
-            </button>
-          )
-        })}
+      <div className="mb-6">
+        <SegmentedControl
+          label="حالة الطلبات"
+          value={tab}
+          onChange={setTab}
+          options={TABS.map((t) => {
+            const count = orders.filter((o) => t.match(o.status)).length
+            return { key: t.key, label: t.label, badge: count, highlight: t.key === 'new' && count > 0 }
+          })}
+        />
       </div>
 
       <div className="space-y-4">
         <Alert>{error?.message || actionError}</Alert>
         {shown.length === 0 ? (
-          <EmptyState icon="🧾" title={tab === 'new' ? 'ما في طلبات جديدة حالياً' : 'ما في طلبات هون'}>
+          <EmptyState icon={ReceiptText} title={tab === 'new' ? 'ما في طلبات جديدة حالياً' : 'ما في طلبات هون'}>
             {tab === 'new' && 'أول ما يوصل طلب جديد رح يظهر هون'}
           </EmptyState>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div ref={gridRef} className="grid gap-4 md:grid-cols-2">
             {shown.map((o) => (
               <OrderCard key={o.id} order={o} onStatus={updateStatus} busy={busyId === o.id} />
             ))}
