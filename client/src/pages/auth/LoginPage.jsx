@@ -45,7 +45,7 @@ export default function LoginPage() {
         <Alert>{error}</Alert>
         <Field label="البريد الإلكتروني" type="email" dir="ltr" autoComplete="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
         <Field label="كلمة المرور" type="password" dir="ltr" autoComplete="current-password" required value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-        <div className="-mt-3 text-end text-[14px]">
+        <div className="-mt-3 text-end text-[13px]">
           <AuthLink to="/forgot-password">نسيت كلمة المرور؟</AuthLink>
         </div>
         <button className="btn-primary mt-2" disabled={submitting}>

@@ -16,7 +16,7 @@ export function OrderProgress({ status }) {
 
   if (status === 'REJECTED') {
     return (
-      <div className="flex items-center justify-center gap-2 rounded-2xl bg-rose-50 p-4 text-[14px] font-medium text-rose-800">
+      <div className="flex items-center justify-center gap-2 rounded-2xl bg-rose-50 p-4 text-[13px] font-medium text-rose-800">
         <CircleX className="size-5" strokeWidth={1.75} aria-hidden />
         نعتذر، المطعم رفض هذا الطلب.
       </div>

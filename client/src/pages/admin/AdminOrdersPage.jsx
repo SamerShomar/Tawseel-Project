@@ -66,15 +66,15 @@ export default function AdminOrdersPage() {
                 className="card flex flex-wrap items-center gap-x-4 gap-y-2 p-5 transition duration-300 active:scale-[0.99] sm:hover:scale-[1.01] sm:hover:shadow-[2px_4px_16px_rgb(0_0_0/0.16)]"
               >
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[17px] font-semibold">
+                  <p className="truncate text-[15px] font-semibold">
                     #{o.id} · {o.restaurant.name}
                   </p>
-                  <p className="truncate text-[14px] text-stone-500">
+                  <p className="truncate text-[13px] text-stone-500">
                     {o.customer.name} · {o.items.reduce((n, i) => n + i.quantity, 0)} صنف · {formatDate(o.createdAt)}
                   </p>
                 </div>
                 <StatusBadge status={o.status} />
-                <span className="w-20 text-end text-[17px] font-semibold">{formatPrice(o.total)}</span>
+                <span className="w-20 text-end text-[15px] font-semibold">{formatPrice(o.total)}</span>
                 <ChevronLeft className="size-5 text-stone-400" strokeWidth={1.75} aria-hidden />
               </Link>
             </li>

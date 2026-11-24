@@ -7,7 +7,7 @@ const styles = {
 export function Alert({ type = 'error', children }) {
   if (!children) return null
   return (
-    <div role={type === 'error' ? 'alert' : 'status'} className={`animate-page-in rounded-2xl px-4 py-3 text-[14px] ${styles[type]}`}>
+    <div role={type === 'error' ? 'alert' : 'status'} className={`animate-page-in rounded-2xl px-4 py-3 text-[13px] ${styles[type]}`}>
       {children}
     </div>
   )

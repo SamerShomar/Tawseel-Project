@@ -8,6 +8,7 @@
 //     otherwise every deploy resets the data again)
 import bcrypt from 'bcryptjs'
 import { PrismaClient } from '@prisma/client'
+import { applyDishPhotos } from '../src/lib/dishPhotos.js'
 
 const prisma = new PrismaClient()
 
@@ -249,6 +250,7 @@ async function main() {
   }
 
   await ensureDemoDriver(passwordHash)
+  await applyDishPhotos(prisma)
 
   // Demo admin for local development only. On Railway the admin comes from ADMIN_EMAIL / ADMIN_PASSWORD.
   if (process.env.NODE_ENV !== 'production') {

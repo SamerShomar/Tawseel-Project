@@ -13,7 +13,7 @@ function OrderList({ title, orders }) {
   const ref = useReveal([orders.length])
   return (
     <section>
-      <h2 className="mb-4 text-[21px] font-semibold">{title}</h2>
+      <h2 className="mb-4 text-[18px] font-semibold">{title}</h2>
       <div ref={ref} className="space-y-3">
         {orders.map((o) => (
           <OrderRow key={o.id} order={o} />
@@ -30,15 +30,15 @@ function OrderRow({ order }) {
       className="card flex flex-wrap items-center gap-x-4 gap-y-2 p-5 transition duration-300 active:scale-[0.99] sm:hover:scale-[1.01] sm:hover:shadow-[2px_4px_16px_rgb(0_0_0/0.16)]"
     >
       <div className="flex-1">
-        <p className="text-[17px] font-semibold">
-          {order.restaurant.name} <span className="text-[14px] font-normal text-stone-500">#{order.id}</span>
+        <p className="text-[15px] font-semibold">
+          {order.restaurant.name} <span className="text-[13px] font-normal text-stone-500">#{order.id}</span>
         </p>
-        <p className="text-[14px] text-stone-500">
+        <p className="text-[13px] text-stone-500">
           {formatDate(order.createdAt)} · {order.items.reduce((n, i) => n + i.quantity, 0)} صنف
         </p>
       </div>
       <StatusBadge status={order.status} />
-      <span className="w-20 text-end text-[17px] font-semibold">{formatPrice(order.total)}</span>
+      <span className="w-20 text-end text-[15px] font-semibold">{formatPrice(order.total)}</span>
       <ChevronLeft className="size-5 text-stone-400" strokeWidth={1.75} aria-hidden />
     </Link>
   )

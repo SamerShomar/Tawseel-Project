@@ -7,6 +7,7 @@ import AdminOrdersPage from '@/pages/admin/AdminOrdersPage'
 import AdminRestaurantsPage from '@/pages/admin/AdminRestaurantsPage'
 import AdminUsersPage from '@/pages/admin/AdminUsersPage'
 import CartPage from '@/pages/CartPage'
+import CreditsPage from '@/pages/CreditsPage'
 import DriverAvailablePage from '@/pages/driver/DriverAvailablePage'
 import DriverMyPage from '@/pages/driver/DriverMyPage'
 import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage'
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="reset-password" element={<ResetPasswordPage />} />
         <Route path="verify-email" element={<VerifyEmailPage />} />
         <Route path="account" element={<AccountPage />} />
+        <Route path="credits" element={<CreditsPage />} />
 
         {/* Customer */}
         <Route element={<ProtectedRoute role="CUSTOMER" />}>

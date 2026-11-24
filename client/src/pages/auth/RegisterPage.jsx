@@ -54,7 +54,7 @@ export default function RegisterPage() {
     >
       <form onSubmit={submit} className="flex flex-col gap-4" noValidate>
         <fieldset className="grid grid-cols-3 gap-2 sm:gap-3">
-          <legend className="mb-2 text-[14px] font-medium text-stone-700">نوع الحساب</legend>
+          <legend className="mb-2 text-[13px] font-medium text-stone-700">نوع الحساب</legend>
           {ROLES.map((r) => (
             <label
               key={r.value}
@@ -64,7 +64,7 @@ export default function RegisterPage() {
             >
               <input type="radio" name="role" value={r.value} checked={form.role === r.value} onChange={set('role')} className="sr-only" />
               <r.icon className={`size-7 transition ${form.role === r.value ? 'text-brand-700' : 'text-stone-500'}`} strokeWidth={1.5} aria-hidden />
-              <span className="mt-1 block text-[14px] font-semibold">{r.label}</span>
+              <span className="mt-1 block text-[13px] font-semibold">{r.label}</span>
               <span className="block text-[12px] text-stone-600">{r.hint}</span>
             </label>
           ))}

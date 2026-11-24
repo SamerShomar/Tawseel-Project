@@ -1,0 +1,800 @@
+{
+  "dishes": [
+    {
+      "restaurant": "شاورما البيدر",
+      "name": "ساندويش شاورما دجاج",
+      "image": "/images/dishes/chicken-shawarma-wrap.webp",
+      "credit": {
+        "title": "Lamb Shwarma - Oasis Bakery AUD9",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/4823411752"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "شاورما البيدر",
+      "name": "ساندويش شاورما لحم",
+      "image": "/images/dishes/beef-shawarma-wrap.webp",
+      "credit": {
+        "title": "shawarma",
+        "creator": "stu_spivack",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/35034346243@N01/3157609887"
+      }
+    },
+    {
+      "restaurant": "شاورما البيدر",
+      "name": "شاورما جريل",
+      "image": "/images/dishes/shawarma-grill.webp",
+      "credit": {
+        "title": "Beef and Lamb mixed Shawarma - insides - Oasis Bakery AUD8",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/4631402241"
+      }
+    },
+    {
+      "restaurant": "شاورما البيدر",
+      "name": "وجبة عربي دجاج",
+      "image": "/images/dishes/arabi-chicken-meal.webp",
+      "credit": {
+        "title": "A mixed beef and chicken shawarma cut in half and served with French fries, accompanied by two dipping sauces on a white square plate.",
+        "creator": "Joan Namunina",
+        "license": "CC0 1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source": "https://wordpress.org/photos/photo/8636a6d0de/"
+      }
+    },
+    {
+      "restaurant": "شاورما البيدر",
+      "name": "صحن شاورما لحم",
+      "image": "/images/dishes/shawarma-plate.webp",
+      "credit": {
+        "title": "Lamb Shawarma over hommus",
+        "creator": "@joefoodie",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/98178986@N00/3529400083"
+      }
+    },
+    {
+      "restaurant": "شاورما البيدر",
+      "name": "بطاطا مقلية",
+      "image": "/images/dishes/fries.webp",
+      "credit": {
+        "title": "Chips / French Fries / Frites / Pommes / Sglodion / Patatas Fritas",
+        "creator": "Richard Allaway",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/16287002@N00/7433812616"
+      }
+    },
+    {
+      "restaurant": "شاورما البيدر",
+      "name": "ثومية إضافية",
+      "image": "/images/dishes/toum.webp",
+      "credit": {
+        "title": "orange garlic sauce",
+        "creator": "Joelk75",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/75001512@N00/4965654343"
+      }
+    },
+    {
+      "restaurant": "شاورما البيدر",
+      "name": "كولا",
+      "image": "/images/dishes/cola.webp",
+      "credit": {
+        "title": "Summer Refreshment",
+        "creator": "frankieleon",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/23307937@N04/3583339920"
+      }
+    },
+    {
+      "restaurant": "برجر الميناء",
+      "name": "برجر لحم كلاسيك",
+      "image": "/images/dishes/classic-burger.webp",
+      "credit": {
+        "title": "Cheeseburger",
+        "creator": "TheCulinaryGeek",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/72949902@N00/5076897498"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "برجر الميناء",
+      "name": "دبل برجر",
+      "image": "/images/dishes/double-burger.webp",
+      "credit": {
+        "title": "shake shack double cheeseburger",
+        "creator": "goodiesfirst",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/49215102@N00/3864013408"
+      }
+    },
+    {
+      "restaurant": "برجر الميناء",
+      "name": "تشيكن برجر كرسبي",
+      "image": "/images/dishes/crispy-chicken-burger.webp",
+      "credit": {
+        "title": "Crispy-Chicken-Burger",
+        "creator": "ccnull.de Bilddatenbank",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/115225894@N07/54380260364"
+      }
+    },
+    {
+      "restaurant": "برجر الميناء",
+      "name": "وجبة برجر",
+      "image": "/images/dishes/burger-meal.webp",
+      "credit": {
+        "title": "Wagyu burger and fries at Speakeasy Kitchen in South Yarra",
+        "creator": "ultrakml",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/34948727@N00/12167200084"
+      }
+    },
+    {
+      "restaurant": "برجر الميناء",
+      "name": "بطاطا بالجبنة",
+      "image": "/images/dishes/cheese-fries.webp",
+      "credit": {
+        "title": "shake shack cheese fries",
+        "creator": "goodiesfirst",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/49215102@N00/3864013284"
+      }
+    },
+    {
+      "restaurant": "برجر الميناء",
+      "name": "حلقات بصل",
+      "image": "/images/dishes/onion-rings.webp",
+      "credit": {
+        "title": "Mmm... pancake batter coated onion rings",
+        "creator": "jeffreyw",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/7927684@N03/7672333050"
+      }
+    },
+    {
+      "restaurant": "برجر الميناء",
+      "name": "ليمون بالنعنع",
+      "image": "/images/dishes/lemon-mint.webp",
+      "credit": {
+        "title": "Apple Mint Lime Juice, Lemon Iced Tea, Shikoku Island Tea - Wagamama Flinders Lane",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/2427512992"
+      }
+    },
+    {
+      "restaurant": "بيتزا الزيتونة",
+      "name": "بيتزا مارغريتا",
+      "image": "/images/dishes/margherita.webp",
+      "credit": {
+        "title": "Brandi Pizza Margherita",
+        "creator": "Ozchin",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/95268887@N00/281406925"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "بيتزا الزيتونة",
+      "name": "بيتزا خضار",
+      "image": "/images/dishes/veggie-pizza.webp",
+      "credit": {
+        "title": "Chargrilled Vegetable Pizza - Sugo AUD16.90",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/4602835745"
+      }
+    },
+    {
+      "restaurant": "بيتزا الزيتونة",
+      "name": "بيتزا دجاج باربكيو",
+      "image": "/images/dishes/bbq-chicken-pizza.webp",
+      "credit": {
+        "title": "BBQ Chicken Pizza",
+        "creator": "Cole Kennedy",
+        "license": "Public Domain Mark 1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+        "source": "https://www.flickr.com/photos/123529748@N03/18092872879"
+      }
+    },
+    {
+      "restaurant": "بيتزا الزيتونة",
+      "name": "بيتزا سجق",
+      "image": "/images/dishes/sausage-pizza.webp",
+      "credit": {
+        "title": "Italian Sausage Pizza - Sugo AUD16.90",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/4602835809"
+      }
+    },
+    {
+      "restaurant": "بيتزا الزيتونة",
+      "name": "بيتزا عائلية مشكلة",
+      "image": "/images/dishes/family-pizza.webp",
+      "credit": {
+        "title": "Dining Out - Bella Mia Pizzeria & Restaurant In Ellicott City, Maryland - Large Pizza With Pepperoni, Green Peppers & Onions (January 2024)",
+        "creator": "France1978",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/51764518@N02/53472391209"
+      }
+    },
+    {
+      "restaurant": "بيتزا الزيتونة",
+      "name": "خبز بالثوم والجبنة",
+      "image": "/images/dishes/garlic-bread.webp",
+      "credit": {
+        "title": "Cheesy Garlic Bread",
+        "creator": "City Foodsters",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/89060048@N03/11059329953"
+      }
+    },
+    {
+      "restaurant": "بيتزا الزيتونة",
+      "name": "مشروب غازي",
+      "image": "/images/dishes/soda.webp",
+      "credit": {
+        "title": "Bubbly berries.jpg",
+        "creator": "docoverachiever",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/90692748@N04/9124859808"
+      }
+    },
+    {
+      "restaurant": "كنافة باب الدار",
+      "name": "كنافة نابلسية ناعمة",
+      "image": "/images/dishes/knafeh.webp",
+      "credit": {
+        "title": "Knafah, Knafeh",
+        "creator": "watashiwani",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/11316976@N00/2054754362"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "كنافة باب الدار",
+      "name": "كنافة خشنة",
+      "image": "/images/dishes/knafeh-khishneh.webp",
+      "credit": {
+        "title": "Kunafa at Hafiz Mustafa in Istanbul",
+        "creator": "fourfridays",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/72586449@N07/23494759818"
+      }
+    },
+    {
+      "restaurant": "كنافة باب الدار",
+      "name": "كنافة نوتيلا",
+      "image": "/images/dishes/knafeh-nutella.webp",
+      "credit": {
+        "title": "Kunafa is delicious! #yum #Kunafa #Egyptian #Anaheim",
+        "creator": "mtan14",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/82497860@N00/26471958454"
+      }
+    },
+    {
+      "restaurant": "كنافة باب الدار",
+      "name": "بقلاوة مشكلة",
+      "image": "/images/dishes/baklava.webp",
+      "credit": {
+        "title": "Baklava - Hellenic Republic",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/3482667643"
+      }
+    },
+    {
+      "restaurant": "كنافة باب الدار",
+      "name": "هريسة بالقشطة",
+      "image": "/images/dishes/basbousa.webp",
+      "credit": {
+        "title": "basbousa with flowers",
+        "creator": "kinseikun",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/162338887@N06/51660580369"
+      }
+    },
+    {
+      "restaurant": "كنافة باب الدار",
+      "name": "قطايف بالجوز",
+      "image": "/images/dishes/qatayef.webp",
+      "credit": {
+        "title": "Qatayef (قطايف) is an Arab dessert commonly served during the month of Ramadan, a sort of sweet dumpling filled with cream or nuts #food #dessert #qatayef #ramadan #goodeating #homemade",
+        "creator": "Truth 4 all",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/45639276@N05/16796171701"
+      }
+    },
+    {
+      "restaurant": "فلافل الجرن",
+      "name": "ساندويش فلافل",
+      "image": "/images/dishes/falafel-sandwich.webp",
+      "credit": {
+        "title": "falafel sandwich",
+        "creator": "stu_spivack",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/35034346243@N01/3098026663"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "فلافل الجرن",
+      "name": "ساندويش فلافل بالبيض",
+      "image": "/images/dishes/falafel-egg.webp",
+      "credit": {
+        "title": "سندويشة فلافل هاشم الصغنونة Falafel Pita sandwich",
+        "creator": "Noura Alshaye",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/26844134@N02/13553594725"
+      }
+    },
+    {
+      "restaurant": "فلافل الجرن",
+      "name": "صحن حمص",
+      "image": "/images/dishes/hummus.webp",
+      "credit": {
+        "title": "hummus",
+        "creator": "stu_spivack",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/35034346243@N01/12776358193"
+      }
+    },
+    {
+      "restaurant": "فلافل الجرن",
+      "name": "صحن فول",
+      "image": "/images/dishes/ful.webp",
+      "credit": {
+        "title": "Ful medames",
+        "creator": "kmf164",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10293570@N00/49822013552"
+      }
+    },
+    {
+      "restaurant": "فلافل الجرن",
+      "name": "فتة حمص",
+      "image": "/images/dishes/fatteh.webp",
+      "credit": {
+        "title": "Delicious Eastern Delight /1",
+        "creator": "kire-chan 切れちゃん",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/96723892@N08/8913554096"
+      }
+    },
+    {
+      "restaurant": "فلافل الجرن",
+      "name": "فطور عيلة",
+      "image": "/images/dishes/family-breakfast.webp",
+      "credit": {
+        "title": "Poached Eggs with Middle Eastern Chickpea Bake - Mitte AUD15",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/4258135647"
+      }
+    },
+    {
+      "restaurant": "مشاوي النخلة",
+      "name": "ساندويش شيش طاووق",
+      "image": "/images/dishes/shish-tawook-sandwich.webp",
+      "credit": {
+        "title": "shish tawook",
+        "creator": "stu_spivack",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/35034346243@N01/14102696353"
+      }
+    },
+    {
+      "restaurant": "مشاوي النخلة",
+      "name": "ساندويش كباب",
+      "image": "/images/dishes/kebab-sandwich.webp",
+      "credit": {
+        "title": "Beef and Lamb mixed Shawarma - Oasis Bakery AUD8",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/4631999310"
+      }
+    },
+    {
+      "restaurant": "مشاوي النخلة",
+      "name": "صحن شيش طاووق",
+      "image": "/images/dishes/shish-tawook-plate.webp",
+      "credit": {
+        "title": "shish tawook",
+        "creator": "stu_spivack",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/35034346243@N01/185979969"
+      }
+    },
+    {
+      "restaurant": "مشاوي النخلة",
+      "name": "صحن كباب",
+      "image": "/images/dishes/kebab-plate.webp",
+      "credit": {
+        "title": "kofta di agnello su letto di salsa allo yogurt e pomodoro fresco",
+        "creator": "fugzu",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/70253321@N00/5706639487"
+      }
+    },
+    {
+      "restaurant": "مشاوي النخلة",
+      "name": "مشاوي مشكلة",
+      "image": "/images/dishes/mixed-grill.webp",
+      "credit": {
+        "title": "Summertime and the grilling is easy",
+        "creator": "Samer Farha",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/46944656@N00/155147995"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "مشاوي النخلة",
+      "name": "سلطة عربية",
+      "image": "/images/dishes/arabic-salad.webp",
+      "credit": {
+        "title": "fattoush",
+        "creator": "stu_spivack",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/35034346243@N01/4609742468"
+      }
+    },
+    {
+      "restaurant": "أسماك المرفأ",
+      "name": "سمك مقلي",
+      "image": "/images/dishes/fried-fish.webp",
+      "credit": {
+        "title": "Fried Fish",
+        "creator": "Rubber Dragon",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/65219016@N04/6069542301"
+      }
+    },
+    {
+      "restaurant": "أسماك المرفأ",
+      "name": "سمك مشوي",
+      "image": "/images/dishes/grilled-fish.webp",
+      "credit": {
+        "title": "Grilled Fish, Ristorante Atrium, Palaca Cindro, Diocletian's Palace, Split, Croatia",
+        "creator": "brownpau",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/44124483743@N01/7176159319"
+      }
+    },
+    {
+      "restaurant": "أسماك المرفأ",
+      "name": "صيادية سمك",
+      "image": "/images/dishes/sayadieh.webp",
+      "credit": {
+        "title": "Fish Sayadieh.",
+        "creator": "young shanahan",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/14759783@N04/14748816609"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "أسماك المرفأ",
+      "name": "زبدية جمبري",
+      "image": "/images/dishes/shrimp-zibdieh.webp",
+      "credit": {
+        "title": "Shrimp and Grits at Lüke Restaurant",
+        "creator": "vxla",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/14812197@N00/5097297999"
+      }
+    },
+    {
+      "restaurant": "أسماك المرفأ",
+      "name": "سلطة دقة غزاوية",
+      "image": "/images/dishes/dagga-salad.webp",
+      "credit": {
+        "title": "Cucumber Tomato Salad",
+        "creator": "Laurel Fan",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/18295242@N00/250225446"
+      }
+    },
+    {
+      "restaurant": "مطبخ ستي",
+      "name": "مفتول بالدجاج",
+      "image": "/images/dishes/maftoul.webp",
+      "credit": {
+        "title": "Maftoul",
+        "creator": "myahya",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/79707490@N00/2928603751"
+      }
+    },
+    {
+      "restaurant": "مطبخ ستي",
+      "name": "مقلوبة",
+      "image": "/images/dishes/maqluba.webp",
+      "credit": {
+        "title": "Maklouba",
+        "creator": "seelensturm",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/61404197@N00/4259411603"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "مطبخ ستي",
+      "name": "فتة غزاوية",
+      "image": "/images/dishes/gaza-fatteh.webp",
+      "credit": {
+        "title": "qwaider al nabulsi lamb mansaf",
+        "creator": "goodiesfirst",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/49215102@N00/11389640775"
+      }
+    },
+    {
+      "restaurant": "مطبخ ستي",
+      "name": "رمانية",
+      "image": "/images/dishes/rummaniyeh.webp",
+      "credit": {
+        "title": "Eggplant Turnovers, Tomato Rice, Lentils and Saffron Rice - Moroccan Soup Bar",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/1222357676"
+      }
+    },
+    {
+      "restaurant": "مطبخ ستي",
+      "name": "لبن",
+      "image": "/images/dishes/laban.webp",
+      "credit": {
+        "title": "banana yogurt drink",
+        "creator": "yoppy",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/44124362019@N01/6013872617"
+      }
+    },
+    {
+      "restaurant": "فطائر الطابون",
+      "name": "منقوشة زعتر",
+      "image": "/images/dishes/manakish-zaatar.webp",
+      "credit": {
+        "title": "Zaatar pizza and Cheese pie - A-1 Bakery AUD2.50, AUD3",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/4105719658"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "فطائر الطابون",
+      "name": "منقوشة جبنة",
+      "image": "/images/dishes/manakish-cheese.webp",
+      "credit": {
+        "title": "Chilli Cheese Pizza - Oasis Bakery AUD4",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/4823383974"
+      }
+    },
+    {
+      "restaurant": "فطائر الطابون",
+      "name": "منقوشة جبنة وزعتر",
+      "image": "/images/dishes/manakish-mix.webp",
+      "credit": {
+        "title": "Manakish @ Marina Café @ Evening @ Abu Dhabi",
+        "creator": "*_*",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/22539273@N00/16042146541"
+      }
+    },
+    {
+      "restaurant": "فطائر الطابون",
+      "name": "فطيرة سبانخ",
+      "image": "/images/dishes/spinach-fatayer.webp",
+      "credit": {
+        "title": "heritage village fatayer",
+        "creator": "goodiesfirst",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/49215102@N00/11389764333"
+      }
+    },
+    {
+      "restaurant": "فطائر الطابون",
+      "name": "فطيرة لحمة",
+      "image": "/images/dishes/meat-fatayer.webp",
+      "credit": {
+        "title": "Sfihas",
+        "creator": "Francisco Antunes",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/60721972@N00/4237721025"
+      }
+    },
+    {
+      "restaurant": "فطائر الطابون",
+      "name": "مسخن رول",
+      "image": "/images/dishes/musakhan-roll.webp",
+      "credit": {
+        "title": "Sumac Chicken?",
+        "creator": "lumachrome",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/99743766@N00/10451652414"
+      }
+    },
+    {
+      "restaurant": "مقهى الموج",
+      "name": "قهوة عربية",
+      "image": "/images/dishes/arabic-coffee.webp",
+      "credit": {
+        "title": "local bites cafe arabic coffee",
+        "creator": "goodiesfirst",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/49215102@N00/11389700526"
+      },
+      "featured": true
+    },
+    {
+      "restaurant": "مقهى الموج",
+      "name": "كابتشينو",
+      "image": "/images/dishes/cappuccino.webp",
+      "credit": {
+        "title": "Cappuccino",
+        "creator": "Bryan Pocius",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/57104631@N00/4437445488"
+      }
+    },
+    {
+      "restaurant": "مقهى الموج",
+      "name": "شاي بالنعنع",
+      "image": "/images/dishes/mint-tea.webp",
+      "credit": {
+        "title": "Moroccan Mint Tea",
+        "creator": "simon_music",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/28878339@N00/6869050698"
+      }
+    },
+    {
+      "restaurant": "مقهى الموج",
+      "name": "عصير برتقال طازة",
+      "image": "/images/dishes/orange-juice.webp",
+      "credit": {
+        "title": "orange juice",
+        "creator": "Geoff Peters 604",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/54359128@N00/3249410157"
+      }
+    },
+    {
+      "restaurant": "مقهى الموج",
+      "name": "كوكتيل فواكه",
+      "image": "/images/dishes/fruit-cocktail.webp",
+      "credit": {
+        "title": "Barcelona Smoothies",
+        "creator": "maltman23",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/67734410@N00/396284394"
+      }
+    },
+    {
+      "restaurant": "مقهى الموج",
+      "name": "كيكة شوكولاتة",
+      "image": "/images/dishes/chocolate-cake.webp",
+      "credit": {
+        "title": "Chocolate Cake Slice",
+        "creator": "Leslie Richards",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/14052937@N04/22011162965"
+      }
+    }
+  ],
+  "covers": [
+    {
+      "restaurant": "شاورما البيدر",
+      "image": "/images/dishes/chicken-shawarma-wrap.webp"
+    },
+    {
+      "restaurant": "برجر الميناء",
+      "image": "/images/dishes/classic-burger.webp"
+    },
+    {
+      "restaurant": "بيتزا الزيتونة",
+      "image": "/images/dishes/margherita.webp"
+    },
+    {
+      "restaurant": "كنافة باب الدار",
+      "image": "/images/dishes/knafeh.webp"
+    },
+    {
+      "restaurant": "فلافل الجرن",
+      "image": "/images/dishes/falafel-sandwich.webp"
+    },
+    {
+      "restaurant": "مشاوي النخلة",
+      "image": "/images/dishes/mixed-grill.webp"
+    },
+    {
+      "restaurant": "أسماك المرفأ",
+      "image": "/images/dishes/sayadieh.webp"
+    },
+    {
+      "restaurant": "مطبخ ستي",
+      "image": "/images/dishes/maqluba.webp"
+    },
+    {
+      "restaurant": "فطائر الطابون",
+      "image": "/images/dishes/manakish-zaatar.webp"
+    },
+    {
+      "restaurant": "مقهى الموج",
+      "image": "/images/dishes/arabic-coffee.webp"
+    }
+  ]
+}

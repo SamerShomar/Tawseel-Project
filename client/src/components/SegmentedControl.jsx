@@ -36,7 +36,7 @@ export function SegmentedControl({ options, value, onChange, label }) {
             role="tab"
             aria-selected={value === o.key}
             onClick={() => onChange(o.key)}
-            className={`relative flex h-11 items-center gap-2 rounded-full px-4 text-[14px] whitespace-nowrap transition-colors ${
+            className={`relative flex h-11 items-center gap-2 rounded-full px-4 text-[13px] whitespace-nowrap transition-colors ${
               value === o.key ? 'font-semibold text-ink' : 'text-stone-600 hover:text-ink'
             }`}
           >
