@@ -13,7 +13,7 @@ export function cartReducer(state, action) {
         restaurant: { id: restaurant.id, name: restaurant.name },
         items: existing
           ? items.map((i) => (i.id === item.id ? { ...i, quantity: Math.min(i.quantity + 1, MAX_QUANTITY) } : i))
-          : [...items, { id: item.id, name: item.name, price: item.price, quantity: 1 }],
+          : [...items, { id: item.id, name: item.name, price: item.price, ...(item.imageUrl && { imageUrl: item.imageUrl }), quantity: 1 }],
       }
     }
     case 'setQuantity': {

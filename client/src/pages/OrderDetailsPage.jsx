@@ -57,8 +57,8 @@ export default function OrderDetailsPage() {
             </span>
             <div className="min-w-0 flex-1">
               <p className="text-[12px] text-stone-500">سائق التوصيل</p>
-              <p className="text-[17px] font-semibold">{order.driver.name}</p>
-              <p className="text-[14px] text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
+              <p className="text-[15px] font-semibold">{order.driver.name}</p>
+              <p className="text-[13px] text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
                 {order.driver.phone}
               </p>
             </div>
@@ -70,8 +70,8 @@ export default function OrderDetailsPage() {
         )}
 
         <section className="card p-5 md:p-7">
-          <h2 className="mb-3 text-[21px] font-semibold">تفاصيل الطلب</h2>
-          <ul className="divide-y divide-stone-100 text-[17px]">
+          <h2 className="mb-3 text-[18px] font-semibold">تفاصيل الطلب</h2>
+          <ul className="divide-y divide-stone-100 text-[15px]">
             {order.items.map((i) => (
               <li key={i.id} className="flex justify-between py-3">
                 <span>
@@ -81,13 +81,13 @@ export default function OrderDetailsPage() {
               </li>
             ))}
           </ul>
-          <div className="mt-3 flex justify-between border-t border-stone-200 pt-4 text-[17px] font-semibold">
+          <div className="mt-3 flex justify-between border-t border-stone-200 pt-4 text-[15px] font-semibold">
             <span>المجموع (الدفع عند الاستلام)</span>
             <span>{formatPrice(order.total)}</span>
           </div>
         </section>
 
-        <section className="card grid gap-4 p-5 text-[17px] md:p-7 sm:grid-cols-2">
+        <section className="card grid gap-4 p-5 text-[15px] md:p-7 sm:grid-cols-2">
           <div>
             <p className="text-[12px] text-stone-500">عنوان التوصيل</p>
             <p className="font-medium">{order.deliveryAddress}</p>

@@ -11,8 +11,8 @@ export function EmptyState({ icon: Icon = UtensilsCrossed, title, children }) {
       ) : (
         <Icon className="size-12 text-stone-400" strokeWidth={1.25} aria-hidden />
       )}
-      <h2 className="text-[21px] font-semibold">{title}</h2>
-      {children && <div className="text-[17px] text-stone-500">{children}</div>}
+      <h2 className="text-[18px] font-semibold">{title}</h2>
+      {children && <div className="text-[15px] text-stone-500">{children}</div>}
     </div>
   )
 }

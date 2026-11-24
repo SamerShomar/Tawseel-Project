@@ -6,6 +6,7 @@ import { RestaurantCover } from '@/components/RestaurantCover'
 import { Alert } from '@/components/ui/Alert'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Spinner } from '@/components/ui/Spinner'
+import photos from '@/data/dish-photos.json'
 import { useApi } from '@/hooks/useApi'
 import { scrollToElement } from '@/hooks/useLenis'
 import { Bento, ClosingCta, Highlights } from './home/Features'
@@ -13,9 +14,10 @@ import { Hero, LocalNav, Statement } from './home/Hero'
 import { Story } from './home/Story'
 
 /*
- * The home page is laid out like a product page:
- * glass local nav → dark hero with the phone → statement that lights up as you read →
- * pinned "how it works" story → "why" bento → swipeable highlights → the full restaurant list → closing call to action.
+ * The home page is laid out like a product page, with ordering first:
+ * glass local nav → dark hero with the phone → the restaurant list (search + categories) →
+ * swipeable popular dishes → statement that lights up as you read → pinned "how it works" story →
+ * "why" bento → closing call to action.
  */
 
 export default function HomePage() {
@@ -35,6 +37,12 @@ export default function HomePage() {
 
   const gridRef = useReveal([data?.restaurants])
 
+  // Popular dishes: the signature dish of each restaurant that is open on the site.
+  const featured = (photos.dishes || [])
+    .filter((d) => d.featured)
+    .map((d) => ({ ...d, restaurantId: all?.restaurants.find((r) => r.name === d.restaurant)?.id }))
+    .filter((d) => d.restaurantId)
+
   // Jump to a section, leaving room for the sticky local nav (56px).
   const jump = (id) => scrollToElement(document.getElementById(id), 56)
 
@@ -42,16 +50,13 @@ export default function HomePage() {
     <>
       <LocalNav onJump={jump} />
       <Hero onJump={jump} />
-      <Statement />
-      <Story />
-      <Bento restaurantCount={all?.restaurants.length ?? 0} />
-      <Highlights restaurants={all?.restaurants.slice(0, 8) ?? []} />
 
+      {/* The restaurant list comes first after the hero: ordering is what most people came for. */}
       <section ref={listRef} id="restaurants" className="mx-auto max-w-5xl scroll-mt-14 px-4 py-16 md:py-24">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between md:mb-8">
           <div>
-            <h2 className="text-[40px] leading-[1.1] font-semibold md:text-[64px]">كل المطاعم.</h2>
-            <p className="mt-2 text-[19px] text-stone-500 md:text-[24px]">ابحث، اختار، واطلب.</p>
+            <h2 className="text-[32px] leading-[1.1] font-semibold md:text-[48px]">كل المطاعم.</h2>
+            <p className="mt-2 text-[16px] text-stone-500 md:text-[20px]">ابحث، اختار، واطلب.</p>
           </div>
           <div className="relative sm:w-72">
             <Search className="pointer-events-none absolute start-4 top-1/2 size-[18px] -translate-y-1/2 text-stone-500" strokeWidth={1.75} aria-hidden />
@@ -99,10 +104,10 @@ export default function HomePage() {
                 <RestaurantCover restaurant={r} className="w-24 shrink-0 sm:h-36 sm:w-full" />
                 <div className="min-w-0 flex-1 p-4 sm:p-5">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="truncate text-[17px] font-semibold sm:text-[19px]">{r.name}</h3>
+                    <h3 className="truncate text-[15px] font-semibold sm:text-[16px]">{r.name}</h3>
                     {r.category && <span className="shrink-0 rounded-full bg-black/[0.05] px-3 py-1 text-[12px] text-stone-600">{r.category}</span>}
                   </div>
-                  {r.description && <p className="mt-1 line-clamp-1 text-[14px] text-stone-500 sm:line-clamp-2">{r.description}</p>}
+                  {r.description && <p className="mt-1 line-clamp-1 text-[13px] text-stone-500 sm:line-clamp-2">{r.description}</p>}
                   {r.address && (
                     <p className="mt-2 flex items-center gap-1 truncate text-[12px] text-stone-500 sm:mt-3">
                       <MapPin className="size-3.5 shrink-0" strokeWidth={1.75} aria-hidden />
@@ -116,6 +121,10 @@ export default function HomePage() {
         )}
       </section>
 
+      <Highlights dishes={featured} />
+      <Statement />
+      <Story />
+      <Bento restaurantCount={all?.restaurants.length ?? 0} />
       <ClosingCta onJump={jump} />
     </>
   )

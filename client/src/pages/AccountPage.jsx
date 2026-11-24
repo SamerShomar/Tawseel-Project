@@ -50,11 +50,11 @@ export default function AccountPage() {
   return (
     <Page title="حسابي" narrow>
       <div className="card flex flex-col items-center p-8 text-center">
-        <span className="animate-pop grid size-20 place-items-center rounded-full bg-gradient-to-br from-accent to-brand-700 text-[32px] font-semibold text-white shadow-lg shadow-accent/30">
+        <span className="animate-pop grid size-20 place-items-center rounded-full bg-gradient-to-br from-accent to-brand-700 text-[26px] font-semibold text-white shadow-lg shadow-accent/30">
           {user.name.trim()[0]}
         </span>
-        <p className="mt-4 text-[24px] font-semibold">{user.name}</p>
-        <p className="text-[14px] text-stone-500" dir="ltr">
+        <p className="mt-4 text-[20px] font-semibold">{user.name}</p>
+        <p className="text-[13px] text-stone-500" dir="ltr">
           {user.email}
         </p>
         <span className="mt-3 rounded-full bg-black/[0.05] px-3 py-1 text-[12px] text-stone-600">{ROLE_LABEL[user.role]}</span>
@@ -63,7 +63,7 @@ export default function AccountPage() {
       <ul className="card mt-4 divide-y divide-stone-100 overflow-hidden">
         {links.map((l) => (
           <li key={l.to}>
-            <Link to={l.to} className="flex items-center gap-3 px-5 py-3.5 text-[17px] transition hover:bg-white/60 active:bg-white/80">
+            <Link to={l.to} className="flex items-center gap-3 px-5 py-3.5 text-[15px] transition hover:bg-white/60 active:bg-white/80">
               <span className="grid size-8 place-items-center rounded-lg bg-accent text-white" aria-hidden>
                 <l.icon className="size-[18px]" strokeWidth={1.75} />
               </span>

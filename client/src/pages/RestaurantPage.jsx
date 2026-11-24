@@ -20,18 +20,18 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
   const gridRef = useReveal([items])
   return (
     <section id={sectionId(name)} className="mt-10 scroll-mt-28 md:mt-14">
-      <h2 className="mb-4 text-[24px] font-semibold md:text-[28px]">{name}</h2>
+      <h2 className="mb-4 text-[20px] font-semibold md:text-[24px]">{name}</h2>
       <div ref={gridRef} className="grid gap-4 md:grid-cols-2">
         {items.map((item) => {
           const qty = qtyInCart(item.id)
           return (
-            <article key={item.id} className="card flex gap-4 p-5">
-              {item.imageUrl && <img src={item.imageUrl} alt="" className="size-24 shrink-0 rounded-2xl object-cover" loading="lazy" />}
-              <div className="flex flex-1 flex-col">
-                <h3 className="text-[17px] font-semibold">{item.name}</h3>
-                {item.description && <p className="mt-1 text-[14px] text-stone-500">{item.description}</p>}
+            // Text and price on one side, the dish photo on the other (like a menu).
+            <article key={item.id} className="card flex gap-4 p-4">
+              <div className="flex min-w-0 flex-1 flex-col">
+                <h3 className="text-[15px] font-semibold">{item.name}</h3>
+                {item.description && <p className="mt-0.5 line-clamp-2 text-[13px] text-stone-500">{item.description}</p>}
                 <div className="mt-auto flex items-center justify-between gap-3 pt-3">
-                  <span className="text-[17px] font-semibold">{formatPrice(item.price)}</span>
+                  <span className="text-[15px] font-semibold">{formatPrice(item.price)}</span>
                   {!canOrder ? null : qty ? (
                     <QuantityStepper name={item.name} quantity={qty} onChange={(q) => onQuantity(item.id, q)} />
                   ) : (
@@ -42,6 +42,9 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
                   )}
                 </div>
               </div>
+              {item.imageUrl && (
+                <img src={item.imageUrl} alt="" className="size-28 shrink-0 rounded-2xl object-cover shadow-sm" loading="lazy" decoding="async" />
+              )}
             </article>
           )
         })}
@@ -81,7 +84,7 @@ function SectionNav({ sections }) {
             e.preventDefault()
             document.getElementById(sectionId(s))?.scrollIntoView({ behavior: 'smooth' })
           }}
-          className={`flex h-11 shrink-0 items-center rounded-full px-4 text-[14px] whitespace-nowrap transition duration-300 ${
+          className={`flex h-11 shrink-0 items-center rounded-full px-4 text-[13px] whitespace-nowrap transition duration-300 ${
             active === s ? 'bg-ink text-white' : 'text-ink hover:bg-black/5'
           }`}
         >
@@ -135,11 +138,11 @@ export default function RestaurantPage() {
         {/* Glass header card overlapping the cover. */}
         <div className="glass relative -mt-16 rounded-[24px] p-5 sm:-mt-24 sm:p-8">
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-[32px] leading-[1.125] font-semibold md:text-5xl">{restaurant.name}</h1>
+            <h1 className="text-[26px] leading-[1.125] font-semibold md:text-[40px]">{restaurant.name}</h1>
             {restaurant.category && <span className="rounded-full bg-white/80 px-3 py-1 text-[12px] font-semibold text-brand-700">{restaurant.category}</span>}
           </div>
-          {restaurant.description && <p className="mt-2 text-[17px] text-stone-600 md:text-[19px]">{restaurant.description}</p>}
-          <div className="mt-3 flex flex-wrap gap-x-5 text-[14px] text-stone-600">
+          {restaurant.description && <p className="mt-2 text-[15px] text-stone-600 md:text-[16px]">{restaurant.description}</p>}
+          <div className="mt-3 flex flex-wrap gap-x-5 text-[13px] text-stone-600">
             {restaurant.address && (
               <span className="flex items-center gap-1 py-1">
                 <MapPin className="size-4" strokeWidth={1.75} aria-hidden />
@@ -202,7 +205,7 @@ export default function RestaurantPage() {
 
       {showBar && (
         <FloatingBar>
-          <span className="text-[14px]">
+          <span className="text-[13px]">
             <strong key={cart.count} className="animate-pop inline-block">
               {cart.count}
             </strong>{' '}

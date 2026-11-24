@@ -105,7 +105,7 @@ function MobileMenu({ open, links, onClose }) {
             className={`transition duration-500 ${open ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0'}`}
             style={{ transitionDelay: open ? `${80 + i * 40}ms` : '0ms' }}
           >
-            <NavLink to={l.to} end={l.end} onClick={onClose} className="block py-2 text-[28px] leading-tight font-semibold text-ink">
+            <NavLink to={l.to} end={l.end} onClick={onClose} className="block py-2 text-[24px] leading-tight font-semibold text-ink">
               {l.label}
             </NavLink>
           </li>
@@ -122,7 +122,7 @@ function MobileMenu({ open, links, onClose }) {
                 onClose()
                 logout()
               }}
-              className="mt-1 py-2 text-[17px] text-brand-700"
+              className="mt-1 py-2 text-[15px] text-brand-700"
             >
               تسجيل الخروج
             </button>
@@ -165,7 +165,7 @@ function Navbar() {
         }`}
       >
         <nav className="mx-auto flex h-12 max-w-5xl items-center gap-1 px-4">
-          <Link to={user ? homeFor(user) : '/'} className="flex h-11 items-center gap-2 text-[17px] font-semibold text-ink">
+          <Link to={user ? homeFor(user) : '/'} className="flex h-11 items-center gap-2 text-[15px] font-semibold text-ink">
             <img src="/favicon.svg" alt="" className="size-6" />
             توصيل
           </Link>
@@ -176,7 +176,7 @@ function Navbar() {
                 key={l.to}
                 to={l.to}
                 end={l.end}
-                className={({ isActive }) => `py-3 text-[13px] transition ${isActive ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
+                className={({ isActive }) => `py-3 text-[12px] transition ${isActive ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
               >
                 {l.label}
               </NavLink>
@@ -195,12 +195,12 @@ function Navbar() {
                 <Link to="/account" className={`${iconBtn} hidden md:grid`} aria-label="حسابي">
                   <UserRound className="size-[18px]" strokeWidth={1.5} aria-hidden />
                 </Link>
-                <button onClick={logout} className="hidden px-2 py-3 text-[13px] text-ink/70 transition hover:text-ink md:block">
+                <button onClick={logout} className="hidden px-2 py-3 text-[12px] text-ink/70 transition hover:text-ink md:block">
                   خروج
                 </button>
               </>
             ) : (
-              <Link to="/login" className="hidden px-2 py-3 text-[13px] text-ink/70 transition hover:text-ink md:block">
+              <Link to="/login" className="hidden px-2 py-3 text-[12px] text-ink/70 transition hover:text-ink md:block">
                 تسجيل الدخول
               </Link>
             )}
@@ -229,6 +229,9 @@ function Footer() {
             </Link>
             <Link to="/register?role=driver" className="py-2 hover:underline">
               اشتغل سائق
+            </Link>
+            <Link to="/credits" className="py-2 hover:underline">
+              مصادر الصور
             </Link>
           </div>
         </div>
@@ -268,8 +271,8 @@ export function Page({ title, subtitle, actions, children, narrow = false }) {
       {(title || actions) && (
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4 md:mb-10">
           <div>
-            {title && <h1 className="text-[32px] leading-[1.125] font-semibold md:text-5xl">{title}</h1>}
-            {subtitle && <p className="mt-2 text-[17px] text-stone-500 md:text-[21px]">{subtitle}</p>}
+            {title && <h1 className="text-[26px] leading-[1.125] font-semibold md:text-[40px]">{title}</h1>}
+            {subtitle && <p className="mt-2 text-[15px] text-stone-500 md:text-[18px]">{subtitle}</p>}
           </div>
           {actions}
         </div>

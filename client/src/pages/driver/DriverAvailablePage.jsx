@@ -55,7 +55,7 @@ export default function DriverAvailablePage() {
               <article key={o.id} className="card p-5 md:p-6">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <h2 className="truncate text-[17px] font-semibold">
+                    <h2 className="truncate text-[15px] font-semibold">
                       #{o.id} · {o.restaurant.name}
                     </h2>
                     <p className="text-[12px] text-stone-500">{formatDate(o.createdAt)}</p>
@@ -63,7 +63,7 @@ export default function DriverAvailablePage() {
                   <StatusBadge status={o.status} />
                 </div>
                 {/* Route: pickup → drop-off, joined by a dotted line. */}
-                <ol className="relative mt-4 space-y-4 rounded-2xl bg-black/[0.04] p-4 text-[14px]">
+                <ol className="relative mt-4 space-y-4 rounded-2xl bg-black/[0.04] p-4 text-[13px]">
                   <span className="absolute start-[31px] top-11 bottom-11 border-s-2 border-dotted border-stone-300" aria-hidden />
                   <li className="relative flex items-start gap-3">
                     <span className="grid size-8 shrink-0 place-items-center rounded-full bg-white text-brand-700 shadow-sm">
@@ -85,7 +85,7 @@ export default function DriverAvailablePage() {
                   </li>
                 </ol>
                 <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-                  <p className="text-[14px]">
+                  <p className="text-[13px]">
                     {o.items.reduce((n, i) => n + i.quantity, 0)} صنف · التحصيل من الزبون: <b>{formatPrice(o.total)}</b>
                   </p>
                   <button className="btn-primary" disabled={busyId === o.id} onClick={() => claim(o)}>

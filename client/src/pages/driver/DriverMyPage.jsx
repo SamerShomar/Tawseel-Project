@@ -27,11 +27,11 @@ function ActiveDelivery({ order, onAction, onRelease, busy }) {
   return (
     <article className="card overflow-hidden">
       <div className="flex items-center justify-between gap-2 border-b border-stone-100 px-5 py-4">
-        <h2 className="text-[17px] font-semibold">طلب #{order.id}</h2>
+        <h2 className="text-[15px] font-semibold">طلب #{order.id}</h2>
         <StatusBadge status={order.status} />
       </div>
 
-      <ol className="relative space-y-5 p-5 text-[14px]">
+      <ol className="relative space-y-5 p-5 text-[13px]">
         <span className="absolute start-[35px] top-14 bottom-14 border-s-2 border-dotted border-stone-300" aria-hidden />
         <li className={`relative flex items-start gap-3 transition-opacity duration-500 ${pickedUp ? 'opacity-50' : ''}`}>
           <span className="grid size-8 shrink-0 place-items-center rounded-full bg-white/80 text-brand-700 ring-1 ring-black/5">
@@ -63,7 +63,7 @@ function ActiveDelivery({ order, onAction, onRelease, busy }) {
         </li>
       </ol>
 
-      <details className="border-t border-stone-100 px-5 text-[14px]">
+      <details className="border-t border-stone-100 px-5 text-[13px]">
         <summary className="cursor-pointer py-3 text-stone-600">{order.items.reduce((n, i) => n + i.quantity, 0)} صنف بالطلب</summary>
         <ul className="space-y-1 pb-3">
           {order.items.map((i) => (
@@ -76,8 +76,8 @@ function ActiveDelivery({ order, onAction, onRelease, busy }) {
 
       {/* Phones: total on its own line, then the buttons side by side across the full width. */}
       <div className="flex flex-col gap-3 bg-black/[0.04] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[14px]">
-          حصّل من الزبون: <b className="text-[17px]">{formatPrice(order.total)}</b>
+        <p className="text-[13px]">
+          حصّل من الزبون: <b className="text-[15px]">{formatPrice(order.total)}</b>
         </p>
         <div className="flex gap-2 whitespace-nowrap">
           {!pickedUp && (
@@ -134,7 +134,7 @@ export default function DriverMyPage() {
       <div className="space-y-6">
         <Alert>{actionError}</Alert>
         <section>
-          <h2 className="mb-4 text-[21px] font-semibold">الطلبات الحالية</h2>
+          <h2 className="mb-4 text-[18px] font-semibold">الطلبات الحالية</h2>
           {active.length === 0 ? (
             <EmptyState icon={Bike} title="ما معك طلبات هلأ">
               <Link to="/driver" className="btn-primary mt-2">
@@ -152,10 +152,10 @@ export default function DriverMyPage() {
 
         {delivered.length > 0 && (
           <section>
-            <h2 className="mb-4 text-[21px] font-semibold">آخر التوصيلات</h2>
+            <h2 className="mb-4 text-[18px] font-semibold">آخر التوصيلات</h2>
             <ul className="card divide-y divide-stone-100">
               {delivered.map((o) => (
-                <li key={o.id} className="flex items-center gap-3 px-5 py-3.5 text-[14px]">
+                <li key={o.id} className="flex items-center gap-3 px-5 py-3.5 text-[13px]">
                   <span className="min-w-0 flex-1 truncate">
                     #{o.id} · {o.restaurant.name} ← {o.customer.name}
                   </span>

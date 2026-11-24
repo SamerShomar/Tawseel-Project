@@ -5,7 +5,7 @@ export function Field({ label, error, as: Tag = 'input', className = '', ...prop
   const id = useId()
   return (
     <div className={className}>
-      <label htmlFor={id} className="mb-2 block text-base font-medium text-stone-700 md:text-sm">
+      <label htmlFor={id} className="mb-1.5 block text-[13px] font-medium text-stone-700">
         {label}
       </label>
       <Tag
