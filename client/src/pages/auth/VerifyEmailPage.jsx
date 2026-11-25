@@ -34,7 +34,7 @@ export default function VerifyEmailPage() {
         <Spinner className="py-8" />
       ) : result.message ? (
         <div className="flex flex-col gap-4 text-center">
-          <CircleCheckBig className="animate-pop mx-auto size-14 text-emerald-600" strokeWidth={1.5} aria-hidden />
+          <CircleCheckBig className="animate-pop mx-auto size-14 text-emerald-600 dark:text-emerald-400" strokeWidth={1.5} aria-hidden />
           <Alert type="success">{result.message}</Alert>
           <Link to={user ? homeFor(user) : '/login'} className="btn-primary">
             {user ? 'متابعة' : 'تسجيل الدخول'}

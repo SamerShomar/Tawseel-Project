@@ -31,7 +31,7 @@ export function RestaurantCover({ restaurant, className = '', iconClassName = 's
   }
   const Icon = ICONS[restaurant.category] || UtensilsCrossed
   return (
-    <div className={`grid place-items-center bg-gradient-to-br ${TINTS[restaurant.id % TINTS.length]} ${className}`}>
+    <div className={`grid place-items-center bg-gradient-to-br ${TINTS[restaurant.id % TINTS.length]} dark:from-stone-100 dark:to-stone-200 ${className}`}>
       <Icon className={`text-brand-700 ${iconClassName}`} strokeWidth={1.25} aria-hidden />
     </div>
   )

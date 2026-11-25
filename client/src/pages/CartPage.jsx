@@ -89,7 +89,7 @@ export default function CartPage() {
                   <QuantityStepper name={item.name} quantity={item.quantity} onChange={(q) => cart.setQuantity(item.id, q)} />
                 </div>
                 <button
-                  className="grid size-11 shrink-0 place-items-center justify-self-end rounded-full text-stone-500 transition hover:bg-rose-50 hover:text-rose-700 sm:order-4"
+                  className="grid size-11 shrink-0 place-items-center justify-self-end rounded-full text-stone-500 transition hover:bg-rose-50 dark:hover:bg-rose-400/25 hover:text-rose-700 dark:hover:text-rose-300 sm:order-4"
                   onClick={() => cart.setQuantity(item.id, 0)}
                   aria-label={`حذف ${item.name}`}
                 >
@@ -114,7 +114,7 @@ export default function CartPage() {
           <Field label="عنوان التوصيل" as="textarea" rows={2} required value={form.deliveryAddress} onChange={set('deliveryAddress')} error={errors.deliveryAddress} placeholder="المدينة، الحي، الشارع، أقرب معلم" />
           <Field label="رقم الهاتف" type="tel" dir="ltr" required value={phone} onChange={set('phone')} error={errors.phone} placeholder="059xxxxxxx" />
           <Field label="ملاحظات (اختياري)" as="textarea" rows={2} value={form.notes} onChange={set('notes')} error={errors.notes} placeholder="مثلاً: بدون بصل" />
-          <p className="flex items-center gap-2 rounded-2xl bg-black/[0.04] px-4 py-3 text-[13px] text-stone-600">
+          <p className="flex items-center gap-2 rounded-2xl bg-tint/[0.04] px-4 py-3 text-[13px] text-stone-600">
             <Banknote className="size-5 shrink-0" strokeWidth={1.5} aria-hidden />
             الدفع نقداً عند الاستلام
           </p>

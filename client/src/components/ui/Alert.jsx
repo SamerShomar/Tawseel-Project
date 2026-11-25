@@ -1,7 +1,7 @@
 const styles = {
-  error: 'bg-rose-50 text-rose-800',
-  success: 'bg-emerald-50 text-emerald-800',
-  info: 'bg-sky-50 text-sky-900',
+  error: 'bg-rose-50 dark:bg-rose-400/15 text-rose-800 dark:text-rose-300',
+  success: 'bg-emerald-50 dark:bg-emerald-400/15 text-emerald-800 dark:text-emerald-300',
+  info: 'bg-sky-50 dark:bg-sky-400/15 text-sky-900 dark:text-sky-300',
 }
 
 export function Alert({ type = 'error', children }) {

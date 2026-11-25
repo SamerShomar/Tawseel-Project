@@ -175,7 +175,7 @@ export default function OwnerMenuPage() {
           {/* Tablets and desktop: table */}
           <div className="card hidden overflow-hidden sm:block">
             <table className="w-full text-[13px]">
-              <thead className="bg-black/[0.03] text-[12px] text-stone-500">
+              <thead className="bg-tint/[0.03] text-[12px] text-stone-500">
                 <tr>
                   <th className="p-3 text-start font-medium">الصنف</th>
                   <th className="hidden p-3 text-start font-medium sm:table-cell">التصنيف</th>

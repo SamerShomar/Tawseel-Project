@@ -34,7 +34,7 @@ function ActiveDelivery({ order, onAction, onRelease, busy }) {
       <ol className="relative space-y-5 p-5 text-[13px]">
         <span className="absolute start-[35px] top-14 bottom-14 border-s-2 border-dotted border-stone-300" aria-hidden />
         <li className={`relative flex items-start gap-3 transition-opacity duration-500 ${pickedUp ? 'opacity-50' : ''}`}>
-          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-white/80 text-brand-700 ring-1 ring-black/5">
+          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-surface/80 text-brand-700 ring-1 ring-tint/5">
             <Store className="size-4" strokeWidth={1.75} aria-hidden />
           </span>
           <div className="min-w-0 flex-1">
@@ -53,7 +53,7 @@ function ActiveDelivery({ order, onAction, onRelease, busy }) {
             <p className="font-semibold">{order.customer.name}</p>
             <p className="text-stone-600">{order.deliveryAddress}</p>
             {order.notes && (
-              <p className="mt-1 flex items-start gap-1.5 text-amber-800">
+              <p className="mt-1 flex items-start gap-1.5 text-amber-800 dark:text-amber-300">
                 <NotebookPen className="mt-0.5 size-4 shrink-0" strokeWidth={1.75} aria-hidden />
                 {order.notes}
               </p>
@@ -75,7 +75,7 @@ function ActiveDelivery({ order, onAction, onRelease, busy }) {
       </details>
 
       {/* Phones: total on its own line, then the buttons side by side across the full width. */}
-      <div className="flex flex-col gap-3 bg-black/[0.04] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 bg-tint/[0.04] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-[13px]">
           حصّل من الزبون: <b className="text-[15px]">{formatPrice(order.total)}</b>
         </p>

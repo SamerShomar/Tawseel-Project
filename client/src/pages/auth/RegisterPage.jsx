@@ -59,7 +59,7 @@ export default function RegisterPage() {
             <label
               key={r.value}
               className={`flex cursor-pointer flex-col items-center rounded-2xl p-2.5 text-center transition duration-300 has-focus-visible:outline-2 has-focus-visible:outline-accent sm:p-3 ${
-                form.role === r.value ? 'bg-white shadow-sm ring-2 ring-accent' : 'bg-white/50 ring-1 ring-black/5 hover:bg-white/80'
+                form.role === r.value ? 'bg-surface shadow-sm ring-2 ring-accent' : 'bg-surface/50 ring-1 ring-tint/5 hover:bg-surface/80'
               }`}
             >
               <input type="radio" name="role" value={r.value} checked={form.role === r.value} onChange={set('role')} className="sr-only" />

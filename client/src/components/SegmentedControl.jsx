@@ -21,10 +21,10 @@ export function SegmentedControl({ options, value, onChange, label }) {
 
   return (
     <div className="no-scrollbar -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-      <div role="tablist" aria-label={label} className="relative inline-flex rounded-full bg-black/[0.06] p-1">
+      <div role="tablist" aria-label={label} className="relative inline-flex rounded-full bg-tint/[0.06] p-1">
         {indicator && (
           <span
-            className="absolute top-1 bottom-1 rounded-full bg-white shadow-[0_3px_8px_rgb(0_0_0/0.12)] transition-all duration-400 ease-apple"
+            className="absolute top-1 bottom-1 rounded-full bg-surface shadow-[0_3px_8px_rgb(0_0_0/0.12)] transition-all duration-400 ease-apple"
             style={{ left: indicator.left, width: indicator.width }}
             aria-hidden
           />
@@ -43,7 +43,7 @@ export function SegmentedControl({ options, value, onChange, label }) {
             {o.label}
             {o.badge != null && (
               <span
-                className={`min-w-6 rounded-full px-1.5 text-[12px] leading-5 ${o.highlight ? 'bg-sun font-semibold text-ink' : 'bg-black/5 text-stone-600'}`}
+                className={`min-w-6 rounded-full px-1.5 text-[12px] leading-5 ${o.highlight ? 'bg-sun font-semibold text-on-sun' : 'bg-tint/5 text-stone-600'}`}
               >
                 {o.badge}
               </span>

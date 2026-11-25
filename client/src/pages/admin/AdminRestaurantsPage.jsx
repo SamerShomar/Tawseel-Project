@@ -48,15 +48,15 @@ export default function AdminRestaurantsPage() {
                 <div className="min-w-0 flex-1 p-5">
                   <div className="flex flex-wrap items-center gap-2">
                     <h2 className="truncate text-[15px] font-semibold">{r.name}</h2>
-                    {r.category && <span className="rounded-full bg-black/[0.05] px-2 py-0.5 text-[12px] text-stone-600">{r.category}</span>}
-                    <span className={`rounded-full px-2 py-0.5 text-[12px] ${r.isActive ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-700'}`}>
+                    {r.category && <span className="rounded-full bg-tint/[0.05] px-2 py-0.5 text-[12px] text-stone-600">{r.category}</span>}
+                    <span className={`rounded-full px-2 py-0.5 text-[12px] ${r.isActive ? 'bg-emerald-100 dark:bg-emerald-400/15 text-emerald-800 dark:text-emerald-300' : 'bg-rose-100 dark:bg-rose-400/15 text-rose-700 dark:text-rose-300'}`}>
                       {r.isActive ? 'ظاهر' : 'مخفي'}
                     </span>
                   </div>
                   <p className="mt-1 truncate text-[13px] text-stone-500">
                     {r.owner.name}
-                    {!r.owner.isActive && <span className="text-rose-600"> (حساب موقوف)</span>}
-                    {!r.owner.emailVerifiedAt && <span className="text-amber-700"> (الإيميل غير مؤكد، المطعم مش ظاهر للزباين)</span>}
+                    {!r.owner.isActive && <span className="text-rose-600 dark:text-rose-400"> (حساب موقوف)</span>}
+                    {!r.owner.emailVerifiedAt && <span className="text-amber-700 dark:text-amber-300"> (الإيميل غير مؤكد، المطعم مش ظاهر للزباين)</span>}
                   </p>
                   <p className="text-[12px] text-stone-500">
                     {r.menuItemsCount} صنف · {r.ordersCount} طلب {r.address && `· ${r.address}`}

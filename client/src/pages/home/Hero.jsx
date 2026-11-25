@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { ChevronLeft } from 'lucide-react'
 import { gsap, useGSAP } from '@/lib/gsap'
+import { useTheme } from '@/lib/theme'
 import { Phone, ScreenTracking } from './Phone'
 
 /** Sticky glass bar under the global nav, like the bar on a product page: name, section links, and a buy-style button. */
@@ -12,7 +13,7 @@ export function LocalNav({ onJump }) {
     ['why', 'ليش توصيل'],
   ]
   return (
-    <nav aria-label="أقسام الصفحة" className="material-bar sticky top-0 z-40 border-b border-black/10">
+    <nav aria-label="أقسام الصفحة" className="material-bar sticky top-0 z-40 border-b border-tint/10">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-4">
         <p className="text-[18px] font-semibold">توصيل</p>
         <div className="flex items-center gap-6">
@@ -117,7 +118,7 @@ export function Hero({ onJump }) {
       id="overview"
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative flex min-h-[calc(100svh-3rem)] scroll-mt-14 flex-col overflow-hidden rounded-b-[36px] bg-black text-center text-white md:mx-3 md:mt-3 md:min-h-[calc(100svh-4.5rem)] md:rounded-[40px]"
+      className="relative flex min-h-[calc(100svh-3rem)] scroll-mt-14 flex-col overflow-hidden rounded-b-[36px] bg-black text-center text-white dark:ring-1 dark:ring-white/10 md:mx-3 md:mt-3 md:min-h-[calc(100svh-4.5rem)] md:rounded-[40px]"
     >
       {/* Glow behind the phone, added as light ("screen" blending) so warm colors stay bright instead of turning brown on black. */}
       <div
@@ -176,6 +177,7 @@ const STATEMENT = 'كل مطاعم غزة المفضلة بمكان واحد. ا
 /** A big statement whose words light up one by one as you scroll through it. */
 export function Statement() {
   const ref = useRef(null)
+  const [theme] = useTheme()
 
   useGSAP(
     () => {
@@ -183,9 +185,9 @@ export function Statement() {
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap.fromTo(
           '.st-word',
-          { color: '#6e6e73' }, // unread words stay readable (above 3:1 at this size), then turn black
+          { color: '#6e6e73' }, // unread words stay readable (above 3:1 at this size in both themes), then turn full color
           {
-            color: '#1d1d1f',
+            color: theme === 'dark' ? '#f5f5f7' : '#1d1d1f',
             ease: 'none',
             stagger: 0.1,
             scrollTrigger: {
@@ -199,7 +201,7 @@ export function Statement() {
       })
       return () => mm.revert()
     },
-    { scope: ref },
+    { scope: ref, dependencies: [theme], revertOnUpdate: true },
   )
 
   return (
