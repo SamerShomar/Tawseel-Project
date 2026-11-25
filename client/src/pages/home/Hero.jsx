@@ -48,16 +48,23 @@ export function LocalNav({ onJump }) {
 export function Hero({ onJump }) {
   const ref = useRef(null)
 
-  // Mouse position over the hero, from -0.5 to 0.5 on each axis; CSS uses it to lean the phone and shift the glow.
+  // Mouse position over the hero: --px/--py from -0.5 to 0.5 (lean the phone, pull the big glow toward the cursor),
+  // and --gx/--gy in pixels (the light that follows the cursor).
   const onPointerMove = (e) => {
     if (e.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const r = ref.current.getBoundingClientRect()
-    ref.current.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3))
-    ref.current.style.setProperty('--py', ((e.clientY - r.top) / r.height - 0.5).toFixed(3))
+    const s = ref.current.style
+    s.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3))
+    s.setProperty('--py', ((e.clientY - r.top) / r.height - 0.5).toFixed(3))
+    s.setProperty('--gx', `${Math.round(e.clientX - r.left)}px`)
+    s.setProperty('--gy', `${Math.round(e.clientY - r.top)}px`)
+    s.setProperty('--glow', 1)
   }
   const onPointerLeave = () => {
-    ref.current.style.setProperty('--px', 0)
-    ref.current.style.setProperty('--py', 0)
+    const s = ref.current.style
+    s.setProperty('--px', 0)
+    s.setProperty('--py', 0)
+    s.setProperty('--glow', 0)
   }
 
   useGSAP(
@@ -122,7 +129,7 @@ export function Hero({ onJump }) {
     >
       {/* Glow behind the phone, added as light ("screen" blending) so warm colors stay bright instead of turning brown on black. */}
       <div
-        className="hero-glow-scroll pointer-events-none absolute inset-x-0 bottom-0 h-[75%] transition-[translate] duration-1000 ease-apple [translate:calc(var(--px,0)*120px)_calc(var(--py,0)*60px)]"
+        className="hero-glow-scroll pointer-events-none absolute inset-x-0 bottom-0 h-[75%] transition-[translate] duration-700 ease-apple [translate:calc(var(--px,0)*55%)_calc(var(--py,0)*45%)]"
         aria-hidden
       >
         <div className="hero-glow absolute inset-0">
@@ -130,6 +137,12 @@ export function Hero({ onJump }) {
           <div className="absolute bottom-[18%] left-[55%] size-[300px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_205_70/0.55),transparent_70%)] mix-blend-screen md:size-[440px]" />
         </div>
       </div>
+
+      {/* Warm light that follows the cursor (mouse only), trailing it a little. */}
+      <div
+        className="pointer-events-none absolute top-0 left-0 size-[460px] rounded-full bg-[radial-gradient(closest-side,rgb(255_130_40/0.6),rgb(255_199_44/0.2)_50%,transparent)] mix-blend-screen transition-[translate,opacity] duration-500 ease-apple [opacity:var(--glow,0)] [translate:calc(var(--gx,50%)-50%)_calc(var(--gy,50%)-50%)] md:size-[620px]"
+        aria-hidden
+      />
 
       <div className="hero-text relative px-4 pt-10 md:pt-16">
         <p className="hero-eyebrow bg-gradient-to-l from-sun to-[#ff7a3d] bg-clip-text text-[18px] font-semibold text-transparent md:text-[24px]">

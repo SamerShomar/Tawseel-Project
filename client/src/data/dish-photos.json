@@ -281,16 +281,9 @@
     {
       "restaurant": "كنافة باب الدار",
       "name": "كنافة نابلسية ناعمة",
-      "image": "/images/dishes/knafeh.webp",
-      "width": 1024,
-      "height": 768,
-      "credit": {
-        "title": "Knafah, Knafeh",
-        "creator": "watashiwani",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/11316976@N00/2054754362"
-      },
+      "image": "/images/dishes/knafeh-tea.webp",
+      "width": 736,
+      "height": 1103,
       "featured": true
     },
     {
@@ -366,16 +359,9 @@
     {
       "restaurant": "فلافل الجرن",
       "name": "ساندويش فلافل",
-      "image": "/images/dishes/falafel-sandwich.webp",
-      "width": 1024,
-      "height": 1024,
-      "credit": {
-        "title": "Harissa Falafel Sandwich",
-        "creator": "Cole Kennedy",
-        "license": "Public Domain Mark 1.0",
-        "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-        "source": "https://www.flickr.com/photos/123529748@N03/18648701644"
-      },
+      "image": "/images/dishes/falafel-tower.webp",
+      "width": 736,
+      "height": 1051,
       "featured": true
     },
     {
@@ -522,30 +508,17 @@
     {
       "restaurant": "أسماك المرفأ",
       "name": "سمك مقلي",
-      "image": "/images/dishes/fried-fish.webp",
-      "width": 1024,
-      "height": 768,
-      "credit": {
-        "title": "Fish - Deep Fried Fish Fillet Noodles - Hongyun Chinese Restaurant AUD8.50",
-        "creator": "avlxyz",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/10559879@N00/3199200846"
-      }
+      "image": "/images/dishes/fried-fish-platter.webp",
+      "width": 736,
+      "height": 1104,
+      "featured": true
     },
     {
       "restaurant": "أسماك المرفأ",
       "name": "سمك مشوي",
-      "image": "/images/dishes/grilled-fish.webp",
+      "image": "/images/dishes/grilled-fish-plate.webp",
       "width": 1024,
-      "height": 768,
-      "credit": {
-        "title": "Grilled Blue Grenadier, Salad, Corn and Sambal - Hooked",
-        "creator": "avlxyz",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/10559879@N00/2370644550"
-      }
+      "height": 1024
     },
     {
       "restaurant": "أسماك المرفأ",
@@ -607,16 +580,9 @@
     {
       "restaurant": "مطبخ ستي",
       "name": "مقلوبة",
-      "image": "/images/dishes/maqluba.webp",
-      "width": 1024,
-      "height": 683,
-      "credit": {
-        "title": "Glory Foods Turkey, Beans, and Rice Casserole",
-        "creator": "Glory Foods",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/60211531@N08/6397756125"
-      },
+      "image": "/images/dishes/chicken-rice-platter.webp",
+      "width": 736,
+      "height": 1308,
       "featured": true
     },
     {
@@ -673,8 +639,7 @@
         "license": "CC BY-SA 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
         "source": "https://www.flickr.com/photos/10559879@N00/4105719658"
-      },
-      "featured": true
+      }
     },
     {
       "restaurant": "فطائر الطابون",
@@ -693,16 +658,10 @@
     {
       "restaurant": "فطائر الطابون",
       "name": "منقوشة جبنة وزعتر",
-      "image": "/images/dishes/manakish-mix.webp",
-      "width": 1024,
-      "height": 686,
-      "credit": {
-        "title": "Meat pizza - A-1 Bakery AUD4",
-        "creator": "avlxyz",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/10559879@N00/4105720202"
-      }
+      "image": "/images/dishes/fatayer-board.webp",
+      "width": 1000,
+      "height": 1249,
+      "featured": true
     },
     {
       "restaurant": "فطائر الطابون",
@@ -834,7 +793,7 @@
     },
     {
       "restaurant": "كنافة باب الدار",
-      "image": "/images/dishes/knafeh.webp"
+      "image": "/images/dishes/knafeh-tray.webp"
     },
     {
       "restaurant": "فلافل الجرن",
@@ -846,19 +805,19 @@
     },
     {
       "restaurant": "أسماك المرفأ",
-      "image": "/images/dishes/sayadieh.webp"
+      "image": "/images/dishes/grilled-fish-plate.webp"
     },
     {
       "restaurant": "مطبخ ستي",
-      "image": "/images/dishes/maqluba.webp"
+      "image": "/images/dishes/chicken-rice-tray.webp"
     },
     {
       "restaurant": "فطائر الطابون",
-      "image": "/images/dishes/manakish-zaatar.webp"
+      "image": "/images/dishes/fatayer-tray.webp"
     },
     {
       "restaurant": "مقهى الموج",
-      "image": "/images/dishes/arabic-coffee.webp"
+      "image": "/images/dishes/cappuccino-cake.webp"
     }
   ]
 }
