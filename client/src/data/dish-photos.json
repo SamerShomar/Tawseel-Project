@@ -40,8 +40,8 @@
       "restaurant": "شاورما البيدر",
       "name": "وجبة عربي دجاج",
       "image": "/images/dishes/arabi-chicken-meal.webp",
-      "width": 2048,
-      "height": 1536,
+      "width": 1400,
+      "height": 1050,
       "credit": {
         "title": "A mixed beef and chicken shawarma cut in half and served with French fries, accompanied by two dipping sauces on a white square plate.",
         "creator": "Joan Namunina",
@@ -118,15 +118,15 @@
         "license": "CC BY 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
         "source": "https://www.flickr.com/photos/54151899@N00/6230792270"
-      },
-      "featured": true
+      }
     },
     {
       "restaurant": "برجر الميناء",
       "name": "دبل برجر",
       "image": "/images/dishes/double-burger.webp",
       "width": 736,
-      "height": 1308
+      "height": 1308,
+      "featured": true
     },
     {
       "restaurant": "برجر الميناء",
@@ -147,7 +147,8 @@
       "name": "وجبة برجر",
       "image": "/images/dishes/burger-meal.webp",
       "width": 1024,
-      "height": 1024
+      "height": 1024,
+      "featured": true
     },
     {
       "restaurant": "برجر الميناء",
@@ -203,8 +204,7 @@
         "license": "CC BY 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
         "source": "https://www.flickr.com/photos/95142644@N00/8295320042"
-      },
-      "featured": true
+      }
     },
     {
       "restaurant": "بيتزا الزيتونة",
@@ -239,21 +239,23 @@
       "name": "بيتزا سجق",
       "image": "/images/dishes/sausage-pizza.webp",
       "width": 736,
-      "height": 1104
+      "height": 1104,
+      "featured": true
     },
     {
       "restaurant": "بيتزا الزيتونة",
       "name": "بيتزا عائلية مشكلة",
       "image": "/images/dishes/family-pizza.webp",
       "width": 736,
-      "height": 736
+      "height": 736,
+      "featured": true
     },
     {
       "restaurant": "بيتزا الزيتونة",
       "name": "خبز بالثوم والجبنة",
       "image": "/images/dishes/garlic-bread.webp",
-      "width": 1536,
-      "height": 2048,
+      "width": 1400,
+      "height": 1867,
       "credit": {
         "title": "A plate of golden, cheesy garlic bread topped with green capsicum, captured near a cafe in Malabar Hill, Mumbai. The melted cheese and crisp edges make it look warm and tasty.",
         "creator": "Bigul Malayi",
@@ -851,11 +853,11 @@
     },
     {
       "restaurant": "برجر الميناء",
-      "image": "/images/dishes/classic-burger.webp"
+      "image": "/images/dishes/burger-meal.webp"
     },
     {
       "restaurant": "بيتزا الزيتونة",
-      "image": "/images/dishes/margherita.webp"
+      "image": "/images/dishes/family-pizza.webp"
     },
     {
       "restaurant": "كنافة باب الدار",

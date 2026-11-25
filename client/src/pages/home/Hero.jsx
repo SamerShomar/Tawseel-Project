@@ -101,11 +101,9 @@ export function Hero({ onJump }) {
           ease: 'none',
           scrollTrigger: scroll,
         })
-        gsap.to('.hero-glow', {
-          scale: 1.3,
-          ease: 'none',
-          scrollTrigger: scroll,
-        })
+        // On its own layer: if the scroll and the intro both animated the same element, scrolling during
+        // the intro would pick up the intro's small starting size and the glow would shrink and fade.
+        gsap.fromTo('.hero-glow-scroll', { scale: 1 }, { scale: 1.3, ease: 'none', scrollTrigger: scroll })
       })
       return () => mm.revert()
     },
@@ -123,11 +121,13 @@ export function Hero({ onJump }) {
     >
       {/* Glow behind the phone, added as light ("screen" blending) so warm colors stay bright instead of turning brown on black. */}
       <div
-        className="hero-glow pointer-events-none absolute inset-x-0 bottom-0 h-[75%] transition-[translate] duration-1000 ease-apple [translate:calc(var(--px,0)*120px)_calc(var(--py,0)*60px)]"
+        className="hero-glow-scroll pointer-events-none absolute inset-x-0 bottom-0 h-[75%] transition-[translate] duration-1000 ease-apple [translate:calc(var(--px,0)*120px)_calc(var(--py,0)*60px)]"
         aria-hidden
       >
-        <div className="absolute bottom-[-10%] left-1/2 size-[560px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_96_32/0.85),rgb(255_96_32/0.25)_55%,transparent_75%)] mix-blend-screen md:size-[820px]" />
-        <div className="absolute bottom-[18%] left-[55%] size-[300px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_205_70/0.55),transparent_70%)] mix-blend-screen md:size-[440px]" />
+        <div className="hero-glow absolute inset-0">
+          <div className="absolute bottom-[-10%] left-1/2 size-[560px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_96_32/0.85),rgb(255_96_32/0.25)_55%,transparent_75%)] mix-blend-screen md:size-[820px]" />
+          <div className="absolute bottom-[18%] left-[55%] size-[300px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_205_70/0.55),transparent_70%)] mix-blend-screen md:size-[440px]" />
+        </div>
       </div>
 
       <div className="hero-text relative px-4 pt-10 md:pt-16">

@@ -37,9 +37,10 @@ export default function HomePage() {
 
   const gridRef = useReveal([data?.restaurants])
 
-  // Popular dishes: the signature dish of each restaurant that is open on the site.
+  // Popular dishes: the signature dishes of the restaurants open on the site, the restaurants' own photos first.
   const featured = (photos.dishes || [])
     .filter((d) => d.featured)
+    .sort((a, b) => Boolean(a.credit) - Boolean(b.credit))
     .map((d) => ({ ...d, restaurantId: all?.restaurants.find((r) => r.name === d.restaurant)?.id }))
     .filter((d) => d.restaurantId)
 
@@ -103,7 +104,7 @@ export default function HomePage() {
                 data-tilt="12"
                 className="card group flex items-stretch overflow-hidden active:scale-[0.99] sm:block"
               >
-                <RestaurantCover restaurant={r} className="w-24 shrink-0 transition duration-700 ease-apple group-hover:scale-[1.18] group-hover:rotate-1 sm:h-36 sm:w-full" />
+                <RestaurantCover restaurant={r} sizes="(min-width: 1024px) 330px, (min-width: 640px) 50vw, 96px" className="w-24 shrink-0 transition duration-700 ease-apple group-hover:scale-[1.18] group-hover:rotate-1 sm:h-36 sm:w-full" />
                 <div className="min-w-0 flex-1 p-4 sm:p-5">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="truncate text-[15px] font-semibold sm:text-[16px]">{r.name}</h3>

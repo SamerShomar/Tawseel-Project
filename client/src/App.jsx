@@ -1,28 +1,35 @@
+import { lazy } from 'react'
 import { Route, Routes } from 'react-router'
 import { Layout } from '@/components/Layout'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
-import AccountPage from '@/pages/AccountPage'
-import AdminDashboardPage from '@/pages/admin/AdminDashboardPage'
-import AdminOrdersPage from '@/pages/admin/AdminOrdersPage'
-import AdminRestaurantsPage from '@/pages/admin/AdminRestaurantsPage'
-import AdminUsersPage from '@/pages/admin/AdminUsersPage'
-import CartPage from '@/pages/CartPage'
-import CreditsPage from '@/pages/CreditsPage'
-import DriverAvailablePage from '@/pages/driver/DriverAvailablePage'
-import DriverMyPage from '@/pages/driver/DriverMyPage'
-import ForgotPasswordPage from '@/pages/auth/ForgotPasswordPage'
-import LoginPage from '@/pages/auth/LoginPage'
-import RegisterPage from '@/pages/auth/RegisterPage'
-import ResetPasswordPage from '@/pages/auth/ResetPasswordPage'
-import VerifyEmailPage from '@/pages/auth/VerifyEmailPage'
 import HomePage from '@/pages/HomePage'
-import NotFoundPage from '@/pages/NotFoundPage'
-import OrderDetailsPage from '@/pages/OrderDetailsPage'
-import OrdersPage from '@/pages/OrdersPage'
-import OwnerMenuPage from '@/pages/owner/OwnerMenuPage'
-import OwnerOrdersPage from '@/pages/owner/OwnerOrdersPage'
-import OwnerSettingsPage from '@/pages/owner/OwnerSettingsPage'
-import RestaurantPage from '@/pages/RestaurantPage'
+
+// Every page but the home page is loaded when it is first opened, so the first visit downloads less.
+const AccountPage = lazy(() => import('@/pages/AccountPage'))
+const AdminDashboardPage = lazy(() => import('@/pages/admin/AdminDashboardPage'))
+const AdminOrdersPage = lazy(() => import('@/pages/admin/AdminOrdersPage'))
+const AdminRestaurantsPage = lazy(() => import('@/pages/admin/AdminRestaurantsPage'))
+const AdminUsersPage = lazy(() => import('@/pages/admin/AdminUsersPage'))
+const CartPage = lazy(() => import('@/pages/CartPage'))
+const CreditsPage = lazy(() => import('@/pages/CreditsPage'))
+const DriverAvailablePage = lazy(() => import('@/pages/driver/DriverAvailablePage'))
+const DriverMyPage = lazy(() => import('@/pages/driver/DriverMyPage'))
+const ForgotPasswordPage = lazy(() => import('@/pages/auth/ForgotPasswordPage'))
+const LoginPage = lazy(() => import('@/pages/auth/LoginPage'))
+const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'))
+const ResetPasswordPage = lazy(() => import('@/pages/auth/ResetPasswordPage'))
+const VerifyEmailPage = lazy(() => import('@/pages/auth/VerifyEmailPage'))
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
+const OrderDetailsPage = lazy(() => import('@/pages/OrderDetailsPage'))
+const OrdersPage = lazy(() => import('@/pages/OrdersPage'))
+const OwnerMenuPage = lazy(() => import('@/pages/owner/OwnerMenuPage'))
+const OwnerOrdersPage = lazy(() => import('@/pages/owner/OwnerOrdersPage'))
+const OwnerSettingsPage = lazy(() => import('@/pages/owner/OwnerSettingsPage'))
+const loadRestaurantPage = () => import('@/pages/RestaurantPage')
+const RestaurantPage = lazy(loadRestaurantPage)
+
+// Most visitors open a restaurant next, so that page is fetched in the background once the browser is idle.
+;(window.requestIdleCallback || setTimeout)(loadRestaurantPage)
 
 export default function App() {
   return (

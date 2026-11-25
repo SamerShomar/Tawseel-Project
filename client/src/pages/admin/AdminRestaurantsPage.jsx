@@ -44,7 +44,7 @@ export default function AdminRestaurantsPage() {
           <div ref={gridRef} className="grid gap-4 md:grid-cols-2">
             {list.map((r) => (
               <article key={r.id} className={`card flex overflow-hidden ${r.isActive ? '' : 'opacity-70'}`}>
-                <RestaurantCover restaurant={r} className="w-20 shrink-0 sm:w-24" />
+                <RestaurantCover restaurant={r} sizes="96px" className="w-20 shrink-0 sm:w-24" />
                 <div className="min-w-0 flex-1 p-5">
                   <div className="flex flex-wrap items-center gap-2">
                     <h2 className="truncate text-[15px] font-semibold">{r.name}</h2>
