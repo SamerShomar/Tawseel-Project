@@ -34,13 +34,13 @@
       "name": "شاورما جريل",
       "image": "/images/dishes/shawarma-grill.webp",
       "width": 1024,
-      "height": 683,
+      "height": 768,
       "credit": {
-        "title": "DFC_0012: a man in an orange shirt cooking food on a grill",
-        "creator": "PattayaPatrol",
+        "title": "Shawarma",
+        "creator": "cyclonebill",
         "license": "CC BY-SA 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/194424926@N05/54375227085"
+        "source": "https://www.flickr.com/photos/23178876@N03/8503517413"
       }
     },
     {
@@ -64,25 +64,25 @@
       "width": 1024,
       "height": 768,
       "credit": {
-        "title": "Lamb Shawarma over hommus",
-        "creator": "@joefoodie",
+        "title": "Bali Laffa - Hummus with Shawarma",
+        "creator": "kasio69",
         "license": "CC BY 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/98178986@N00/3529400083"
+        "source": "https://www.flickr.com/photos/37904342@N04/9033974505"
       }
     },
     {
       "restaurant": "شاورما البيدر",
       "name": "بطاطا مقلية",
       "image": "/images/dishes/fries.webp",
-      "width": 1280,
-      "height": 960,
+      "width": 1024,
+      "height": 683,
       "credit": {
-        "title": "Ready to eat microwave food (TV dinner) Currywurst with French fries",
-        "creator": "User:Mattes",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://commons.wikimedia.org/w/index.php?curid=24133990"
+        "title": "French fries bowl",
+        "creator": null,
+        "license": "CC0 1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "source": "https://www.rawpixel.com/image/6019954/photo-image-public-domain-plant-food"
       }
     },
     {
@@ -104,13 +104,13 @@
       "name": "كولا",
       "image": "/images/dishes/cola.webp",
       "width": 1024,
-      "height": 819,
+      "height": 1024,
       "credit": {
-        "title": "Top of a Coca-Cola can",
-        "creator": "Brett Levin Photography",
+        "title": "ice cold ice tea love",
+        "creator": "Andi Licious",
         "license": "CC BY 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/51117559@N03/5710412913"
+        "source": "https://www.flickr.com/photos/32722794@N07/4757509015"
       }
     },
     {
@@ -273,14 +273,14 @@
       "restaurant": "بيتزا الزيتونة",
       "name": "بيتزا عائلية مشكلة",
       "image": "/images/dishes/family-pizza.webp",
-      "width": 1536,
-      "height": 2048,
+      "width": 1024,
+      "height": 1024,
       "credit": {
-        "title": "A large pizza with a golden crust, topped with melted cheese and pieces of cooked chicken, is displayed on a round platter.",
-        "creator": "Manjil Aryal",
-        "license": "CC0 1.0",
-        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-        "source": "https://wordpress.org/photos/photo/616695e0c4/"
+        "title": "2019.02.26 Low Carbohydrate Healthy Fat Pizza, Washington, DC USA 00233",
+        "creator": "tedeytan",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/22526649@N03/33427573388"
       }
     },
     {
@@ -372,14 +372,14 @@
       "restaurant": "كنافة باب الدار",
       "name": "هريسة بالقشطة",
       "image": "/images/dishes/basbousa.webp",
-      "width": 1000,
-      "height": 698,
+      "width": 1024,
+      "height": 683,
       "credit": {
-        "title": "Dessert trio",
-        "creator": "La.Catholique",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/38559542@N02/6139522182"
+        "title": "Vegan Olive Oil Rosemary Semolina Cake",
+        "creator": "Veganbaking.net",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/31104779@N02/5552277248"
       }
     },
     {
@@ -430,13 +430,13 @@
       "name": "صحن حمص",
       "image": "/images/dishes/hummus.webp",
       "width": 1024,
-      "height": 771,
+      "height": 683,
       "credit": {
-        "title": "sad hummus",
-        "creator": "Urban Hippie Science",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/79891443@N00/2172957507"
+        "title": "IMG_1701",
+        "creator": "takaokun",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/89965849@N00/4130683252"
       }
     },
     {
@@ -446,11 +446,11 @@
       "width": 1024,
       "height": 768,
       "credit": {
-        "title": "Ful medames",
-        "creator": "kmf164",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/10293570@N00/49822013552"
+        "title": "Breakfast",
+        "creator": "goblinbox_(queen_of_ad_hoc_bento)",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/25977089@N00/8706922739"
       }
     },
     {
@@ -559,11 +559,11 @@
       "width": 1024,
       "height": 768,
       "credit": {
-        "title": "Emirates Business class meal on A380",
-        "creator": "Andy_Mitchell_UK",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/19229064@N00/5646674365"
+        "title": "White Bean Salad",
+        "creator": "Towne Post Network",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "source": "https://www.flickr.com/photos/16133272@N00/9253476665"
       }
     },
     {
@@ -585,13 +585,13 @@
       "name": "سمك مشوي",
       "image": "/images/dishes/grilled-fish.webp",
       "width": 1024,
-      "height": 684,
+      "height": 768,
       "credit": {
-        "title": "Grilling Fish",
-        "creator": ".waldec",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/39002040@N00/5171522055"
+        "title": "Grilled Blue Grenadier, Salad, Corn and Sambal - Hooked",
+        "creator": "avlxyz",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "source": "https://www.flickr.com/photos/10559879@N00/2370644550"
       }
     },
     {
@@ -655,14 +655,14 @@
       "restaurant": "مطبخ ستي",
       "name": "مقلوبة",
       "image": "/images/dishes/maqluba.webp",
-      "width": 600,
-      "height": 449,
+      "width": 1024,
+      "height": 683,
       "credit": {
-        "title": "Maklouba",
-        "creator": "seelensturm",
+        "title": "Glory Foods Turkey, Beans, and Rice Casserole",
+        "creator": "Glory Foods",
         "license": "CC BY 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/61404197@N00/4259411603"
+        "source": "https://www.flickr.com/photos/60211531@N08/6397756125"
       },
       "featured": true
     },
@@ -670,14 +670,14 @@
       "restaurant": "مطبخ ستي",
       "name": "فتة غزاوية",
       "image": "/images/dishes/gaza-fatteh.webp",
-      "width": 600,
-      "height": 400,
+      "width": 1024,
+      "height": 768,
       "credit": {
-        "title": "qwaider al nabulsi lamb mansaf",
-        "creator": "goodiesfirst",
+        "title": "African Dinner",
+        "creator": "kimberlykv",
         "license": "CC BY 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/49215102@N00/11389640775"
+        "source": "https://www.flickr.com/photos/87542849@N00/3199995731"
       }
     },
     {
@@ -784,13 +784,13 @@
       "name": "مسخن رول",
       "image": "/images/dishes/musakhan-roll.webp",
       "width": 1024,
-      "height": 577,
+      "height": 686,
       "credit": {
-        "title": "Plato Beirut",
-        "creator": "Georgiño",
+        "title": "Zaatar pizza and Cheese pie - A-1 Bakery AUD2.50, AUD3",
+        "creator": "avlxyz",
         "license": "CC BY-SA 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/25540996@N07/53137594242"
+        "source": "https://www.flickr.com/photos/10559879@N00/4105719658"
       }
     },
     {
