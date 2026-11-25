@@ -30,7 +30,7 @@ export function VerifyEmailBanner() {
   }
 
   return (
-    <div role="status" className="bg-amber-50 text-amber-900">
+    <div role="status" className="bg-amber-50 dark:bg-amber-400/15 text-amber-900 dark:text-amber-300">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2 text-[13px]">
         <Mail className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
         <p className="min-w-0 flex-1">
@@ -43,7 +43,7 @@ export function VerifyEmailBanner() {
           )}
         </p>
         {state !== 'sent' && (
-          <button onClick={resend} disabled={state === 'sending'} className="py-2 font-semibold text-amber-900 underline underline-offset-2 disabled:opacity-50">
+          <button onClick={resend} disabled={state === 'sending'} className="py-2 font-semibold text-amber-900 dark:text-amber-300 underline underline-offset-2 disabled:opacity-50">
             {state === 'sending' ? 'جاري الإرسال…' : 'إعادة إرسال الرابط'}
           </button>
         )}

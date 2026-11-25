@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark mode is a class on <html> (set from the saved choice or the device setting; see index.html and lib/theme.js). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Apple devices get San Francisco (SF Arabic for Arabic); everyone else gets IBM Plex Sans Arabic. */
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Arabic", "IBM Plex Sans Arabic", system-ui, sans-serif;
@@ -34,6 +37,11 @@
   --color-sun: #ffc72c;
   --color-sun-100: #fff3c4;
   --color-sun-300: #ffdd6e;
+  --color-on-sun: #1d1d1f; /* text on yellow: stays dark in both themes */
+
+  /* Theme-aware neutrals: solid surfaces (white → dark gray) and tints for subtle fills and hairlines (black → white). */
+  --color-surface: #ffffff;
+  --color-tint: #000000;
 
   /* Motion: Apple-like easing (fast start, long soft landing). */
   --ease-apple: cubic-bezier(0.22, 1, 0.36, 1);
@@ -148,6 +156,46 @@
   }
 }
 
+/* ───────── Dark mode: the same names, dark values, so every stone-*, ink, surface and tint class follows. ───────── */
+.dark {
+  color-scheme: dark;
+  --color-ink: #f5f5f7;
+  --color-stone-50: #0b0b0c;
+  --color-stone-100: #1c1c1e;
+  --color-stone-200: #2c2c2e;
+  --color-stone-300: #3a3a3c;
+  --color-stone-400: #6e6e73;
+  --color-stone-500: #a1a1a6;
+  --color-stone-600: #c7c7cc;
+  --color-stone-700: #d2d2d7;
+  --color-stone-800: #e8e8ed;
+  --color-stone-900: #f5f5f7;
+  --color-brand-700: #ff9466; /* links and icons: light orange, 8:1 on the dark background */
+  --color-sun-100: rgb(255 199 44 / 0.2);
+  --color-surface: #2c2c2e;
+  --color-tint: #ffffff;
+}
+
+/* The drawn phone keeps its light screen in dark mode, like a real device photo. */
+.dark .theme-light {
+  color-scheme: light;
+  --color-ink: #1d1d1f;
+  --color-stone-50: #f5f5f7;
+  --color-stone-100: #e8e8ed;
+  --color-stone-200: #d2d2d7;
+  --color-stone-300: #c7c7cc;
+  --color-stone-400: #86868b;
+  --color-stone-500: #58585d;
+  --color-stone-600: #424245;
+  --color-stone-700: #333336;
+  --color-stone-800: #272729;
+  --color-stone-900: #1d1d1f;
+  --color-brand-700: #a3300f;
+  --color-sun-100: #fff3c4;
+  --color-surface: #ffffff;
+  --color-tint: #000000;
+}
+
 /* Respect "Reduce Motion": everything snaps to its final state. */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -194,11 +242,12 @@ body {
 }
 
 @utility btn-primary {
-    @apply btn bg-accent text-white hover:-translate-y-1 hover:scale-[1.04] hover:bg-brand-700 hover:shadow-[0_14px_30px_-6px_rgb(200_65_15/0.65)];
+    @apply btn bg-accent text-white hover:-translate-y-1 hover:scale-[1.04] hover:bg-brand-700 hover:shadow-[0_14px_30px_-6px_rgb(200_65_15/0.65)]
+      dark:hover:bg-accent dark:hover:brightness-110;
 }
 
 @utility btn-secondary {
-    @apply btn border border-brand-700 text-brand-700 hover:bg-brand-700 hover:text-white;
+    @apply btn border border-brand-700 text-brand-700 hover:bg-brand-700 hover:text-white dark:hover:border-accent dark:hover:bg-accent;
 }
 
 @utility btn-danger {
@@ -208,7 +257,8 @@ body {
 /* Filter chip; mark the selected one with aria-pressed="true". */
 @utility chip {
     @apply flex h-11 shrink-0 items-center rounded-full bg-white/60 px-4 text-[13px] whitespace-nowrap text-ink ring-1 ring-white/80 transition duration-300 hover:bg-white/90
-      aria-pressed:bg-sun aria-pressed:font-semibold aria-pressed:text-ink aria-pressed:ring-sun aria-pressed:hover:bg-sun;
+      dark:bg-white/10 dark:ring-white/10 dark:hover:bg-white/20
+      aria-pressed:bg-sun aria-pressed:font-semibold aria-pressed:text-on-sun aria-pressed:ring-sun aria-pressed:hover:bg-sun;
 }
 
 /* Text link with a trailing chevron ("اعرف المزيد ›"). */
@@ -217,29 +267,37 @@ body {
 }
 
 @utility input {
-    @apply w-full rounded-xl border border-stone-400 bg-white px-4 py-3 text-[16px] outline-none transition
+    @apply w-full rounded-xl border border-stone-400 bg-surface px-4 py-3 text-[16px] outline-none transition
       placeholder:text-stone-500 focus:border-accent focus:ring-4 focus:ring-accent/15;
 }
 
 /* Translucent global navigation bar. */
 @utility material-bar {
-    @apply bg-[rgb(250_250_252/0.72)] backdrop-blur-2xl backdrop-saturate-[1.8];
+    @apply bg-[rgb(250_250_252/0.72)] backdrop-blur-2xl backdrop-saturate-[1.8] dark:bg-[rgb(22_22_23/0.72)];
 }
 
 /* Frosted glass panel: translucent white, blurred backdrop, bright top edge. Opaque enough that text keeps 4.5:1. */
 /* Liquid glass: strong blur and saturation of what's behind, a bright rim, and a sheen that fades down the panel. */
 @utility glass {
     @apply border border-white/80 bg-white/60 backdrop-blur-2xl backdrop-saturate-[2]
-      shadow-[0_10px_40px_rgb(120_40_0/0.12),inset_0_1px_0_rgb(255_255_255),inset_0_-1px_0_rgb(255_255_255/0.4)];
+      shadow-[0_10px_40px_rgb(120_40_0/0.12),inset_0_1px_0_rgb(255_255_255),inset_0_-1px_0_rgb(255_255_255/0.4)]
+      dark:border-white/15 dark:bg-[rgb(30_30_32/0.6)] dark:shadow-[0_10px_40px_rgb(0_0_0/0.45),inset_0_1px_0_rgb(255_255_255/0.12)];
     background-image: linear-gradient(160deg, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0.1) 45%, rgb(255 255 255 / 0.25));
+    &:where(.dark *) {
+      background-image: linear-gradient(160deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0) 45%, rgb(255 255 255 / 0.04));
+    }
 }
 
 /* Store-style tile: white, large radius, soft shadow. */
 /* Cards are translucent glass over the site's color backdrop (the backdrop is already blurred, so no backdrop-filter is needed). */
 @utility card {
     @apply rounded-[22px] border border-white/80 bg-white/65
-      shadow-[0_8px_30px_rgb(120_40_0/0.08),inset_0_1px_0_rgb(255_255_255)];
+      shadow-[0_8px_30px_rgb(120_40_0/0.08),inset_0_1px_0_rgb(255_255_255)]
+      dark:border-white/10 dark:bg-[rgb(28_28_30/0.72)] dark:shadow-[0_8px_30px_rgb(0_0_0/0.4),inset_0_1px_0_rgb(255_255_255/0.08)];
     background-image: linear-gradient(160deg, rgb(255 255 255 / 0.6), rgb(255 255 255 / 0) 50%);
+    &:where(.dark *) {
+      background-image: linear-gradient(160deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0) 50%);
+    }
 }
 
 /* Big centered headline used for page heroes and section titles. */
@@ -319,6 +377,26 @@ body {
       0 36px 60px -16px rgb(120 40 0 / 0.45),
       0 0 40px -6px rgb(255 199 44 / 0.55),
       inset 0 1px 0 rgb(255 255 255),
+      0 0 0 2.5px rgb(255 199 44);
+  }
+
+  /* Dark mode: a dimmer warm light (light text sits on it) and a deep shadow instead of a brown one. */
+  .dark .card:hover {
+    background-image:
+      radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgb(255 170 40 / 0.2), transparent 70%),
+      linear-gradient(160deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0) 50%);
+  }
+  .dark .glass:hover {
+    background-image:
+      radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.12), transparent 70%),
+      linear-gradient(160deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0) 45%, rgb(255 255 255 / 0.04));
+  }
+  .dark a.card:hover,
+  .dark [data-tilt]:hover {
+    box-shadow:
+      0 36px 60px -16px rgb(0 0 0 / 0.75),
+      0 0 40px -6px rgb(255 199 44 / 0.35),
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
       0 0 0 2.5px rgb(255 199 44);
   }
 

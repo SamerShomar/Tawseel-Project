@@ -60,7 +60,7 @@ export default function AdminDashboardPage() {
   return (
     <Page title="لوحة الإدارة" subtitle="نظرة عامة على الموقع">
       {pendingDrivers > 0 && (
-        <Link to="/admin/users" className="mb-5 flex items-center gap-3 rounded-[18px] bg-sky-50 p-4 text-[15px] text-sky-900 transition hover:bg-sky-100">
+        <Link to="/admin/users" className="mb-5 flex items-center gap-3 rounded-[18px] bg-sky-50 dark:bg-sky-400/15 p-4 text-[15px] text-sky-900 dark:text-sky-300 transition hover:bg-sky-100 dark:hover:bg-sky-400/25">
           <Bike className="size-6 shrink-0" strokeWidth={1.5} aria-hidden />
           <span className="flex-1">
             <b>{pendingDrivers}</b> سائق بانتظار موافقتك

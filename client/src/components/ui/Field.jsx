@@ -16,7 +16,7 @@ export function Field({ label, error, as: Tag = 'input', className = '', ...prop
         {...props}
       />
       {error && (
-        <p id={`${id}-error`} className="mt-1 text-xs text-rose-600">
+        <p id={`${id}-error`} className="mt-1 text-xs text-rose-600 dark:text-rose-400">
           {error}
         </p>
       )}

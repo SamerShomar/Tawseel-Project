@@ -1,10 +1,11 @@
 import { Suspense, useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
-import { ShoppingBag, UserRound } from 'lucide-react'
+import { Moon, ShoppingBag, Sun, UserRound } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { scrollToTop, setScrollLocked, useLenis } from '@/hooks/useLenis'
 import { homeFor } from '@/lib/format'
+import { useTheme } from '@/lib/theme'
 import { Backdrop } from './motion/Backdrop'
 import { Spinner } from './ui/Spinner'
 import { usePointerEffects } from './motion/usePointerEffects'
@@ -49,7 +50,7 @@ function CartBadge({ count }) {
     // key={count} replays the pop animation each time the number changes.
     <span
       key={count}
-      className="animate-pop absolute -end-1.5 top-1 grid min-w-[18px] place-items-center rounded-full bg-sun px-1 text-[11px] leading-[18px] font-bold text-ink"
+      className="animate-pop absolute -end-1.5 top-1 grid min-w-[18px] place-items-center rounded-full bg-sun px-1 text-[11px] leading-[18px] font-bold text-on-sun"
     >
       {count > 99 ? '99+' : count}
     </span>
@@ -58,6 +59,18 @@ function CartBadge({ count }) {
 
 /** Icon buttons in the bar: 44×44 hit area around an 18px glyph, as on apple.com. */
 const iconBtn = 'group relative grid size-11 place-items-center text-ink/80 transition hover:text-ink'
+
+/** Sun / moon button that switches between light and dark mode. */
+function ThemeButton() {
+  const [theme, toggle] = useTheme()
+  const dark = theme === 'dark'
+  const Icon = dark ? Sun : Moon
+  return (
+    <button type="button" onClick={toggle} className={iconBtn} aria-label={dark ? 'الوضع الفاتح' : 'الوضع الداكن'} title={dark ? 'الوضع الفاتح' : 'الوضع الداكن'}>
+      <Icon key={theme} className="animate-pop size-[18px] transition duration-300 ease-apple group-hover:rotate-45" strokeWidth={1.5} aria-hidden />
+    </button>
+  )
+}
 
 /** Two lines that turn into an ×, like apple.com's mobile menu button. */
 function MenuButton({ open, onClick }) {
@@ -95,7 +108,7 @@ function MobileMenu({ open, links, onClose }) {
   return (
     <div
       id="mobile-menu"
-      className={`fixed inset-x-0 top-[calc(3rem+env(safe-area-inset-top))] bottom-0 z-40 overflow-y-auto bg-white/80 backdrop-blur-2xl backdrop-saturate-[1.8] transition-opacity duration-300 md:hidden ${
+      className={`fixed inset-x-0 top-[calc(3rem+env(safe-area-inset-top))] bottom-0 z-40 overflow-y-auto bg-surface/80 backdrop-blur-2xl backdrop-saturate-[1.8] transition-opacity duration-300 md:hidden ${
         open ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
       inert={!open}
@@ -163,7 +176,7 @@ function Navbar() {
       {/* On the home page the global bar scrolls away and the page's own glass bar sticks instead, as on a product page. */}
       <header
         className={`${pathname === '/' && !open ? 'relative' : 'sticky top-0'} z-50 pt-[env(safe-area-inset-top)] transition-colors ${
-          open ? 'bg-white/80 backdrop-blur-2xl' : 'material-bar'
+          open ? 'bg-surface/80 backdrop-blur-2xl' : 'material-bar'
         }`}
       >
         <nav className="mx-auto flex h-12 max-w-5xl items-center gap-1 px-4">
@@ -186,6 +199,7 @@ function Navbar() {
           </div>
 
           <div className="ms-auto flex items-center md:ms-0">
+            <ThemeButton />
             {canOrder && (
               <Link to="/cart" className={iconBtn} aria-label={`السلة (${count})`}>
                 <ShoppingBag className="size-[18px] transition duration-300 ease-apple group-hover:-translate-y-0.5 group-hover:-rotate-12" strokeWidth={1.5} aria-hidden />
@@ -217,9 +231,9 @@ function Navbar() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/60 bg-white/55 text-[12px] leading-relaxed text-stone-600 backdrop-blur-xl">
+    <footer className="border-t border-white/60 bg-surface/55 dark:border-white/10 text-[12px] leading-relaxed text-stone-600 backdrop-blur-xl">
       <div className="mx-auto max-w-5xl px-4 py-5">
-        <p className="border-b border-black/10 pb-3">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض. الدفع عند الاستلام.</p>
+        <p className="border-b border-tint/10 pb-3">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض. الدفع عند الاستلام.</p>
         <div className="flex flex-wrap items-center justify-between gap-2 pt-3">
           <p>© {YEAR} توصيل – فريق ORBA. جميع الحقوق محفوظة.</p>
           <div className="flex gap-4">

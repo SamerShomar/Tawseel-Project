@@ -63,10 +63,10 @@ export default function DriverAvailablePage() {
                   <StatusBadge status={o.status} />
                 </div>
                 {/* Route: pickup → drop-off, joined by a dotted line. */}
-                <ol className="relative mt-4 space-y-4 rounded-2xl bg-black/[0.04] p-4 text-[13px]">
+                <ol className="relative mt-4 space-y-4 rounded-2xl bg-tint/[0.04] p-4 text-[13px]">
                   <span className="absolute start-[31px] top-11 bottom-11 border-s-2 border-dotted border-stone-300" aria-hidden />
                   <li className="relative flex items-start gap-3">
-                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-white text-brand-700 shadow-sm">
+                    <span className="grid size-8 shrink-0 place-items-center rounded-full bg-surface text-brand-700 shadow-sm">
                       <Store className="size-4" strokeWidth={1.75} aria-hidden />
                     </span>
                     <div>

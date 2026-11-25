@@ -78,7 +78,7 @@ export function Story() {
           <div>
             <h2 className="text-[26px] leading-[1.125] font-semibold md:text-[40px]">ثلاث خطوات، والأكل عندك.</h2>
             {/* Progress line that fills as you scroll through the steps. */}
-            <div className="mt-5 h-1 overflow-hidden rounded-full bg-black/10">
+            <div className="mt-5 h-1 overflow-hidden rounded-full bg-tint/10">
               <div className="story-progress h-full origin-right scale-x-0 rounded-full bg-accent motion-reduce:scale-x-100" />
             </div>
             {/* Phones: the three steps as icon buttons, with the current step's text under them. */}
@@ -89,7 +89,7 @@ export function Story() {
                   onClick={() => go(i)}
                   aria-label={title}
                   aria-pressed={i === step}
-                  className={`grid size-11 place-items-center rounded-full transition-colors duration-500 ${i === step ? 'bg-accent text-white' : 'bg-black/[0.06] text-ink'}`}
+                  className={`grid size-11 place-items-center rounded-full transition-colors duration-500 ${i === step ? 'bg-accent text-white' : 'bg-tint/[0.06] text-ink'}`}
                 >
                   <Icon className="size-5" strokeWidth={1.75} aria-hidden />
                 </button>
@@ -107,12 +107,12 @@ export function Story() {
                     onClick={() => go(i)}
                     aria-current={i === step ? 'step' : undefined}
                     className={`flex w-full items-start gap-4 rounded-[22px] p-4 text-start transition duration-500 ${
-                      i === step ? 'glass' : 'hover:bg-white/40'
+                      i === step ? 'glass' : 'hover:bg-surface/40'
                     }`}
                   >
                     <span
                       className={`grid size-11 shrink-0 place-items-center rounded-full transition-colors duration-500 ${
-                        i === step ? 'bg-accent text-white' : 'bg-black/[0.06] text-ink'
+                        i === step ? 'bg-accent text-white' : 'bg-tint/[0.06] text-ink'
                       }`}
                     >
                       <Icon className="size-5" strokeWidth={1.75} aria-hidden />

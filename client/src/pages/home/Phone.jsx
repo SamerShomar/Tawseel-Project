@@ -10,7 +10,7 @@ export function Phone({ children, className = '' }) {
       className={`relative aspect-[9/19.5] rounded-[46px] bg-[#1d1d1f] p-[9px] shadow-[0_50px_100px_-20px_rgb(0_0_0/0.55),inset_0_0_0_1.5px_rgb(255_255_255/0.14)] ${className}`}
       aria-hidden
     >
-      <div className="relative size-full overflow-hidden rounded-[38px] bg-[#f5f5f7] text-ink" dir="rtl">
+      <div className="relative size-full overflow-hidden rounded-[38px] bg-[#f5f5f7] text-ink theme-light" dir="rtl">
         {/* Status bar with a small front-camera dot. */}
         <div className="relative z-20 flex h-10 items-end justify-between px-6 pb-1 text-[11px] font-semibold" dir="ltr">
           <span>12:30</span>

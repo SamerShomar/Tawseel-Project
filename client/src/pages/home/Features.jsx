@@ -36,7 +36,7 @@ export function Bento({ restaurantCount }) {
         <h2 className="text-center text-[32px] leading-[1.1] font-semibold md:text-[48px]">ليش توصيل؟</h2>
         <div ref={gridRef} className="mt-12 grid grid-cols-2 gap-4 md:mt-16 md:grid-cols-4 md:gap-5">
           {/* Big dark tile. */}
-          <div data-tilt="8" className="relative col-span-2 overflow-hidden rounded-[28px] bg-black p-8 text-white md:row-span-2 md:p-10">
+          <div data-tilt="8" className="relative col-span-2 overflow-hidden rounded-[28px] bg-black p-8 text-white dark:ring-1 dark:ring-white/10 md:row-span-2 md:p-10">
             <div className="pointer-events-none absolute -end-24 -bottom-24 size-80 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.6),transparent)]" />
             <Banknote className="relative size-14 text-sun" strokeWidth={1.25} aria-hidden />
             <p className="relative mt-10 text-[32px] leading-[1.05] font-semibold md:mt-24 md:text-[40px]">الدفع عند الاستلام.</p>
@@ -132,7 +132,7 @@ export function Highlights({ dishes }) {
                 />
                 {/* Glass caption over the photo. */}
                 <div className="glass absolute inset-x-3 bottom-3 rounded-[22px] p-4">
-                  <p className="inline-block rounded-full bg-sun px-2.5 py-0.5 text-[12px] font-semibold text-ink">{d.restaurant}</p>
+                  <p className="inline-block rounded-full bg-sun px-2.5 py-0.5 text-[12px] font-semibold text-on-sun">{d.restaurant}</p>
                   <p className="mt-0.5 text-[18px] leading-tight font-semibold">{d.name}</p>
                   <span className="link mt-1 text-[13px]">
                     اطلب الآن

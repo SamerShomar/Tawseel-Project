@@ -6,12 +6,12 @@ export const formatDate = (d) =>
 export const ORDER_STEPS = ['PENDING', 'ACCEPTED', 'PREPARING', 'ON_THE_WAY', 'DELIVERED']
 
 export const STATUS = {
-  PENDING: { label: 'بانتظار التأكيد', className: 'bg-amber-100 text-amber-800' },
-  ACCEPTED: { label: 'تم القبول', className: 'bg-sky-100 text-sky-800' },
+  PENDING: { label: 'بانتظار التأكيد', className: 'bg-amber-100 dark:bg-amber-400/15 text-amber-800 dark:text-amber-300' },
+  ACCEPTED: { label: 'تم القبول', className: 'bg-sky-100 dark:bg-sky-400/15 text-sky-800 dark:text-sky-300' },
   PREPARING: { label: 'قيد التحضير', className: 'bg-indigo-100 text-indigo-800' },
   ON_THE_WAY: { label: 'في الطريق', className: 'bg-violet-100 text-violet-800' },
-  DELIVERED: { label: 'تم التوصيل', className: 'bg-emerald-100 text-emerald-800' },
-  REJECTED: { label: 'مرفوض', className: 'bg-rose-100 text-rose-800' },
+  DELIVERED: { label: 'تم التوصيل', className: 'bg-emerald-100 dark:bg-emerald-400/15 text-emerald-800 dark:text-emerald-300' },
+  REJECTED: { label: 'مرفوض', className: 'bg-rose-100 dark:bg-rose-400/15 text-rose-800 dark:text-rose-300' },
 }
 
 /** Status the restaurant can move an order to next (mirrors the server rules). */
