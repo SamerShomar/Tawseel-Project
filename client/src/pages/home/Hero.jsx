@@ -159,7 +159,7 @@ export function Hero({ onJump }) {
       <div className="relative mt-8 min-h-[260px] flex-1 [perspective:1200px] md:mt-12 md:min-h-[380px]">
         <div className="hero-phone-move absolute inset-x-0 top-0">
           {/* Leans toward the mouse (a separate layer, so it never fights the scroll and intro animations). */}
-          <div className="transition-transform duration-700 ease-apple [transform:perspective(1000px)_rotateY(calc(var(--px,0)*16deg))_rotateX(calc(var(--py,0)*-10deg))]">
+          <div className="transition-transform duration-700 ease-apple [transform:perspective(1000px)_rotateY(calc(var(--px,0)*28deg))_rotateX(calc(var(--py,0)*-18deg))]">
             <Phone className="hero-phone mx-auto w-[260px] md:w-[340px]">
               <ScreenTracking current={3} />
             </Phone>

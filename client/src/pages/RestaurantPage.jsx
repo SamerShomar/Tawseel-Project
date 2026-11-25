@@ -47,7 +47,7 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
                   <img
                     src={item.imageUrl}
                     alt=""
-                    className="size-full object-cover transition duration-700 ease-apple group-hover:scale-110"
+                    className="size-full object-cover transition duration-700 ease-apple group-hover:scale-[1.18] group-hover:rotate-1"
                     loading="lazy"
                     decoding="async"
                   />

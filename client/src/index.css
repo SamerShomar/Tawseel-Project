@@ -43,6 +43,70 @@
   --animate-drift: drift 14s ease-in-out infinite alternate;
   --animate-float: float 4s ease-in-out infinite alternate;
 
+  /* "جوعان؟": flowing gold gradient, a hungry-stomach rumble every few seconds, and a pulsing glow. */
+  --animate-hungry: shimmer 3.5s linear infinite, rumble 3.2s ease-in-out infinite,
+    glow-pulse 2.4s ease-in-out infinite alternate;
+  --animate-food-float: food-float 5s ease-in-out infinite;
+  --animate-halo: halo 3s ease-in-out infinite alternate;
+
+  @keyframes shimmer {
+    to {
+      background-position: 200% center;
+    }
+  }
+  @keyframes rumble {
+    0%,
+    68%,
+    100% {
+      transform: none;
+    }
+    71% {
+      transform: translateX(-6px) rotate(-4deg);
+    }
+    74% {
+      transform: translateX(6px) rotate(4deg);
+    }
+    77% {
+      transform: translateX(-5px) rotate(-3deg);
+    }
+    80% {
+      transform: translateX(4px) rotate(2deg);
+    }
+    83% {
+      transform: translateX(-2px) rotate(-1deg) scale(1.04);
+    }
+    88% {
+      transform: scale(1.06);
+    }
+  }
+  @keyframes glow-pulse {
+    from {
+      filter: drop-shadow(0 0 8px rgb(255 199 44 / 0.25));
+    }
+    to {
+      filter: drop-shadow(0 0 28px rgb(255 140 40 / 0.75));
+    }
+  }
+  @keyframes food-float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-8deg);
+    }
+    50% {
+      transform: translateY(-22px) rotate(10deg);
+    }
+  }
+  @keyframes halo {
+    from {
+      opacity: 0.55;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.15);
+    }
+  }
+
   @keyframes page-in {
     from {
       opacity: 0;
@@ -130,7 +194,7 @@ body {
 }
 
 @utility btn-primary {
-    @apply btn bg-accent text-white hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-[0_10px_24px_-6px_rgb(200_65_15/0.55)];
+    @apply btn bg-accent text-white hover:-translate-y-1 hover:scale-[1.04] hover:bg-brand-700 hover:shadow-[0_14px_30px_-6px_rgb(200_65_15/0.65)];
 }
 
 @utility btn-secondary {
@@ -239,7 +303,7 @@ body {
   /* Soft warm light that follows the cursor, drawn under the content (text stays crisp). */
   .card:hover {
     background-image:
-      radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgb(255 205 80 / 0.5), transparent 70%),
+      radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgb(255 196 60 / 0.65), transparent 70%),
       linear-gradient(160deg, rgb(255 255 255 / 0.6), rgb(255 255 255 / 0) 50%);
   }
   .glass:hover {
@@ -252,18 +316,20 @@ body {
   a.card:hover,
   [data-tilt]:hover {
     box-shadow:
-      0 26px 50px -14px rgb(120 40 0 / 0.38),
+      0 36px 60px -16px rgb(120 40 0 / 0.45),
+      0 0 40px -6px rgb(255 199 44 / 0.55),
       inset 0 1px 0 rgb(255 255 255),
-      0 0 0 2px rgb(255 199 44 / 0.85);
+      0 0 0 2.5px rgb(255 199 44);
   }
 
   .nav-link:hover::after {
     scale: 1 1;
   }
   .link:hover svg {
-    translate: -4px 0; /* RTL: the chevron points left, so "forward" is left */
+    translate: -7px 0; /* RTL: the chevron points left, so "forward" is left */
   }
   .chip:hover {
-    translate: 0 -3px;
+    translate: 0 -4px;
+    scale: 1.06;
   }
 }

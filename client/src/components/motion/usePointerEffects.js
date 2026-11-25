@@ -46,10 +46,10 @@ export function usePointerEffects() {
         const r = tilt.getBoundingClientRect()
         const px = (e.clientX - r.left) / r.width - 0.5
         const py = (e.clientY - r.top) / r.height - 0.5
-        const max = Number(tilt.dataset.tilt) || 10
+        const max = (Number(tilt.dataset.tilt) || 10) * 1.6
         // Lean toward the cursor, lift and grow a little (pressed in slightly for a finger).
-        const lift = e.pointerType === 'mouse' ? 'translateY(-6px) scale(1.03)' : 'scale(0.98)'
-        tilt.style.transform = `perspective(800px) ${lift} rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg)`
+        const lift = e.pointerType === 'mouse' ? 'translateY(-12px) scale(1.06)' : 'scale(0.96)'
+        tilt.style.transform = `perspective(700px) ${lift} rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg)`
         tiltEl = tilt
       }
 
@@ -59,7 +59,7 @@ export function usePointerEffects() {
         const r = mag.getBoundingClientRect()
         const dx = e.clientX - (r.left + r.width / 2)
         const dy = e.clientY - (r.top + r.height / 2)
-        mag.style.translate = `${(dx * 0.35).toFixed(1)}px ${(dy * 0.45).toFixed(1)}px`
+        mag.style.translate = `${(dx * 0.5).toFixed(1)}px ${(dy * 0.6).toFixed(1)}px`
         magEl = mag
       }
     }
