@@ -24,7 +24,7 @@ export function LocalNav({ onJump }) {
   return (
     <nav aria-label="أقسام الصفحة" className="material-bar sticky top-0 z-40 border-b border-tint/10">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-4">
-        <p className="flex translate-y-1 items-center gap-2 text-[18px] leading-none font-semibold">
+        <p className="flex translate-y-0.5 items-center gap-2 text-[18px] leading-none font-semibold">
           <img src="/favicon.svg" alt="" className="size-7" />
           توصيل
         </p>
