@@ -24,7 +24,7 @@ function Stat({ icon: Icon, label, value, format, hint, to }) {
     </>
   )
   return to ? (
-    <Link to={to} className="card block p-5 transition duration-300 sm:hover:scale-[1.02] sm:hover:shadow-[2px_4px_16px_rgb(0_0_0/0.16)]">
+    <Link to={to} data-tilt="6" className="card block p-5">
       {body}
     </Link>
   ) : (

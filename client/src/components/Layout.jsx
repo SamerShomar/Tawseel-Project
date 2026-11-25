@@ -6,6 +6,7 @@ import { useCart } from '@/context/CartContext'
 import { scrollToTop, setScrollLocked, useLenis } from '@/hooks/useLenis'
 import { homeFor } from '@/lib/format'
 import { Backdrop } from './motion/Backdrop'
+import { usePointerEffects } from './motion/usePointerEffects'
 import { VerifyEmailBanner } from './VerifyEmailBanner'
 
 const YEAR = new Date().getFullYear()
@@ -55,7 +56,7 @@ function CartBadge({ count }) {
 }
 
 /** Icon buttons in the bar: 44×44 hit area around an 18px glyph, as on apple.com. */
-const iconBtn = 'relative grid size-11 place-items-center text-ink/80 transition hover:text-ink'
+const iconBtn = 'group relative grid size-11 place-items-center text-ink/80 transition hover:text-ink'
 
 /** Two lines that turn into an ×, like apple.com's mobile menu button. */
 function MenuButton({ open, onClick }) {
@@ -176,7 +177,7 @@ function Navbar() {
                 key={l.to}
                 to={l.to}
                 end={l.end}
-                className={({ isActive }) => `py-3 text-[12px] transition ${isActive ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
+                className={({ isActive }) => `nav-link py-3 text-[12px] transition ${isActive ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
               >
                 {l.label}
               </NavLink>
@@ -186,14 +187,14 @@ function Navbar() {
           <div className="ms-auto flex items-center md:ms-0">
             {canOrder && (
               <Link to="/cart" className={iconBtn} aria-label={`السلة (${count})`}>
-                <ShoppingBag className="size-[18px]" strokeWidth={1.5} aria-hidden />
+                <ShoppingBag className="size-[18px] transition duration-300 ease-apple group-hover:-translate-y-0.5 group-hover:-rotate-12" strokeWidth={1.5} aria-hidden />
                 <CartBadge count={count} />
               </Link>
             )}
             {user ? (
               <>
                 <Link to="/account" className={`${iconBtn} hidden md:grid`} aria-label="حسابي">
-                  <UserRound className="size-[18px]" strokeWidth={1.5} aria-hidden />
+                  <UserRound className="size-[18px] transition duration-300 ease-apple group-hover:scale-110" strokeWidth={1.5} aria-hidden />
                 </Link>
                 <button onClick={logout} className="hidden px-2 py-3 text-[12px] text-ink/70 transition hover:text-ink md:block">
                   خروج
@@ -242,6 +243,7 @@ function Footer() {
 
 export function Layout() {
   useLenis()
+  usePointerEffects()
   const { pathname } = useLocation()
   // Braces matter: window.scrollTo can return a Promise, and an effect must return nothing or a cleanup function.
   useEffect(() => {

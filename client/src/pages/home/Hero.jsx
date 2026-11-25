@@ -25,13 +25,13 @@ export function LocalNav({ onJump }) {
                   e.preventDefault()
                   onJump(id)
                 }}
-                className="py-3 text-[12px] text-ink/80 transition hover:text-ink"
+                className="nav-link py-3 text-[12px] text-ink/80 transition hover:text-ink"
               >
                 {label}
               </a>
             ))}
           </div>
-          <button onClick={() => onJump('restaurants')} className="btn-primary h-11 px-4 py-0 text-[13px] md:h-9 md:text-[12px]">
+          <button onClick={() => onJump('restaurants')} data-magnetic className="btn-primary h-11 px-4 py-0 text-[13px] md:h-9 md:text-[12px]">
             اطلب الآن
           </button>
         </div>
@@ -46,6 +46,18 @@ export function LocalNav({ onJump }) {
  */
 export function Hero({ onJump }) {
   const ref = useRef(null)
+
+  // Mouse position over the hero, from -0.5 to 0.5 on each axis; CSS uses it to lean the phone and shift the glow.
+  const onPointerMove = (e) => {
+    if (e.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const r = ref.current.getBoundingClientRect()
+    ref.current.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3))
+    ref.current.style.setProperty('--py', ((e.clientY - r.top) / r.height - 0.5).toFixed(3))
+  }
+  const onPointerLeave = () => {
+    ref.current.style.setProperty('--px', 0)
+    ref.current.style.setProperty('--py', 0)
+  }
 
   useGSAP(
     () => {
@@ -105,10 +117,15 @@ export function Hero({ onJump }) {
     <section
       ref={ref}
       id="overview"
+      onPointerMove={onPointerMove}
+      onPointerLeave={onPointerLeave}
       className="relative flex min-h-[calc(100svh-3rem)] scroll-mt-14 flex-col overflow-hidden rounded-b-[36px] bg-black text-center text-white md:mx-3 md:mt-3 md:min-h-[calc(100svh-4.5rem)] md:rounded-[40px]"
     >
       {/* Glow behind the phone, added as light ("screen" blending) so warm colors stay bright instead of turning brown on black. */}
-      <div className="hero-glow pointer-events-none absolute inset-x-0 bottom-0 h-[75%]" aria-hidden>
+      <div
+        className="hero-glow pointer-events-none absolute inset-x-0 bottom-0 h-[75%] transition-[translate] duration-1000 ease-apple [translate:calc(var(--px,0)*120px)_calc(var(--py,0)*60px)]"
+        aria-hidden
+      >
         <div className="absolute bottom-[-10%] left-1/2 size-[560px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_96_32/0.85),rgb(255_96_32/0.25)_55%,transparent_75%)] mix-blend-screen md:size-[820px]" />
         <div className="absolute bottom-[18%] left-[55%] size-[300px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_205_70/0.55),transparent_70%)] mix-blend-screen md:size-[440px]" />
       </div>
@@ -128,7 +145,7 @@ export function Hero({ onJump }) {
           مطاعم غزة المفضلة، بالأسعار، بكبسة زر. وتابع طلبك لحظة بلحظة.
         </p>
         <div className="hero-cta mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 md:mt-8">
-          <button onClick={() => onJump('restaurants')} className="btn-primary">
+          <button onClick={() => onJump('restaurants')} data-magnetic className="btn-primary">
             اطلب الآن
           </button>
           <button onClick={() => onJump('how')} className="inline-flex items-center gap-0.5 py-3 text-[15px] text-sun hover:underline">
@@ -141,9 +158,12 @@ export function Hero({ onJump }) {
       {/* The phone takes the rest of the screen and is cut off by the panel's bottom edge, fading into it. */}
       <div className="relative mt-8 min-h-[260px] flex-1 [perspective:1200px] md:mt-12 md:min-h-[380px]">
         <div className="hero-phone-move absolute inset-x-0 top-0">
-          <Phone className="hero-phone mx-auto w-[260px] md:w-[340px]">
-            <ScreenTracking current={3} />
-          </Phone>
+          {/* Leans toward the mouse (a separate layer, so it never fights the scroll and intro animations). */}
+          <div className="transition-transform duration-700 ease-apple [transform:perspective(1000px)_rotateY(calc(var(--px,0)*16deg))_rotateX(calc(var(--py,0)*-10deg))]">
+            <Phone className="hero-phone mx-auto w-[260px] md:w-[340px]">
+              <ScreenTracking current={3} />
+            </Phone>
+          </div>
         </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black to-transparent" aria-hidden />
       </div>
