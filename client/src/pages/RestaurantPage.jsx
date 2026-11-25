@@ -26,7 +26,7 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
           const qty = qtyInCart(item.id)
           return (
             // Text and price on one side, the dish photo on the other (like a menu).
-            <article key={item.id} data-tilt="3" className="card group flex gap-4 p-4">
+            <article key={item.id} data-tilt="8" className="card group flex gap-4 p-4">
               <div className="flex min-w-0 flex-1 flex-col">
                 <h3 className="text-[15px] font-semibold">{item.name}</h3>
                 {item.description && <p className="mt-0.5 line-clamp-2 text-[13px] text-stone-500">{item.description}</p>}

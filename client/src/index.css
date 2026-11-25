@@ -188,7 +188,7 @@ body {
 /* Cards that tilt toward the cursor glide back smoothly when it leaves. */
 [data-tilt] {
   transition:
-    transform 0.35s var(--ease-apple),
+    transform 0.45s var(--ease-apple),
     box-shadow 0.35s var(--ease-apple),
     scale 0.3s var(--ease-apple),
     translate 0.3s var(--ease-apple);
@@ -202,6 +202,13 @@ body {
     scale 0.2s var(--ease-apple),
     background-color 0.2s,
     box-shadow 0.3s;
+}
+
+/* Touch: show the golden rim while a finger presses a card. */
+[data-tilt]:active {
+  box-shadow:
+    0 12px 30px -12px rgb(120 40 0 / 0.3),
+    0 0 0 2px rgb(255 199 44 / 0.85);
 }
 
 /* Underline that grows from the middle under nav links (also marks the current page). */
@@ -227,11 +234,12 @@ body {
   transition: translate 0.3s var(--ease-apple);
 }
 
-@media (hover: hover) and (pointer: fine) {
+/* any-hover: true on any device that has a mouse or trackpad, including touchscreen laptops. */
+@media (any-hover: hover) {
   /* Soft warm light that follows the cursor, drawn under the content (text stays crisp). */
   .card:hover {
     background-image:
-      radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgb(255 214 110 / 0.35), transparent 70%),
+      radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgb(255 205 80 / 0.5), transparent 70%),
       linear-gradient(160deg, rgb(255 255 255 / 0.6), rgb(255 255 255 / 0) 50%);
   }
   .glass:hover {
@@ -244,9 +252,9 @@ body {
   a.card:hover,
   [data-tilt]:hover {
     box-shadow:
-      0 18px 44px -12px rgb(120 40 0 / 0.28),
+      0 26px 50px -14px rgb(120 40 0 / 0.38),
       inset 0 1px 0 rgb(255 255 255),
-      0 0 0 1.5px rgb(255 199 44 / 0.6);
+      0 0 0 2px rgb(255 199 44 / 0.85);
   }
 
   .nav-link:hover::after {
@@ -256,6 +264,6 @@ body {
     translate: -4px 0; /* RTL: the chevron points left, so "forward" is left */
   }
   .chip:hover {
-    translate: 0 -2px;
+    translate: 0 -3px;
   }
 }

@@ -18,14 +18,14 @@ export function Bento({ restaurantCount }) {
         <h2 className="text-center text-[32px] leading-[1.1] font-semibold md:text-[48px]">ليش توصيل؟</h2>
         <div ref={gridRef} className="mt-12 grid grid-cols-2 gap-4 md:mt-16 md:grid-cols-4 md:gap-5">
           {/* Big dark tile. */}
-          <div data-tilt="4" className="relative col-span-2 overflow-hidden rounded-[28px] bg-black p-8 text-white md:row-span-2 md:p-10">
+          <div data-tilt="8" className="relative col-span-2 overflow-hidden rounded-[28px] bg-black p-8 text-white md:row-span-2 md:p-10">
             <div className="pointer-events-none absolute -end-24 -bottom-24 size-80 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.6),transparent)]" />
             <Banknote className="relative size-14 text-sun" strokeWidth={1.25} aria-hidden />
             <p className="relative mt-10 text-[32px] leading-[1.05] font-semibold md:mt-24 md:text-[40px]">الدفع عند الاستلام.</p>
             <p className="relative mt-3 max-w-sm text-[15px] text-[#d2d2d7]">ما في بطاقات ولا تحويلات. بتدفع نقداً للسائق لما يوصلك أكلك.</p>
           </div>
 
-          <div data-tilt="5" className={`${tile} col-span-2`}>
+          <div data-tilt="10" className={`${tile} col-span-2`}>
             <p className="bg-gradient-to-l from-brand-700 to-accent bg-clip-text text-[48px] leading-none font-semibold text-transparent tabular-nums md:text-[60px]">
               <CountUp value={restaurantCount} />
             </p>
@@ -33,7 +33,7 @@ export function Bento({ restaurantCount }) {
             <p className="text-[15px] text-stone-500">من الشاورما للكنافة، كلها بمكان واحد.</p>
           </div>
 
-          <div data-tilt="5" className={tile}>
+          <div data-tilt="10" className={tile}>
             <div className="flex gap-1" aria-hidden>
               {DOTS.map((Icon, i) => (
                 <span key={i} className="grid size-7 place-items-center rounded-full bg-accent text-white" style={{ opacity: 0.35 + i * 0.16 }}>
@@ -45,13 +45,13 @@ export function Bento({ restaurantCount }) {
             <p className="mt-1 text-[13px] text-stone-500">5 مراحل، بتتحدّث لحالها.</p>
           </div>
 
-          <div data-tilt="5" className={tile}>
+          <div data-tilt="10" className={tile}>
             <PhoneOff className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
             <p className="mt-6 text-[18px] leading-tight font-semibold">ولا مكالمة</p>
             <p className="mt-1 text-[13px] text-stone-500">كل شي بيصير من الموقع.</p>
           </div>
 
-          <div data-tilt="5" className={`${tile} col-span-2`}>
+          <div data-tilt="10" className={`${tile} col-span-2`}>
             <Store className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
             <p className="mt-6 text-[20px] font-semibold">عندك مطعم؟</p>
             <p className="mt-1 text-[15px] text-stone-500">استقبل الطلبات، عدّل قائمتك، وتابع كل طلب من لوحة وحدة.</p>
@@ -61,7 +61,7 @@ export function Bento({ restaurantCount }) {
             </Link>
           </div>
 
-          <div data-tilt="5" className={`${tile} col-span-2`}>
+          <div data-tilt="10" className={`${tile} col-span-2`}>
             <Bike className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
             <p className="mt-6 text-[20px] font-semibold">بدك تشتغل سائق؟</p>
             <p className="mt-1 text-[15px] text-stone-500">اختار الطلبات اللي بتناسبك، ووصّلها بوقتك.</p>

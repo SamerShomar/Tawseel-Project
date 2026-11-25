@@ -100,7 +100,7 @@ export default function HomePage() {
               <Link
                 key={r.id}
                 to={`/restaurants/${r.id}`}
-                data-tilt="6"
+                data-tilt="12"
                 className="card group flex items-stretch overflow-hidden active:scale-[0.99] sm:block"
               >
                 <RestaurantCover restaurant={r} className="w-24 shrink-0 transition duration-700 ease-apple group-hover:scale-110 sm:h-36 sm:w-full" />

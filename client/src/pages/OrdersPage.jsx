@@ -27,7 +27,7 @@ function OrderRow({ order }) {
   return (
     <Link
       to={`/orders/${order.id}`}
-      data-tilt="2"
+      data-tilt="5"
       className="card flex flex-wrap items-center gap-x-4 gap-y-2 p-5 active:scale-[0.99]"
     >
       <div className="flex-1">
