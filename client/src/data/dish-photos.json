@@ -4,15 +4,8 @@
       "restaurant": "شاورما البيدر",
       "name": "ساندويش شاورما دجاج",
       "image": "/images/dishes/chicken-shawarma-wrap.webp",
-      "width": 2048,
-      "height": 1536,
-      "credit": {
-        "title": "A mixed beef and chicken shawarma cut in half and served with French fries, accompanied by two dipping sauces on a white square plate.",
-        "creator": "Joan Namunina",
-        "license": "CC0 1.0",
-        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-        "source": "https://wordpress.org/photos/photo/8636a6d0de/"
-      },
+      "width": 1024,
+      "height": 1024,
       "featured": true
     },
     {
@@ -132,15 +125,8 @@
       "restaurant": "برجر الميناء",
       "name": "دبل برجر",
       "image": "/images/dishes/double-burger.webp",
-      "width": 1000,
-      "height": 666,
-      "credit": {
-        "title": "shake shack double cheeseburger",
-        "creator": "goodiesfirst",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/49215102@N00/3864013408"
-      }
+      "width": 736,
+      "height": 1308
     },
     {
       "restaurant": "برجر الميناء",
@@ -161,14 +147,7 @@
       "name": "وجبة برجر",
       "image": "/images/dishes/burger-meal.webp",
       "width": 1024,
-      "height": 768,
-      "credit": {
-        "title": "Wagyu burger and fries at Speakeasy Kitchen in South Yarra",
-        "creator": "ultrakml",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/34948727@N00/12167200084"
-      }
+      "height": 1024
     },
     {
       "restaurant": "برجر الميناء",
@@ -259,29 +238,15 @@
       "restaurant": "بيتزا الزيتونة",
       "name": "بيتزا سجق",
       "image": "/images/dishes/sausage-pizza.webp",
-      "width": 1024,
-      "height": 768,
-      "credit": {
-        "title": "Sausage Pizza",
-        "creator": "andersbknudsen",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/28880822@N02/6734240043"
-      }
+      "width": 736,
+      "height": 1104
     },
     {
       "restaurant": "بيتزا الزيتونة",
       "name": "بيتزا عائلية مشكلة",
       "image": "/images/dishes/family-pizza.webp",
-      "width": 1024,
-      "height": 1024,
-      "credit": {
-        "title": "2019.02.26 Low Carbohydrate Healthy Fat Pizza, Washington, DC USA 00233",
-        "creator": "tedeytan",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/22526649@N03/33427573388"
-      }
+      "width": 736,
+      "height": 736
     },
     {
       "restaurant": "بيتزا الزيتونة",

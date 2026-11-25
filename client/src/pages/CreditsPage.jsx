@@ -3,7 +3,8 @@ import photos from '@/data/dish-photos.json'
 
 /** Photo credits: the dish photos are free-license photos (Creative Commons / public domain) that require credit. */
 export default function CreditsPage() {
-  const dishes = photos.dishes || []
+  // Only Creative Commons photos need credit; photos supplied by the site owner have no credit entry.
+  const dishes = (photos.dishes || []).filter((d) => d.credit)
   return (
     <Page title="مصادر الصور" subtitle="صور الأطباق من مصوّرين نشروها برخص حرّة. شكراً إلهم.">
       <ul className="grid grid-cols-[minmax(0,1fr)] gap-3 sm:grid-cols-[repeat(2,minmax(0,1fr))]">
