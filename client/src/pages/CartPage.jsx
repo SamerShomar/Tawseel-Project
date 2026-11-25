@@ -12,6 +12,7 @@ import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { api } from '@/lib/api'
 import { formatPrice } from '@/lib/format'
+import { thumb } from '@/lib/photo'
 
 export default function CartPage() {
   const cart = useCart()
@@ -77,7 +78,7 @@ export default function CartPage() {
               <li key={item.id} className="grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-2 py-4 first:pt-0 last:pb-0 sm:flex sm:gap-3">
                 {/* Phones: two lines (name + total, then quantity + remove). From sm up: one row. */}
                 <div className="flex min-w-0 items-center gap-3 sm:order-1 sm:flex-1">
-                  {item.imageUrl && <img src={item.imageUrl} alt="" className="size-12 shrink-0 rounded-xl object-cover" loading="lazy" />}
+                  {item.imageUrl && <img src={thumb(item.imageUrl)} alt="" className="size-12 shrink-0 rounded-xl object-cover" loading="lazy" />}
                   <div className="min-w-0">
                     <p className="text-[15px] font-semibold">{item.name}</p>
                     <p className="text-[13px] text-stone-500">{formatPrice(item.price)}</p>

@@ -21,6 +21,7 @@ import {
 import { CountUp } from '@/components/motion/CountUp'
 import { useReveal } from '@/components/motion/Reveal'
 import { gsap, useGSAP } from '@/lib/gsap'
+import { photo } from '@/lib/photo'
 
 const DOTS = [ReceiptText, CircleCheck, ChefHat, Bike, House]
 
@@ -123,7 +124,7 @@ export function Highlights({ dishes }) {
                 className="group relative block h-[380px] overflow-hidden rounded-[28px] bg-stone-100 shadow-[0_8px_30px_rgb(120_40_0/0.12)] md:h-[420px]"
               >
                 <img
-                  src={d.image}
+                  {...photo(d.image, '(min-width: 450px) 320px, 72vw')}
                   alt={d.name}
                   loading="lazy"
                   decoding="async"

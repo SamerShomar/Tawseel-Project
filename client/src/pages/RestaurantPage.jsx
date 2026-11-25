@@ -12,6 +12,7 @@ import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { useApi } from '@/hooks/useApi'
 import { formatPrice } from '@/lib/format'
+import { thumb } from '@/lib/photo'
 
 const sectionId = (name) => `section-${name}`
 
@@ -45,7 +46,7 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
               {item.imageUrl && (
                 <div className="size-28 shrink-0 overflow-hidden rounded-2xl shadow-sm">
                   <img
-                    src={item.imageUrl}
+                    src={thumb(item.imageUrl)}
                     alt=""
                     className="size-full object-cover transition duration-700 ease-apple group-hover:scale-[1.18] group-hover:rotate-1"
                     loading="lazy"
@@ -140,7 +141,7 @@ export default function RestaurantPage() {
 
   return (
     <div className="pb-28">
-      <RestaurantCover restaurant={restaurant} className="h-44 w-full sm:h-72" />
+      <RestaurantCover restaurant={restaurant} eager className="h-44 w-full sm:h-72" />
 
       <div className="mx-auto max-w-5xl px-4">
         {/* Glass header card overlapping the cover. */}

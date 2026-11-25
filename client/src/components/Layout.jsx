@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { ShoppingBag, UserRound } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
@@ -6,6 +6,7 @@ import { useCart } from '@/context/CartContext'
 import { scrollToTop, setScrollLocked, useLenis } from '@/hooks/useLenis'
 import { homeFor } from '@/lib/format'
 import { Backdrop } from './motion/Backdrop'
+import { Spinner } from './ui/Spinner'
 import { usePointerEffects } from './motion/usePointerEffects'
 import { VerifyEmailBanner } from './VerifyEmailBanner'
 
@@ -258,7 +259,9 @@ export function Layout() {
       <main className="flex-1">
         {/* Keyed by path, so each page fades and rises in when you navigate. */}
         <div key={pathname} className="animate-page-in">
-          <Outlet />
+          <Suspense fallback={<Spinner className="py-32" />}>
+            <Outlet />
+          </Suspense>
         </div>
       </main>
       <Footer />
