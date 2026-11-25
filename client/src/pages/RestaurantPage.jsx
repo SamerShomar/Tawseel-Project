@@ -31,7 +31,7 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
                 <h3 className="text-[15px] font-semibold">{item.name}</h3>
                 {item.description && <p className="mt-0.5 line-clamp-2 text-[13px] text-stone-500">{item.description}</p>}
                 <div className="mt-auto flex items-center justify-between gap-3 pt-3">
-                  <span className="text-[15px] font-semibold">{formatPrice(item.price)}</span>
+                  <span className="rounded-full bg-sun px-3 py-1 text-[15px] font-bold text-ink">{formatPrice(item.price)}</span>
                   {!canOrder ? null : qty ? (
                     <QuantityStepper name={item.name} quantity={qty} onChange={(q) => onQuantity(item.id, q)} />
                   ) : (
@@ -85,7 +85,7 @@ function SectionNav({ sections }) {
             document.getElementById(sectionId(s))?.scrollIntoView({ behavior: 'smooth' })
           }}
           className={`flex h-11 shrink-0 items-center rounded-full px-4 text-[13px] whitespace-nowrap transition duration-300 ${
-            active === s ? 'bg-ink text-white' : 'text-ink hover:bg-black/5'
+            active === s ? 'bg-sun font-semibold text-ink' : 'text-ink hover:bg-black/5'
           }`}
         >
           {s}
@@ -139,7 +139,7 @@ export default function RestaurantPage() {
         <div className="glass relative -mt-16 rounded-[24px] p-5 sm:-mt-24 sm:p-8">
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-[26px] leading-[1.125] font-semibold md:text-[40px]">{restaurant.name}</h1>
-            {restaurant.category && <span className="rounded-full bg-white/80 px-3 py-1 text-[12px] font-semibold text-brand-700">{restaurant.category}</span>}
+            {restaurant.category && <span className="rounded-full bg-sun px-3 py-1 text-[12px] font-semibold text-ink">{restaurant.category}</span>}
           </div>
           {restaurant.description && <p className="mt-2 text-[15px] text-stone-600 md:text-[16px]">{restaurant.description}</p>}
           <div className="mt-3 flex flex-wrap gap-x-5 text-[13px] text-stone-600">

@@ -103,10 +103,10 @@ export function Hero({ onJump }) {
   return (
     <section ref={ref} id="overview" className="relative scroll-mt-14 overflow-hidden bg-black pt-12 text-center text-white md:pt-20">
       {/* Warm glow behind the phone. */}
-      <div className="hero-glow pointer-events-none absolute top-[40%] left-1/2 size-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.55),rgb(255_170_60/0.18)_55%,transparent)]" />
+      <div className="hero-glow pointer-events-none absolute top-[40%] left-1/2 size-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.55),rgb(255_199_44/0.28)_55%,transparent)]" />
 
       <div className="hero-text relative px-4">
-        <p className="hero-eyebrow bg-gradient-to-l from-[#ffb36b] to-[#ff7a3d] bg-clip-text text-[18px] font-semibold text-transparent md:text-[24px]">
+        <p className="hero-eyebrow bg-gradient-to-l from-sun to-[#ff7a3d] bg-clip-text text-[18px] font-semibold text-transparent md:text-[24px]">
           توصيل
         </p>
         <h1 className="mx-auto mt-3 max-w-4xl text-[36px] leading-[1.05] font-semibold text-balance md:text-[60px]">

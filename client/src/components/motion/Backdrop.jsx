@@ -29,7 +29,7 @@ export function Backdrop() {
         <div className={`${field} animate-drift top-[45%] -start-[20%] size-[55vmax] bg-[#d9c8ff]/45 [animation-delay:-9s]`} />
       </div>
       <div className="backdrop-b absolute inset-0">
-        <div className={`${field} animate-drift top-[15%] -end-[30%] size-[70vmax] bg-[#ffd27a]/50 [animation-delay:-4s]`} />
+        <div className={`${field} animate-drift top-[15%] -end-[30%] size-[70vmax] bg-[#ffd84d]/60 [animation-delay:-4s]`} />
         <div className={`${field} animate-drift -bottom-[25%] start-[10%] size-[65vmax] bg-[#ff9db0]/40 [animation-delay:-11s]`} />
       </div>
     </div>

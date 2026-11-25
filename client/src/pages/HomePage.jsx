@@ -105,7 +105,7 @@ export default function HomePage() {
                 <div className="min-w-0 flex-1 p-4 sm:p-5">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="truncate text-[15px] font-semibold sm:text-[16px]">{r.name}</h3>
-                    {r.category && <span className="shrink-0 rounded-full bg-black/[0.05] px-3 py-1 text-[12px] text-stone-600">{r.category}</span>}
+                    {r.category && <span className="shrink-0 rounded-full bg-sun-100 px-3 py-1 text-[12px] font-medium text-ink">{r.category}</span>}
                   </div>
                   {r.description && <p className="mt-1 line-clamp-1 text-[13px] text-stone-500 sm:line-clamp-2">{r.description}</p>}
                   {r.address && (
