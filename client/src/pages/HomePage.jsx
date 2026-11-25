@@ -48,8 +48,9 @@ export default function HomePage() {
 
   return (
     <>
-      <LocalNav onJump={jump} />
       <Hero onJump={jump} />
+      {/* Sits after the hero so it only sticks once the hero has scrolled away (no doubled bars on top). */}
+      <LocalNav onJump={jump} />
 
       {/* The restaurant list comes first after the hero: ordering is what most people came for. */}
       <section ref={listRef} id="restaurants" className="mx-auto max-w-5xl scroll-mt-14 px-4 py-16 md:py-24">

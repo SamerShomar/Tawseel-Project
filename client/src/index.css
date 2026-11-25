@@ -46,8 +46,7 @@
   @keyframes page-in {
     from {
       opacity: 0;
-      transform: translateY(40px) scale(0.97);
-      filter: blur(12px);
+      transform: translateY(24px);
     }
   }
   @keyframes float {

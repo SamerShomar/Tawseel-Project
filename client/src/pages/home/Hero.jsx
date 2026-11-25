@@ -77,7 +77,7 @@ export function Hero({ onJump }) {
           scrub: true,
         }
         gsap.to('.hero-text', {
-          y: -80,
+          y: -60,
           opacity: 0,
           ease: 'none',
           scrollTrigger: { ...scroll, end: '60% top' },
@@ -90,7 +90,7 @@ export function Hero({ onJump }) {
           scrollTrigger: scroll,
         })
         gsap.to('.hero-glow', {
-          scale: 1.6,
+          scale: 1.3,
           ease: 'none',
           scrollTrigger: scroll,
         })
@@ -101,42 +101,51 @@ export function Hero({ onJump }) {
   )
 
   return (
-    <section ref={ref} id="overview" className="relative scroll-mt-14 overflow-hidden bg-black pt-12 text-center text-white md:pt-20">
-      {/* Warm glow behind the phone. */}
-      <div className="hero-glow pointer-events-none absolute top-[40%] left-1/2 size-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.55),rgb(255_199_44/0.28)_55%,transparent)]" />
+    // A dark, rounded panel that fills the first screen: text on top, the phone rising from the bottom edge.
+    <section
+      ref={ref}
+      id="overview"
+      className="relative flex min-h-[calc(100svh-3rem)] scroll-mt-14 flex-col overflow-hidden rounded-b-[36px] bg-black text-center text-white md:mx-3 md:mt-3 md:min-h-[calc(100svh-4.5rem)] md:rounded-[40px]"
+    >
+      {/* Glow behind the phone, added as light ("screen" blending) so warm colors stay bright instead of turning brown on black. */}
+      <div className="hero-glow pointer-events-none absolute inset-x-0 bottom-0 h-[75%]" aria-hidden>
+        <div className="absolute bottom-[-10%] left-1/2 size-[560px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_96_32/0.85),rgb(255_96_32/0.25)_55%,transparent_75%)] mix-blend-screen md:size-[820px]" />
+        <div className="absolute bottom-[18%] left-[55%] size-[300px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(255_205_70/0.55),transparent_70%)] mix-blend-screen md:size-[440px]" />
+      </div>
 
-      <div className="hero-text relative px-4">
+      <div className="hero-text relative px-4 pt-10 md:pt-16">
         <p className="hero-eyebrow bg-gradient-to-l from-sun to-[#ff7a3d] bg-clip-text text-[18px] font-semibold text-transparent md:text-[24px]">
           توصيل
         </p>
-        <h1 className="mx-auto mt-3 max-w-4xl text-[36px] leading-[1.05] font-semibold text-balance md:text-[60px]">
+        <h1 className="mx-auto mt-2 max-w-4xl text-[36px] leading-[1.08] font-semibold text-balance md:text-[64px]">
           {'أكلك المفضل، لحد باب البيت.'.split(' ').map((w, i) => (
             <span key={i} className="hero-word inline-block">
               {w}&nbsp;
             </span>
           ))}
         </h1>
-        <p className="hero-sub mx-auto mt-5 max-w-xl text-[16px] leading-snug text-balance text-[#a1a1a6] md:text-[20px]">
+        <p className="hero-sub mx-auto mt-4 max-w-xl text-[16px] leading-snug text-balance text-[#c7c7cc] md:text-[20px]">
           مطاعم غزة المفضلة، بالأسعار، بكبسة زر. وتابع طلبك لحظة بلحظة.
         </p>
-        <div className="hero-cta mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+        <div className="hero-cta mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 md:mt-8">
           <button onClick={() => onJump('restaurants')} className="btn-primary">
             اطلب الآن
           </button>
-          <button onClick={() => onJump('how')} className="inline-flex items-center gap-0.5 py-3 text-[15px] text-[#ff9f6b] hover:underline">
+          <button onClick={() => onJump('how')} className="inline-flex items-center gap-0.5 py-3 text-[15px] text-sun hover:underline">
             كيف بيشتغل
             <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
           </button>
         </div>
       </div>
 
-      {/* The phone is cut off by the bottom of the section, like a product shot. */}
-      <div className="relative mt-10 h-[300px] [perspective:1200px] md:mt-14 md:h-[420px]">
-        <div className="hero-phone-move">
-          <Phone className="hero-phone mx-auto w-[270px] md:w-[320px]">
+      {/* The phone takes the rest of the screen and is cut off by the panel's bottom edge, fading into it. */}
+      <div className="relative mt-8 min-h-[260px] flex-1 [perspective:1200px] md:mt-12 md:min-h-[380px]">
+        <div className="hero-phone-move absolute inset-x-0 top-0">
+          <Phone className="hero-phone mx-auto w-[260px] md:w-[340px]">
             <ScreenTracking current={3} />
           </Phone>
         </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black to-transparent" aria-hidden />
       </div>
     </section>
   )
