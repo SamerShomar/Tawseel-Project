@@ -47,7 +47,7 @@ function CartBadge({ count }) {
     // key={count} replays the pop animation each time the number changes.
     <span
       key={count}
-      className="animate-pop absolute -end-1.5 top-1 grid min-w-[18px] place-items-center rounded-full bg-accent px-1 text-[11px] leading-[18px] font-semibold text-white"
+      className="animate-pop absolute -end-1.5 top-1 grid min-w-[18px] place-items-center rounded-full bg-sun px-1 text-[11px] leading-[18px] font-bold text-ink"
     >
       {count > 99 ? '99+' : count}
     </span>

@@ -43,7 +43,7 @@ export function SegmentedControl({ options, value, onChange, label }) {
             {o.label}
             {o.badge != null && (
               <span
-                className={`min-w-6 rounded-full px-1.5 text-[12px] leading-5 ${o.highlight ? 'bg-accent text-white' : 'bg-black/5 text-stone-600'}`}
+                className={`min-w-6 rounded-full px-1.5 text-[12px] leading-5 ${o.highlight ? 'bg-sun font-semibold text-ink' : 'bg-black/5 text-stone-600'}`}
               >
                 {o.badge}
               </span>

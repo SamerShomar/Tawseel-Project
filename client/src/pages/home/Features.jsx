@@ -20,7 +20,7 @@ export function Bento({ restaurantCount }) {
           {/* Big dark tile. */}
           <div className="relative col-span-2 overflow-hidden rounded-[28px] bg-black p-8 text-white md:row-span-2 md:p-10">
             <div className="pointer-events-none absolute -end-24 -bottom-24 size-80 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.6),transparent)]" />
-            <Banknote className="relative size-14 text-[#ff9f6b]" strokeWidth={1.25} aria-hidden />
+            <Banknote className="relative size-14 text-sun" strokeWidth={1.25} aria-hidden />
             <p className="relative mt-10 text-[32px] leading-[1.05] font-semibold md:mt-24 md:text-[40px]">الدفع عند الاستلام.</p>
             <p className="relative mt-3 max-w-sm text-[15px] text-[#d2d2d7]">ما في بطاقات ولا تحويلات. بتدفع نقداً للسائق لما يوصلك أكلك.</p>
           </div>
@@ -113,7 +113,7 @@ export function Highlights({ dishes }) {
                 />
                 {/* Glass caption over the photo. */}
                 <div className="glass absolute inset-x-3 bottom-3 rounded-[22px] p-4">
-                  <p className="text-[12px] font-semibold text-brand-700">{d.restaurant}</p>
+                  <p className="inline-block rounded-full bg-sun px-2.5 py-0.5 text-[12px] font-semibold text-ink">{d.restaurant}</p>
                   <p className="mt-0.5 text-[18px] leading-tight font-semibold">{d.name}</p>
                   <span className="link mt-1 text-[13px]">
                     اطلب الآن
@@ -164,7 +164,7 @@ export function ClosingCta({ onJump }) {
   return (
     <section ref={ref} className="relative overflow-hidden bg-black px-4 py-28 text-center text-white md:py-40">
       <div className="pointer-events-none absolute top-1/2 left-1/2 size-[800px] -translate-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.45),transparent)]" />
-      <p className="cta-title relative bg-gradient-to-l from-[#ffb36b] to-[#ff7a3d] bg-clip-text text-[56px] leading-none font-semibold text-transparent md:text-[96px]">
+      <p className="cta-title relative bg-gradient-to-l from-sun to-[#ff7a3d] bg-clip-text text-[56px] leading-none font-semibold text-transparent md:text-[96px]">
         جوعان؟
       </p>
       <p className="relative mt-5 text-[16px] text-[#d2d2d7] md:text-[20px]">اختار مطعمك واطلب، والباقي علينا.</p>

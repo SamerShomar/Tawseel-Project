@@ -37,7 +37,7 @@ export function OrderProgress({ status }) {
           return (
             <li key={step} className="flex flex-col items-center gap-2 text-center" aria-current={i === current ? 'step' : undefined}>
               <span className="relative grid size-10 place-items-center">
-                {isCurrent && <span className="absolute inset-0 animate-ping rounded-full bg-accent/30" aria-hidden />}
+                {isCurrent && <span className="absolute inset-0 animate-ping rounded-full bg-sun/70" aria-hidden />}
                 <span
                   className={`relative grid size-10 place-items-center rounded-full transition-colors delay-300 duration-500 ${
                     done ? 'bg-accent text-white' : 'bg-white text-stone-400 ring-1 ring-black/5'
