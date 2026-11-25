@@ -231,7 +231,7 @@ function Navbar() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/60 bg-surface/55 dark:border-white/10 text-[12px] leading-relaxed text-stone-600 backdrop-blur-xl">
+    <footer className="border-t border-white/60 bg-surface/55 dark:border-white/10 text-[12px] leading-relaxed text-stone-600 backdrop-blur-xl dark:bg-stone-100 dark:backdrop-filter-none">
       <div className="mx-auto max-w-5xl px-4 py-5">
         <p className="border-b border-tint/10 pb-3">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض. الدفع عند الاستلام.</p>
         <div className="flex flex-wrap items-center justify-between gap-2 pt-3">
