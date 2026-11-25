@@ -281,16 +281,9 @@
     {
       "restaurant": "كنافة باب الدار",
       "name": "كنافة نابلسية ناعمة",
-      "image": "/images/dishes/knafeh.webp",
-      "width": 1024,
-      "height": 768,
-      "credit": {
-        "title": "Knafah, Knafeh",
-        "creator": "watashiwani",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/11316976@N00/2054754362"
-      },
+      "image": "/images/dishes/knafeh-tea.webp",
+      "width": 736,
+      "height": 1103,
       "featured": true
     },
     {
@@ -366,16 +359,9 @@
     {
       "restaurant": "فلافل الجرن",
       "name": "ساندويش فلافل",
-      "image": "/images/dishes/falafel-sandwich.webp",
-      "width": 1024,
-      "height": 1024,
-      "credit": {
-        "title": "Harissa Falafel Sandwich",
-        "creator": "Cole Kennedy",
-        "license": "Public Domain Mark 1.0",
-        "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
-        "source": "https://www.flickr.com/photos/123529748@N03/18648701644"
-      },
+      "image": "/images/dishes/falafel-tower.webp",
+      "width": 736,
+      "height": 1051,
       "featured": true
     },
     {
@@ -522,16 +508,10 @@
     {
       "restaurant": "أسماك المرفأ",
       "name": "سمك مقلي",
-      "image": "/images/dishes/fried-fish.webp",
-      "width": 1024,
-      "height": 768,
-      "credit": {
-        "title": "Fish - Deep Fried Fish Fillet Noodles - Hongyun Chinese Restaurant AUD8.50",
-        "creator": "avlxyz",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/10559879@N00/3199200846"
-      }
+      "image": "/images/dishes/fried-fish-platter.webp",
+      "width": 736,
+      "height": 1104,
+      "featured": true
     },
     {
       "restaurant": "أسماك المرفأ",
@@ -834,7 +814,7 @@
     },
     {
       "restaurant": "كنافة باب الدار",
-      "image": "/images/dishes/knafeh.webp"
+      "image": "/images/dishes/knafeh-tray.webp"
     },
     {
       "restaurant": "فلافل الجرن",
@@ -854,7 +834,7 @@
     },
     {
       "restaurant": "فطائر الطابون",
-      "image": "/images/dishes/manakish-zaatar.webp"
+      "image": "/images/dishes/fatayer-board.webp"
     },
     {
       "restaurant": "مقهى الموج",
