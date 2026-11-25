@@ -9,14 +9,14 @@ import { Spinner } from '@/components/ui/Spinner'
 import photos from '@/data/dish-photos.json'
 import { useApi } from '@/hooks/useApi'
 import { scrollToElement } from '@/hooks/useLenis'
-import { Bento, ClosingCta, Highlights } from './home/Features'
+import { Bento, Highlights } from './home/Features'
 import { Hero, LocalNav } from './home/Hero'
 import { Story } from './home/Story'
 
 /*
  * The home page is laid out like a product page, with ordering first:
  * dark hero ("جوعان؟" and the phone) → glass local nav → the restaurant list (search + categories) →
- * swipeable popular dishes → pinned "how it works" story → "why" bento → closing call to action.
+ * swipeable popular dishes → pinned "how it works" story → "why" bento.
  */
 
 export default function HomePage() {
@@ -126,7 +126,6 @@ export default function HomePage() {
       <Highlights dishes={featured} />
       <Story />
       <Bento restaurantCount={all?.restaurants.length ?? 0} />
-      <ClosingCta onJump={jump} />
     </>
   )
 }
