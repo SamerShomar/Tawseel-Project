@@ -1,8 +1,17 @@
 import { useRef } from 'react'
-import { ChevronLeft } from 'lucide-react'
+import { Beef, CakeSlice, ChevronLeft, Coffee, Pizza, Sandwich, Soup } from 'lucide-react'
 import { gsap, useGSAP } from '@/lib/gsap'
-import { FOOD } from './Features'
 import { Phone, ScreenTracking } from './Phone'
+
+// Food icons that float around "جوعان؟".
+const FOOD = [
+  { icon: Pizza, className: 'top-[6%] left-[6%] size-9 text-sun md:size-12', delay: '0s' },
+  { icon: Sandwich, className: 'top-[58%] left-[2%] size-8 text-[#ff7a3d] md:size-11', delay: '-1.2s' },
+  { icon: CakeSlice, className: 'top-[0%] left-[38%] size-7 text-[#ffdd6e] md:size-10', delay: '-2.4s' },
+  { icon: Beef, className: 'top-[4%] right-[8%] size-9 text-[#ff9a3c] md:size-12', delay: '-0.6s' },
+  { icon: Coffee, className: 'top-[60%] right-[3%] size-8 text-sun md:size-11', delay: '-1.8s' },
+  { icon: Soup, className: 'top-[2%] right-[36%] size-7 text-[#ff7a3d] md:size-9', delay: '-3s' },
+]
 
 /** Sticky glass bar under the global nav, like the bar on a product page: name, section links, and a buy-style button. */
 export function LocalNav({ onJump }) {

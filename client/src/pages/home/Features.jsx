@@ -2,20 +2,14 @@ import { useRef } from 'react'
 import { Link } from 'react-router'
 import {
   Banknote,
-  Beef,
   Bike,
-  CakeSlice,
   ChefHat,
   ChevronLeft,
   ChevronRight,
   CircleCheck,
-  Coffee,
   House,
   PhoneOff,
-  Pizza,
   ReceiptText,
-  Sandwich,
-  Soup,
   Store,
 } from 'lucide-react'
 import { CountUp } from '@/components/motion/CountUp'
@@ -144,7 +138,7 @@ export function Highlights({ dishes }) {
           ))}
         </ul>
       </div>
-      <div className="mx-auto mt-6 flex max-w-5xl justify-end gap-3 px-4">
+      <div className="mx-auto mt-6 flex max-w-5xl justify-center gap-3 px-4">
         <button onClick={() => step(-1)} className="glass grid size-11 place-items-center rounded-full transition active:scale-90" aria-label="السابق">
           <ChevronRight className="size-5" strokeWidth={2} aria-hidden />
         </button>
@@ -156,37 +150,24 @@ export function Highlights({ dishes }) {
   )
 }
 
-export const FOOD = [
-  { icon: Pizza, className: 'top-[6%] left-[6%] size-9 text-sun md:size-12', delay: '0s' },
-  { icon: Sandwich, className: 'top-[58%] left-[2%] size-8 text-[#ff7a3d] md:size-11', delay: '-1.2s' },
-  { icon: CakeSlice, className: 'top-[0%] left-[38%] size-7 text-[#ffdd6e] md:size-10', delay: '-2.4s' },
-  { icon: Beef, className: 'top-[4%] right-[8%] size-9 text-[#ff9a3c] md:size-12', delay: '-0.6s' },
-  { icon: Coffee, className: 'top-[60%] right-[3%] size-8 text-sun md:size-11', delay: '-1.8s' },
-  { icon: Soup, className: 'top-[2%] right-[36%] size-7 text-[#ff7a3d] md:size-9', delay: '-3s' },
-]
-
-/** Closing dark section: "جوعان؟" bounces in, shimmers, rumbles like a hungry stomach, with food floating around it. */
+/** Closing dark section: a last call to order, rising in as it scrolls into view. */
 export function ClosingCta({ onJump }) {
   const ref = useRef(null)
   useGSAP(
     () => {
       const mm = gsap.matchMedia()
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('.cta-title', {
-          scale: 0.7,
+        gsap.from('.cta-content', {
+          y: 40,
           opacity: 0,
           ease: 'none',
           scrollTrigger: {
             trigger: ref.current,
             start: 'top 90%',
-            end: 'top 30%',
+            end: 'top 40%',
             scrub: true,
           },
         })
-        // Once in view, the word pops in with a bounce and the food icons burst out from it.
-        const pop = { trigger: ref.current, start: 'top 60%', once: true }
-        gsap.from('.cta-pop', { scale: 0.2, rotate: -15, duration: 1.4, ease: 'elastic.out(1, 0.45)', scrollTrigger: pop })
-        gsap.from('.cta-food', { y: 60, scale: 0, rotate: -40, opacity: 0, duration: 1.1, stagger: 0.07, ease: 'back.out(2)', scrollTrigger: pop })
       })
       return () => mm.revert()
     },
@@ -197,26 +178,12 @@ export function ClosingCta({ onJump }) {
     <section ref={ref} className="relative overflow-hidden bg-black px-4 py-28 text-center text-white md:py-40">
       <div className="animate-halo pointer-events-none absolute top-[38%] left-1/2 size-[700px] rounded-full bg-[radial-gradient(closest-side,rgb(255_110_30/0.55),rgb(255_199_44/0.18)_55%,transparent)] mix-blend-screen md:size-[900px]" />
 
-      {/* Food icons floating around the word. */}
-      <div className="pointer-events-none absolute inset-x-0 top-6 mx-auto h-[220px] max-w-3xl md:top-14 md:h-[300px]" aria-hidden>
-        {FOOD.map(({ icon: Icon, className, delay }) => (
-          <span key={className} className={`cta-food absolute ${className}`}>
-            <Icon className="animate-food-float size-full" strokeWidth={1.5} style={{ animationDelay: delay }} />
-          </span>
-        ))}
+      <div className="cta-content relative">
+        <p className="text-[16px] text-[#d2d2d7] md:text-[20px]">اختار مطعمك واطلب، والباقي علينا.</p>
+        <button onClick={() => onJump('restaurants')} data-magnetic className="btn-primary relative mt-8">
+          اطلب الآن
+        </button>
       </div>
-
-      <p className="cta-title relative">
-        <span className="cta-pop inline-block">
-          <span className="animate-hungry inline-block cursor-default bg-[linear-gradient(90deg,var(--color-sun),#ff7a3d,#ffdd6e,#ff9a3c,var(--color-sun))] bg-[length:200%_auto] bg-clip-text px-2 text-[64px] leading-[1.2] font-semibold text-transparent transition-[scale] duration-300 ease-apple hover:scale-[1.15] md:text-[112px]">
-            جوعان؟
-          </span>
-        </span>
-      </p>
-      <p className="relative mt-5 text-[16px] text-[#d2d2d7] md:text-[20px]">اختار مطعمك واطلب، والباقي علينا.</p>
-      <button onClick={() => onJump('restaurants')} data-magnetic className="btn-primary relative mt-8">
-        اطلب الآن
-      </button>
     </section>
   )
 }
