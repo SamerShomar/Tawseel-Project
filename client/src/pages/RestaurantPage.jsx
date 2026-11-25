@@ -26,7 +26,7 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
           const qty = qtyInCart(item.id)
           return (
             // Text and price on one side, the dish photo on the other (like a menu).
-            <article key={item.id} className="card flex gap-4 p-4">
+            <article key={item.id} data-tilt="3" className="card group flex gap-4 p-4">
               <div className="flex min-w-0 flex-1 flex-col">
                 <h3 className="text-[15px] font-semibold">{item.name}</h3>
                 {item.description && <p className="mt-0.5 line-clamp-2 text-[13px] text-stone-500">{item.description}</p>}
@@ -43,7 +43,15 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
                 </div>
               </div>
               {item.imageUrl && (
-                <img src={item.imageUrl} alt="" className="size-28 shrink-0 rounded-2xl object-cover shadow-sm" loading="lazy" decoding="async" />
+                <div className="size-28 shrink-0 overflow-hidden rounded-2xl shadow-sm">
+                  <img
+                    src={item.imageUrl}
+                    alt=""
+                    className="size-full object-cover transition duration-700 ease-apple group-hover:scale-110"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
               )}
             </article>
           )
@@ -211,7 +219,7 @@ export default function RestaurantPage() {
             </strong>{' '}
             صنف · <strong>{formatPrice(cart.total)}</strong>
           </span>
-          <Link to="/cart" className="btn-primary h-11 py-0 ps-5 pe-4">
+          <Link to="/cart" data-magnetic className="btn-primary h-11 py-0 ps-5 pe-4">
             عرض السلة
             <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
           </Link>

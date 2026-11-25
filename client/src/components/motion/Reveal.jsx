@@ -25,7 +25,8 @@ export function useReveal(deps = []) {
       once: true,
       onEnter: (batch) => {
         batch.forEach((c) => shown.current.add(c))
-        gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 0.9, stagger: 0.08, ease: 'expo.out', overwrite: true })
+        // clearProps hands the transform back to CSS afterwards, so hover tilt and hover scale work on these cards.
+        gsap.to(batch, { opacity: 1, y: 0, scale: 1, duration: 0.9, stagger: 0.08, ease: 'expo.out', overwrite: true, clearProps: 'transform,opacity' })
       },
     })
 
