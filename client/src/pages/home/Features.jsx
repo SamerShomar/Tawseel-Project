@@ -14,7 +14,6 @@ import {
 } from 'lucide-react'
 import { CountUp } from '@/components/motion/CountUp'
 import { useReveal } from '@/components/motion/Reveal'
-import { gsap, useGSAP } from '@/lib/gsap'
 import { photo } from '@/lib/photo'
 
 const DOTS = [ReceiptText, CircleCheck, ChefHat, Bike, House]
@@ -144,44 +143,6 @@ export function Highlights({ dishes }) {
         </button>
         <button onClick={() => step(1)} className="glass grid size-11 place-items-center rounded-full transition active:scale-90" aria-label="التالي">
           <ChevronLeft className="size-5" strokeWidth={2} aria-hidden />
-        </button>
-      </div>
-    </section>
-  )
-}
-
-/** Closing dark section: a last call to order, rising in as it scrolls into view. */
-export function ClosingCta({ onJump }) {
-  const ref = useRef(null)
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia()
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.from('.cta-content', {
-          y: 40,
-          opacity: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: ref.current,
-            start: 'top 90%',
-            end: 'top 40%',
-            scrub: true,
-          },
-        })
-      })
-      return () => mm.revert()
-    },
-    { scope: ref },
-  )
-
-  return (
-    <section ref={ref} className="relative overflow-hidden bg-black px-4 py-28 text-center text-white md:py-40">
-      <div className="animate-halo pointer-events-none absolute top-[38%] left-1/2 size-[700px] rounded-full bg-[radial-gradient(closest-side,rgb(255_110_30/0.55),rgb(255_199_44/0.18)_55%,transparent)] mix-blend-screen md:size-[900px]" />
-
-      <div className="cta-content relative">
-        <p className="text-[16px] text-[#d2d2d7] md:text-[20px]">اختار مطعمك واطلب، والباقي علينا.</p>
-        <button onClick={() => onJump('restaurants')} data-magnetic className="btn-primary relative mt-8">
-          اطلب الآن
         </button>
       </div>
     </section>

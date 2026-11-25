@@ -23,28 +23,27 @@ export function LocalNav({ onJump }) {
   ]
   return (
     <nav aria-label="أقسام الصفحة" className="material-bar sticky top-0 z-40 border-b border-tint/10">
-      {/* Three columns: section links | name in the middle | order button. */}
-      <div className="mx-auto grid h-14 max-w-5xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-4">
-        <div className="hidden items-center gap-6 md:flex">
-          {links.map(([id, label]) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              onClick={(e) => {
-                e.preventDefault()
-                onJump(id)
-              }}
-              className="nav-link py-3 text-[12px] text-ink/80 transition hover:text-ink"
-            >
-              {label}
-            </a>
-          ))}
-        </div>
-        <p className="col-start-2 flex items-center gap-2 text-[18px] font-semibold">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-4">
+        <p className="flex items-center gap-2 text-[18px] leading-none font-semibold">
           <img src="/favicon.svg" alt="" className="size-7" />
           توصيل
         </p>
-        <div className="col-start-3 flex justify-end">
+        <div className="flex items-center gap-6">
+          <div className="hidden items-center gap-6 md:flex">
+            {links.map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  onJump(id)
+                }}
+                className="nav-link py-3 text-[12px] text-ink/80 transition hover:text-ink"
+              >
+                {label}
+              </a>
+            ))}
+          </div>
           <button onClick={() => onJump('restaurants')} data-magnetic className="btn-primary h-11 px-4 py-0 text-[13px] md:h-9 md:text-[12px]">
             اطلب الآن
           </button>
