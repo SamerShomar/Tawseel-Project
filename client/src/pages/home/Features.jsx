@@ -1,6 +1,23 @@
 import { useRef } from 'react'
 import { Link } from 'react-router'
-import { Banknote, Bike, ChevronLeft, ChevronRight, ChefHat, CircleCheck, House, PhoneOff, ReceiptText, Store } from 'lucide-react'
+import {
+  Banknote,
+  Beef,
+  Bike,
+  CakeSlice,
+  ChefHat,
+  ChevronLeft,
+  ChevronRight,
+  CircleCheck,
+  Coffee,
+  House,
+  PhoneOff,
+  Pizza,
+  ReceiptText,
+  Sandwich,
+  Soup,
+  Store,
+} from 'lucide-react'
 import { CountUp } from '@/components/motion/CountUp'
 import { useReveal } from '@/components/motion/Reveal'
 import { gsap, useGSAP } from '@/lib/gsap'
@@ -18,14 +35,14 @@ export function Bento({ restaurantCount }) {
         <h2 className="text-center text-[32px] leading-[1.1] font-semibold md:text-[48px]">ليش توصيل؟</h2>
         <div ref={gridRef} className="mt-12 grid grid-cols-2 gap-4 md:mt-16 md:grid-cols-4 md:gap-5">
           {/* Big dark tile. */}
-          <div data-tilt="4" className="relative col-span-2 overflow-hidden rounded-[28px] bg-black p-8 text-white md:row-span-2 md:p-10">
+          <div data-tilt="8" className="relative col-span-2 overflow-hidden rounded-[28px] bg-black p-8 text-white md:row-span-2 md:p-10">
             <div className="pointer-events-none absolute -end-24 -bottom-24 size-80 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.6),transparent)]" />
             <Banknote className="relative size-14 text-sun" strokeWidth={1.25} aria-hidden />
             <p className="relative mt-10 text-[32px] leading-[1.05] font-semibold md:mt-24 md:text-[40px]">الدفع عند الاستلام.</p>
             <p className="relative mt-3 max-w-sm text-[15px] text-[#d2d2d7]">ما في بطاقات ولا تحويلات. بتدفع نقداً للسائق لما يوصلك أكلك.</p>
           </div>
 
-          <div data-tilt="5" className={`${tile} col-span-2`}>
+          <div data-tilt="10" className={`${tile} col-span-2`}>
             <p className="bg-gradient-to-l from-brand-700 to-accent bg-clip-text text-[48px] leading-none font-semibold text-transparent tabular-nums md:text-[60px]">
               <CountUp value={restaurantCount} />
             </p>
@@ -33,7 +50,7 @@ export function Bento({ restaurantCount }) {
             <p className="text-[15px] text-stone-500">من الشاورما للكنافة، كلها بمكان واحد.</p>
           </div>
 
-          <div data-tilt="5" className={tile}>
+          <div data-tilt="10" className={tile}>
             <div className="flex gap-1" aria-hidden>
               {DOTS.map((Icon, i) => (
                 <span key={i} className="grid size-7 place-items-center rounded-full bg-accent text-white" style={{ opacity: 0.35 + i * 0.16 }}>
@@ -45,13 +62,13 @@ export function Bento({ restaurantCount }) {
             <p className="mt-1 text-[13px] text-stone-500">5 مراحل، بتتحدّث لحالها.</p>
           </div>
 
-          <div data-tilt="5" className={tile}>
+          <div data-tilt="10" className={tile}>
             <PhoneOff className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
             <p className="mt-6 text-[18px] leading-tight font-semibold">ولا مكالمة</p>
             <p className="mt-1 text-[13px] text-stone-500">كل شي بيصير من الموقع.</p>
           </div>
 
-          <div data-tilt="5" className={`${tile} col-span-2`}>
+          <div data-tilt="10" className={`${tile} col-span-2`}>
             <Store className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
             <p className="mt-6 text-[20px] font-semibold">عندك مطعم؟</p>
             <p className="mt-1 text-[15px] text-stone-500">استقبل الطلبات، عدّل قائمتك، وتابع كل طلب من لوحة وحدة.</p>
@@ -61,7 +78,7 @@ export function Bento({ restaurantCount }) {
             </Link>
           </div>
 
-          <div data-tilt="5" className={`${tile} col-span-2`}>
+          <div data-tilt="10" className={`${tile} col-span-2`}>
             <Bike className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
             <p className="mt-6 text-[20px] font-semibold">بدك تشتغل سائق؟</p>
             <p className="mt-1 text-[15px] text-stone-500">اختار الطلبات اللي بتناسبك، ووصّلها بوقتك.</p>
@@ -110,7 +127,7 @@ export function Highlights({ dishes }) {
                   alt={d.name}
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 size-full object-cover transition duration-700 ease-apple group-hover:scale-105"
+                  className="absolute inset-0 size-full object-cover transition duration-700 ease-apple group-hover:scale-[1.15]"
                 />
                 {/* Glass caption over the photo. */}
                 <div className="glass absolute inset-x-3 bottom-3 rounded-[22px] p-4">
@@ -138,7 +155,16 @@ export function Highlights({ dishes }) {
   )
 }
 
-/** Closing dark section with a huge headline that scales up as it scrolls into view. */
+const FOOD = [
+  { icon: Pizza, className: 'top-[6%] left-[6%] size-9 text-sun md:size-12', delay: '0s' },
+  { icon: Sandwich, className: 'top-[58%] left-[2%] size-8 text-[#ff7a3d] md:size-11', delay: '-1.2s' },
+  { icon: CakeSlice, className: 'top-[0%] left-[38%] size-7 text-[#ffdd6e] md:size-10', delay: '-2.4s' },
+  { icon: Beef, className: 'top-[4%] right-[8%] size-9 text-[#ff9a3c] md:size-12', delay: '-0.6s' },
+  { icon: Coffee, className: 'top-[60%] right-[3%] size-8 text-sun md:size-11', delay: '-1.8s' },
+  { icon: Soup, className: 'top-[2%] right-[36%] size-7 text-[#ff7a3d] md:size-9', delay: '-3s' },
+]
+
+/** Closing dark section: "جوعان؟" bounces in, shimmers, rumbles like a hungry stomach, with food floating around it. */
 export function ClosingCta({ onJump }) {
   const ref = useRef(null)
   useGSAP(
@@ -156,6 +182,10 @@ export function ClosingCta({ onJump }) {
             scrub: true,
           },
         })
+        // Once in view, the word pops in with a bounce and the food icons burst out from it.
+        const pop = { trigger: ref.current, start: 'top 60%', once: true }
+        gsap.from('.cta-pop', { scale: 0.2, rotate: -15, duration: 1.4, ease: 'elastic.out(1, 0.45)', scrollTrigger: pop })
+        gsap.from('.cta-food', { y: 60, scale: 0, rotate: -40, opacity: 0, duration: 1.1, stagger: 0.07, ease: 'back.out(2)', scrollTrigger: pop })
       })
       return () => mm.revert()
     },
@@ -164,9 +194,23 @@ export function ClosingCta({ onJump }) {
 
   return (
     <section ref={ref} className="relative overflow-hidden bg-black px-4 py-28 text-center text-white md:py-40">
-      <div className="pointer-events-none absolute top-1/2 left-1/2 size-[800px] -translate-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.45),transparent)]" />
-      <p className="cta-title relative bg-gradient-to-l from-sun to-[#ff7a3d] bg-clip-text text-[56px] leading-none font-semibold text-transparent md:text-[96px]">
-        جوعان؟
+      <div className="animate-halo pointer-events-none absolute top-[38%] left-1/2 size-[700px] rounded-full bg-[radial-gradient(closest-side,rgb(255_110_30/0.55),rgb(255_199_44/0.18)_55%,transparent)] mix-blend-screen md:size-[900px]" />
+
+      {/* Food icons floating around the word. */}
+      <div className="pointer-events-none absolute inset-x-0 top-6 mx-auto h-[220px] max-w-3xl md:top-14 md:h-[300px]" aria-hidden>
+        {FOOD.map(({ icon: Icon, className, delay }) => (
+          <span key={className} className={`cta-food absolute ${className}`}>
+            <Icon className="animate-food-float size-full" strokeWidth={1.5} style={{ animationDelay: delay }} />
+          </span>
+        ))}
+      </div>
+
+      <p className="cta-title relative">
+        <span className="cta-pop inline-block">
+          <span className="animate-hungry inline-block cursor-default bg-[linear-gradient(90deg,var(--color-sun),#ff7a3d,#ffdd6e,#ff9a3c,var(--color-sun))] bg-[length:200%_auto] bg-clip-text px-2 text-[64px] leading-[1.2] font-semibold text-transparent transition-[scale] duration-300 ease-apple hover:scale-[1.15] md:text-[112px]">
+            جوعان؟
+          </span>
+        </span>
       </p>
       <p className="relative mt-5 text-[16px] text-[#d2d2d7] md:text-[20px]">اختار مطعمك واطلب، والباقي علينا.</p>
       <button onClick={() => onJump('restaurants')} data-magnetic className="btn-primary relative mt-8">

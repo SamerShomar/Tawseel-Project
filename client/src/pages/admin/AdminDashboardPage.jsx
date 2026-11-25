@@ -24,7 +24,7 @@ function Stat({ icon: Icon, label, value, format, hint, to }) {
     </>
   )
   return to ? (
-    <Link to={to} data-tilt="6" className="card block p-5">
+    <Link to={to} data-tilt="12" className="card block p-5">
       {body}
     </Link>
   ) : (

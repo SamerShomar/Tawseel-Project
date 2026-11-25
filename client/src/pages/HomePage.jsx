@@ -100,10 +100,10 @@ export default function HomePage() {
               <Link
                 key={r.id}
                 to={`/restaurants/${r.id}`}
-                data-tilt="6"
+                data-tilt="12"
                 className="card group flex items-stretch overflow-hidden active:scale-[0.99] sm:block"
               >
-                <RestaurantCover restaurant={r} className="w-24 shrink-0 transition duration-700 ease-apple group-hover:scale-110 sm:h-36 sm:w-full" />
+                <RestaurantCover restaurant={r} className="w-24 shrink-0 transition duration-700 ease-apple group-hover:scale-[1.18] group-hover:rotate-1 sm:h-36 sm:w-full" />
                 <div className="min-w-0 flex-1 p-4 sm:p-5">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="truncate text-[15px] font-semibold sm:text-[16px]">{r.name}</h3>

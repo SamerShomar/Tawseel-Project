@@ -7,11 +7,11 @@ import { useEffect } from 'react'
  *  - Tilt: elements with `data-tilt` (optionally `data-tilt="8"` = max degrees) lean toward the cursor in 3D.
  *  - Magnetic: elements with `data-magnetic` drift a little toward the cursor while it is over them.
  *
- * Only on devices with a real mouse (hover + fine pointer). Tilt and magnetic are skipped with "Reduce Motion".
+ * Mouse: effects follow the cursor while hovering. Touch: a card tilts toward the finger while it is pressed,
+ * then springs back. Tilt and magnetic are skipped with "Reduce Motion".
  */
 export function usePointerEffects() {
   useEffect(() => {
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)')
 
     let frame = 0
@@ -46,8 +46,10 @@ export function usePointerEffects() {
         const r = tilt.getBoundingClientRect()
         const px = (e.clientX - r.left) / r.width - 0.5
         const py = (e.clientY - r.top) / r.height - 0.5
-        const max = Number(tilt.dataset.tilt) || 6
-        tilt.style.transform = `perspective(900px) rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg)`
+        const max = (Number(tilt.dataset.tilt) || 10) * 1.6
+        // Lean toward the cursor, lift and grow a little (pressed in slightly for a finger).
+        const lift = e.pointerType === 'mouse' ? 'translateY(-12px) scale(1.06)' : 'scale(0.96)'
+        tilt.style.transform = `perspective(700px) ${lift} rotateX(${(-py * max).toFixed(2)}deg) rotateY(${(px * max).toFixed(2)}deg)`
         tiltEl = tilt
       }
 
@@ -57,14 +59,30 @@ export function usePointerEffects() {
         const r = mag.getBoundingClientRect()
         const dx = e.clientX - (r.left + r.width / 2)
         const dy = e.clientY - (r.top + r.height / 2)
-        mag.style.translate = `${(dx * 0.25).toFixed(1)}px ${(dy * 0.35).toFixed(1)}px`
+        mag.style.translate = `${(dx * 0.5).toFixed(1)}px ${(dy * 0.6).toFixed(1)}px`
         magEl = mag
       }
     }
 
+    // Mouse: follow every move. Touch/pen: only while the finger is down (so scrolling stays smooth).
+    let pressed = false
     const onMove = (e) => {
+      if (e.pointerType !== 'mouse' && !pressed) return
       event = e
       if (!frame) frame = requestAnimationFrame(apply)
+    }
+    const onDown = (e) => {
+      if (e.pointerType === 'mouse') return
+      pressed = true
+      onMove(e)
+    }
+    const onUp = (e) => {
+      if (e.pointerType === 'mouse') return
+      pressed = false
+      cancelAnimationFrame(frame) // a frame queued by the press must not re-tilt the card after release
+      frame = 0
+      resetTilt()
+      resetMag()
     }
     const onLeave = () => {
       resetTilt()
@@ -72,12 +90,18 @@ export function usePointerEffects() {
     }
 
     document.addEventListener('pointermove', onMove, { passive: true })
+    document.addEventListener('pointerdown', onDown, { passive: true })
+    document.addEventListener('pointerup', onUp, { passive: true })
+    document.addEventListener('pointercancel', onUp, { passive: true })
     document.documentElement.addEventListener('pointerleave', onLeave)
     window.addEventListener('blur', onLeave)
     return () => {
       cancelAnimationFrame(frame)
       onLeave()
       document.removeEventListener('pointermove', onMove)
+      document.removeEventListener('pointerdown', onDown)
+      document.removeEventListener('pointerup', onUp)
+      document.removeEventListener('pointercancel', onUp)
       document.documentElement.removeEventListener('pointerleave', onLeave)
       window.removeEventListener('blur', onLeave)
     }
