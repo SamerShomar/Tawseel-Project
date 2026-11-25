@@ -1,22 +1,21 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#0b0b0c" />
     <meta name="description" content="توصيل – اطلب أكلك من مطاعمك المفضلة وتابع طلبك لحد ما يوصلك" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>توصيل | Tawseel</title>
     <script>
-      // Apply the saved theme (or the device's) before the page paints, so dark mode never flashes white.
+      // Dark is the default. A saved light choice is applied before the page paints, so it never flashes dark.
       try {
-        var t = localStorage.getItem('theme')
-        if (t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark')
-          document.querySelector('meta[name="theme-color"]').content = '#0b0b0c'
+        if (localStorage.getItem('theme') === 'light') {
+          document.documentElement.classList.remove('dark')
+          document.querySelector('meta[name="theme-color"]').content = '#ffffff'
         }
       } catch (e) {}
     </script>
