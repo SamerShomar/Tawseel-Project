@@ -180,7 +180,7 @@ function Navbar() {
         }`}
       >
         <nav className="mx-auto flex h-12 max-w-5xl items-center gap-1 px-4">
-          <Link to={user ? homeFor(user) : '/'} className="flex h-11 items-center gap-2.5 text-[19px] leading-none font-semibold text-ink">
+          <Link to={user ? homeFor(user) : '/'} className="flex h-11 translate-y-1 items-center gap-2.5 text-[19px] leading-none font-semibold text-ink">
             <img src="/favicon.svg" alt="" className="size-8" />
             توصيل
           </Link>
