@@ -179,13 +179,9 @@ function Navbar() {
           open ? 'bg-surface/80 backdrop-blur-2xl' : 'material-bar'
         }`}
       >
-        <nav className="mx-auto flex h-12 max-w-5xl items-center gap-1 px-4">
-          <Link to={user ? homeFor(user) : '/'} className="flex h-11 items-center gap-2 text-[15px] font-semibold text-ink">
-            <img src="/favicon.svg" alt="" className="size-6" />
-            توصيل
-          </Link>
-
-          <div className="hidden flex-1 items-center justify-center gap-8 md:flex">
+        {/* Three columns: page links | logo in the middle | icons. */}
+        <nav className="mx-auto grid h-12 max-w-5xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-4">
+          <div className="hidden items-center gap-6 md:flex">
             {links.map((l) => (
               <NavLink
                 key={l.to}
@@ -198,7 +194,12 @@ function Navbar() {
             ))}
           </div>
 
-          <div className="ms-auto flex items-center md:ms-0">
+          <Link to={user ? homeFor(user) : '/'} className="col-start-2 flex h-11 items-center gap-2.5 text-[19px] font-semibold text-ink">
+            <img src="/favicon.svg" alt="" className="size-8" />
+            توصيل
+          </Link>
+
+          <div className="col-start-3 flex items-center justify-end">
             <ThemeButton />
             {canOrder && (
               <Link to="/cart" className={iconBtn} aria-label={`السلة (${count})`}>

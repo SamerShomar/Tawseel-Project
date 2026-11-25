@@ -10,14 +10,13 @@ import photos from '@/data/dish-photos.json'
 import { useApi } from '@/hooks/useApi'
 import { scrollToElement } from '@/hooks/useLenis'
 import { Bento, ClosingCta, Highlights } from './home/Features'
-import { Hero, LocalNav, Statement } from './home/Hero'
+import { Hero, LocalNav } from './home/Hero'
 import { Story } from './home/Story'
 
 /*
  * The home page is laid out like a product page, with ordering first:
- * glass local nav → dark hero with the phone → the restaurant list (search + categories) →
- * swipeable popular dishes → statement that lights up as you read → pinned "how it works" story →
- * "why" bento → closing call to action.
+ * dark hero ("جوعان؟" and the phone) → glass local nav → the restaurant list (search + categories) →
+ * swipeable popular dishes → pinned "how it works" story → "why" bento → closing call to action.
  */
 
 export default function HomePage() {
@@ -125,7 +124,6 @@ export default function HomePage() {
       </section>
 
       <Highlights dishes={featured} />
-      <Statement />
       <Story />
       <Bento restaurantCount={all?.restaurants.length ?? 0} />
       <ClosingCta onJump={jump} />
