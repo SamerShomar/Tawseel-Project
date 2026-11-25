@@ -493,31 +493,17 @@
     {
       "restaurant": "مشاوي النخلة",
       "name": "صحن كباب",
-      "image": "/images/dishes/kebab-plate.webp",
-      "width": 1024,
-      "height": 974,
-      "credit": {
-        "title": "kofta di agnello su letto di salsa allo yogurt e pomodoro fresco",
-        "creator": "fugzu",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/70253321@N00/5706639487"
-      }
+      "image": "/images/dishes/kebab-skewers.webp",
+      "width": 673,
+      "height": 1200,
+      "featured": true
     },
     {
       "restaurant": "مشاوي النخلة",
       "name": "مشاوي مشكلة",
-      "image": "/images/dishes/mixed-grill.webp",
-      "width": 1024,
-      "height": 768,
-      "credit": {
-        "title": "Summertime and the grilling is easy",
-        "creator": "Samer Farha",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "source": "https://www.flickr.com/photos/46944656@N00/155147995"
-      },
-      "featured": true
+      "image": "/images/dishes/mixed-grill-platter.webp",
+      "width": 1200,
+      "height": 1193
     },
     {
       "restaurant": "مشاوي النخلة",
@@ -772,22 +758,15 @@
         "license": "CC BY 2.0",
         "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
         "source": "https://www.flickr.com/photos/49215102@N00/11389700526"
-      },
-      "featured": true
+      }
     },
     {
       "restaurant": "مقهى الموج",
       "name": "كابتشينو",
-      "image": "/images/dishes/cappuccino.webp",
-      "width": 1024,
-      "height": 768,
-      "credit": {
-        "title": "Cappuccino",
-        "creator": "matsuyuki",
-        "license": "CC BY-SA 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-        "source": "https://www.flickr.com/photos/12173213@N00/2502115198"
-      }
+      "image": "/images/dishes/cappuccino-cake.webp",
+      "width": 735,
+      "height": 919,
+      "featured": true
     },
     {
       "restaurant": "مقهى الموج",
@@ -834,16 +813,10 @@
     {
       "restaurant": "مقهى الموج",
       "name": "كيكة شوكولاتة",
-      "image": "/images/dishes/chocolate-cake.webp",
-      "width": 1024,
-      "height": 683,
-      "credit": {
-        "title": "Free chocolate cake slice image",
-        "creator": null,
-        "license": "CC0 1.0",
-        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
-        "source": "https://www.rawpixel.com/image/5916247/image-public-domain-food-chocolate"
-      }
+      "image": "/images/dishes/chocolate-cake-latte.webp",
+      "width": 992,
+      "height": 1216,
+      "featured": true
     }
   ],
   "covers": [
@@ -865,11 +838,11 @@
     },
     {
       "restaurant": "فلافل الجرن",
-      "image": "/images/dishes/falafel-sandwich.webp"
+      "image": "/images/dishes/falafel-plate.webp"
     },
     {
       "restaurant": "مشاوي النخلة",
-      "image": "/images/dishes/mixed-grill.webp"
+      "image": "/images/dishes/mixed-grill-platter.webp"
     },
     {
       "restaurant": "أسماك المرفأ",
