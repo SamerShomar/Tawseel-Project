@@ -156,7 +156,7 @@ export function Highlights({ dishes }) {
   )
 }
 
-const FOOD = [
+export const FOOD = [
   { icon: Pizza, className: 'top-[6%] left-[6%] size-9 text-sun md:size-12', delay: '0s' },
   { icon: Sandwich, className: 'top-[58%] left-[2%] size-8 text-[#ff7a3d] md:size-11', delay: '-1.2s' },
   { icon: CakeSlice, className: 'top-[0%] left-[38%] size-7 text-[#ffdd6e] md:size-10', delay: '-2.4s' },
