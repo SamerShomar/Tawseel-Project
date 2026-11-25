@@ -108,7 +108,7 @@ export function Highlights({ dishes }) {
         <p className="mt-2 text-[16px] text-stone-500 md:text-[20px]">اسحب، اختار، واطلب من المطعم مباشرة.</p>
       </div>
       <div ref={rowRef} className="no-scrollbar mt-8 overflow-x-auto scroll-smooth">
-        <ul ref={listRef} className="flex snap-x snap-mandatory gap-4 px-4 md:px-[max(1rem,calc((100vw-64rem)/2+1rem))]">
+        <ul ref={listRef} className="flex snap-x snap-mandatory scroll-px-3 gap-4 px-3">
           {dishes.map((d) => (
             <li key={d.name} className="w-[72vw] max-w-[320px] shrink-0 snap-start">
               <Link
