@@ -1,9 +1,8 @@
 import { useSyncExternalStore } from 'react'
 
-// Light or dark. The visitor's choice is saved on the device; without one, the site follows the device setting.
+// Light or dark. Dark is the default; a visitor who switches to light has that choice saved on the device.
 // index.html applies the theme before the first paint, so there is no flash of the wrong colors.
 const KEY = 'theme'
-const system = window.matchMedia?.('(prefers-color-scheme: dark)')
 const listeners = new Set()
 let unsaved = null // the choice when storage is blocked (private mode): it lasts until the page is closed
 
@@ -17,7 +16,7 @@ function saved() {
 
 function current() {
   const choice = saved()
-  return choice === 'dark' || choice === 'light' ? choice : system?.matches ? 'dark' : 'light'
+  return choice === 'light' ? 'light' : 'dark'
 }
 
 function apply() {
@@ -27,7 +26,6 @@ function apply() {
   listeners.forEach((fn) => fn())
 }
 
-system?.addEventListener('change', apply)
 apply()
 
 export function setTheme(theme) {
