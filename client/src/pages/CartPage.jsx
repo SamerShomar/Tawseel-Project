@@ -80,11 +80,11 @@ export default function CartPage() {
                 <div className="flex min-w-0 items-center gap-3 sm:order-1 sm:flex-1">
                   {item.imageUrl && <img src={thumb(item.imageUrl)} alt="" className="size-12 shrink-0 rounded-xl object-cover" loading="lazy" />}
                   <div className="min-w-0">
-                    <p className="text-[15px] font-semibold">{item.name}</p>
-                    <p className="text-[13px] text-stone-500">{formatPrice(item.price)}</p>
+                    <p className="text-[16px] font-semibold">{item.name}</p>
+                    <p className="text-[14px] text-stone-500">{formatPrice(item.price)}</p>
                   </div>
                 </div>
-                <span className="text-end text-[15px] font-semibold sm:order-3 sm:w-20">{formatPrice(item.price * item.quantity)}</span>
+                <span className="text-end text-[16px] font-semibold sm:order-3 sm:w-20">{formatPrice(item.price * item.quantity)}</span>
                 <div className="sm:order-2">
                   <QuantityStepper name={item.name} quantity={item.quantity} onChange={(q) => cart.setQuantity(item.id, q)} />
                 </div>
@@ -98,23 +98,23 @@ export default function CartPage() {
               </li>
             ))}
           </ul>
-          <div className="mt-5 flex justify-between border-t border-stone-200 pt-4 text-[18px] font-semibold">
+          <div className="mt-5 flex justify-between border-t border-stone-200 pt-4 text-[19px] font-semibold">
             <span>المجموع</span>
             <span>{formatPrice(cart.total)}</span>
           </div>
-          <Link to={`/restaurants/${cart.restaurant.id}`} className="link mt-1 py-3 text-[13px]">
+          <Link to={`/restaurants/${cart.restaurant.id}`} className="link mt-1 py-3 text-[14px]">
             <Plus className="size-4" strokeWidth={2} aria-hidden />
             أضف أصناف أخرى
           </Link>
         </section>
 
         <form id="checkout-form" onSubmit={submit} className="card flex h-fit flex-col gap-4 p-5 md:p-7 lg:col-span-2" noValidate>
-          <h2 className="text-[18px] font-semibold">معلومات التوصيل</h2>
+          <h2 className="text-[19px] font-semibold">معلومات التوصيل</h2>
           <Alert>{error}</Alert>
           <Field label="عنوان التوصيل" as="textarea" rows={2} required value={form.deliveryAddress} onChange={set('deliveryAddress')} error={errors.deliveryAddress} placeholder="المدينة، الحي، الشارع، أقرب معلم" />
           <Field label="رقم الهاتف" type="tel" dir="ltr" required value={phone} onChange={set('phone')} error={errors.phone} placeholder="059xxxxxxx" />
           <Field label="ملاحظات (اختياري)" as="textarea" rows={2} value={form.notes} onChange={set('notes')} error={errors.notes} placeholder="مثلاً: بدون بصل" />
-          <p className="flex items-center gap-2 rounded-2xl bg-tint/[0.04] px-4 py-3 text-[13px] text-stone-600">
+          <p className="flex items-center gap-2 rounded-2xl bg-tint/[0.04] px-4 py-3 text-[14px] text-stone-600">
             <Banknote className="size-5 shrink-0" strokeWidth={1.5} aria-hidden />
             الدفع نقداً عند الاستلام
           </p>
@@ -127,7 +127,7 @@ export default function CartPage() {
 
       {/* Phones: the confirm button floats at the bottom of the screen instead of sitting below the form. */}
       <FloatingBar className="md:hidden">
-        <span className="text-[13px]">
+        <span className="text-[14px]">
           المجموع <strong>{formatPrice(cart.total)}</strong>
         </span>
         <button type="submit" form="checkout-form" className="btn-primary h-11 flex-1 py-0" disabled={submitting || needsVerification}>

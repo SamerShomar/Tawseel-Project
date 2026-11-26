@@ -36,7 +36,7 @@ function MenuItemForm({ initial, onSave, onCancel }) {
 
   return (
     <form onSubmit={submit} className="card animate-page-in grid gap-4 p-5 md:p-7 sm:grid-cols-2" noValidate>
-      <h2 className="text-[18px] font-semibold sm:col-span-2">{initial ? `تعديل «${initial.name}»` : 'صنف جديد'}</h2>
+      <h2 className="text-[19px] font-semibold sm:col-span-2">{initial ? `تعديل «${initial.name}»` : 'صنف جديد'}</h2>
       <div className="sm:col-span-2">
         <Alert>{error}</Alert>
       </div>
@@ -45,7 +45,7 @@ function MenuItemForm({ initial, onSave, onCancel }) {
       <Field label="التصنيف" value={form.category} onChange={set('category')} error={errors.category} placeholder="مثلاً: سندويشات، مشروبات" />
       <Field label="رابط صورة (اختياري)" type="url" dir="ltr" value={form.imageUrl} onChange={set('imageUrl')} error={errors.imageUrl} placeholder="https://…" />
       <Field label="الوصف" as="textarea" rows={2} className="sm:col-span-2" value={form.description} onChange={set('description')} error={errors.description} />
-      <label className="flex min-h-11 items-center gap-3 text-[15px] sm:col-span-2">
+      <label className="flex min-h-11 items-center gap-3 text-[16px] sm:col-span-2">
         <input type="checkbox" checked={form.isAvailable} onChange={set('isAvailable')} className="size-5 accent-accent" />
         متوفر للطلب
       </label>
@@ -149,9 +149,9 @@ export default function OwnerMenuPage() {
               <li key={item.id} className={`card p-5 transition-opacity duration-300 ${item.isAvailable ? '' : 'opacity-60'}`}>
                 <div className="flex items-start gap-3">
                   <div className="min-w-0 flex-1">
-                    <p className="text-[15px] font-semibold">{item.name}</p>
-                    {item.description && <p className="line-clamp-1 text-[12px] text-stone-500">{item.description}</p>}
-                    <p className="mt-1 text-[13px]">
+                    <p className="text-[16px] font-semibold">{item.name}</p>
+                    {item.description && <p className="line-clamp-1 text-[13px] text-stone-500">{item.description}</p>}
+                    <p className="mt-1 text-[14px]">
                       <span className="font-semibold">{formatPrice(item.price)}</span>
                       {item.category && <span className="text-stone-500"> · {item.category}</span>}
                     </p>
@@ -174,8 +174,8 @@ export default function OwnerMenuPage() {
 
           {/* Tablets and desktop: table */}
           <div className="card hidden overflow-hidden sm:block">
-            <table className="w-full text-[13px]">
-              <thead className="bg-tint/[0.03] text-[12px] text-stone-500">
+            <table className="w-full text-[14px]">
+              <thead className="bg-tint/[0.03] text-[13px] text-stone-500">
                 <tr>
                   <th className="p-3 text-start font-medium">الصنف</th>
                   <th className="hidden p-3 text-start font-medium sm:table-cell">التصنيف</th>
@@ -191,7 +191,7 @@ export default function OwnerMenuPage() {
                   <tr key={item.id} className={item.isAvailable ? '' : 'text-stone-500'}>
                     <td className="p-3">
                       <p className="font-semibold">{item.name}</p>
-                      {item.description && <p className="line-clamp-1 text-xs text-stone-500">{item.description}</p>}
+                      {item.description && <p className="line-clamp-1 text-[13px] text-stone-500">{item.description}</p>}
                     </td>
                     <td className="hidden p-3 sm:table-cell">{item.category || '—'}</td>
                     <td className="p-3 font-semibold whitespace-nowrap">{formatPrice(item.price)}</td>

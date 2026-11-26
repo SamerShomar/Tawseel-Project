@@ -54,16 +54,16 @@ export default function AccountPage() {
           {user.name.trim()[0]}
         </span>
         <p className="mt-4 text-[20px] font-semibold">{user.name}</p>
-        <p className="text-[13px] text-stone-500" dir="ltr">
+        <p className="text-[14px] text-stone-500" dir="ltr">
           {user.email}
         </p>
-        <span className="mt-3 rounded-full bg-tint/[0.05] px-3 py-1 text-[12px] text-stone-600">{ROLE_LABEL[user.role]}</span>
+        <span className="mt-3 rounded-full bg-tint/[0.05] px-3 py-1 text-[13px] text-stone-600">{ROLE_LABEL[user.role]}</span>
       </div>
 
       <ul className="card mt-4 divide-y divide-stone-100 overflow-hidden">
         {links.map((l) => (
           <li key={l.to}>
-            <Link to={l.to} className="flex items-center gap-3 px-5 py-3.5 text-[15px] transition hover:bg-surface/60 active:bg-surface/80">
+            <Link to={l.to} className="flex items-center gap-3 px-5 py-3.5 text-[16px] transition hover:bg-surface/60 active:bg-surface/80">
               <span className="grid size-8 place-items-center rounded-lg bg-accent text-white" aria-hidden>
                 <l.icon className="size-[18px]" strokeWidth={1.75} />
               </span>

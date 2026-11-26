@@ -85,23 +85,23 @@ export default function AdminUsersPage() {
           <ul ref={listRef} className="card divide-y divide-stone-100 overflow-hidden">
             {data?.users.map((u) => (
               <li key={u.id} className={`flex flex-wrap items-center gap-3 p-5 ${u.isActive ? '' : 'bg-tint/[0.04]'}`}>
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-accent to-brand-700 text-[15px] font-semibold text-white">
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-accent to-brand-700 text-[16px] font-semibold text-white">
                   {u.name.trim()[0]}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="flex flex-wrap items-center gap-2 text-[15px] font-semibold">
+                  <p className="flex flex-wrap items-center gap-2 text-[16px] font-semibold">
                     <span className="truncate">{u.name}</span>
-                    <span className="rounded-full bg-stone-100 px-2 py-0.5 text-[12px] font-normal text-stone-600">{ROLE_LABEL[u.role]}</span>
-                    {!u.isActive && <span className="rounded-full bg-rose-100 dark:bg-rose-400/15 px-2 py-0.5 text-[12px] font-normal text-rose-700 dark:text-rose-300">موقوف</span>}
+                    <span className="rounded-full bg-stone-100 px-2 py-0.5 text-[13px] font-normal text-stone-600">{ROLE_LABEL[u.role]}</span>
+                    {!u.isActive && <span className="rounded-full bg-rose-100 dark:bg-rose-400/15 px-2 py-0.5 text-[13px] font-normal text-rose-700 dark:text-rose-300">موقوف</span>}
                     {u.role === 'DRIVER' && !u.driverApproved && (
-                      <span className="rounded-full bg-sky-100 dark:bg-sky-400/15 px-2 py-0.5 text-[12px] font-normal text-sky-800 dark:text-sky-300">بانتظار الموافقة</span>
+                      <span className="rounded-full bg-sky-100 dark:bg-sky-400/15 px-2 py-0.5 text-[13px] font-normal text-sky-800 dark:text-sky-300">بانتظار الموافقة</span>
                     )}
-                    {!u.emailVerified && <span className="rounded-full bg-amber-100 dark:bg-amber-400/15 px-2 py-0.5 text-[12px] font-normal text-amber-800 dark:text-amber-300">الإيميل غير مؤكد</span>}
+                    {!u.emailVerified && <span className="rounded-full bg-amber-100 dark:bg-amber-400/15 px-2 py-0.5 text-[13px] font-normal text-amber-800 dark:text-amber-300">الإيميل غير مؤكد</span>}
                   </p>
-                  <p className="truncate text-[13px] text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
+                  <p className="truncate text-[14px] text-stone-500" dir="ltr" style={{ textAlign: 'right' }}>
                     {u.email}
                   </p>
-                  <p className="text-[12px] text-stone-500">
+                  <p className="text-[13px] text-stone-500">
                     {u.restaurant
                       ? `مطعم: ${u.restaurant.name} · `
                       : u.role === 'CUSTOMER'

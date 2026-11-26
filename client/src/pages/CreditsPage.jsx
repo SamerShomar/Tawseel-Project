@@ -12,8 +12,8 @@ export default function CreditsPage() {
         {dishes.map((d) => (
           <li key={d.restaurant + d.name} className="card flex items-center gap-3 p-3">
             <img src={thumb(d.image)} alt="" className="size-16 shrink-0 rounded-xl object-cover" loading="lazy" />
-            <div className="min-w-0 text-[13px]">
-              <p className="text-[15px] font-semibold">{d.name}</p>
+            <div className="min-w-0 text-[14px]">
+              <p className="text-[16px] font-semibold">{d.name}</p>
               {/* The photographer is always shown in full (the license requires credit); a long title may be shortened. */}
               <p className="text-stone-600">
                 تصوير: <span dir="auto">{d.credit.creator || 'غير معروف'}</span>
@@ -33,7 +33,7 @@ export default function CreditsPage() {
           </li>
         ))}
       </ul>
-      <p className="mt-6 text-[12px] text-stone-500">الصور مصغّرة ومضغوطة لتناسب الموقع. الأطباق والمطاعم المعروضة تجريبية لأغراض العرض.</p>
+      <p className="mt-6 text-[13px] text-stone-500">الصور مصغّرة ومضغوطة لتناسب الموقع. الأطباق والمطاعم المعروضة تجريبية لأغراض العرض.</p>
     </Page>
   )
 }

@@ -33,7 +33,7 @@ export default function ForgotPasswordPage() {
       {message ? (
         <div className="flex flex-col gap-3">
           <Alert type="success">{message}</Alert>
-          <p className="text-[13px] text-stone-600">
+          <p className="text-[14px] text-stone-600">
             الرابط صالح لمدة 30 دقيقة. إذا ما وصلت الرسالة خلال دقيقتين، شيّك على مجلد الرسائل غير المرغوب فيها (Spam).
           </p>
         </div>

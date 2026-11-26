@@ -13,46 +13,6 @@ const FOOD = [
   { icon: Soup, className: 'top-[2%] right-[36%] size-7 text-[#ff7a3d] md:size-9', delay: '-3s' },
 ]
 
-/** Sticky glass bar under the global nav, like the bar on a product page: name, section links, and a buy-style button. */
-export function LocalNav({ onJump }) {
-  const links = [
-    ['overview', 'نظرة عامة'],
-    ['restaurants', 'المطاعم'],
-    ['how', 'كيف بيشتغل'],
-    ['why', 'ليش توصيل'],
-  ]
-  return (
-    <nav aria-label="أقسام الصفحة" className="material-bar sticky top-0 z-40 border-b border-tint/10">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-4">
-        <p className="flex translate-y-1 items-center gap-2 text-[18px] leading-none font-semibold">
-          <img src="/favicon.svg" alt="" className="size-7" />
-          توصيل
-        </p>
-        <div className="flex items-center gap-6">
-          <div className="hidden items-center gap-6 md:flex">
-            {links.map(([id, label]) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                onClick={(e) => {
-                  e.preventDefault()
-                  onJump(id)
-                }}
-                className="nav-link py-3 text-[12px] text-ink/80 transition hover:text-ink"
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-          <button onClick={() => onJump('restaurants')} data-magnetic className="btn-primary h-11 px-4 py-0 text-[13px] md:h-9 md:text-[12px]">
-            اطلب الآن
-          </button>
-        </div>
-      </div>
-    </nav>
-  )
-}
-
 /**
  * Dark hero. On load the words and the phone rise in; while you scroll away the text fades and lifts,
  * the phone rises and tilts, and the glow behind it grows.
@@ -127,7 +87,7 @@ export function Hero({ onJump }) {
       id="overview"
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
-      className="relative flex min-h-[calc(100svh-3rem)] scroll-mt-14 flex-col overflow-hidden rounded-b-[36px] bg-black text-center text-white dark:ring-1 dark:ring-white/10 md:mx-3 md:mt-3 md:min-h-[calc(100svh-4.5rem)] md:rounded-[40px]"
+      className="relative flex min-h-[calc(100svh-3rem)] scroll-mt-12 flex-col overflow-hidden rounded-b-[36px] bg-black text-center text-white dark:ring-1 dark:ring-white/10 md:mx-3 md:mt-3 md:min-h-[calc(100svh-4.5rem)] md:rounded-[40px]"
     >
       {/* Glow behind the phone, added as light ("screen" blending) so warm colors stay bright instead of turning brown on black. */}
       <div
@@ -168,7 +128,7 @@ export function Hero({ onJump }) {
           <button onClick={() => onJump('restaurants')} data-magnetic className="btn-primary">
             اطلب الآن
           </button>
-          <button onClick={() => onJump('how')} className="inline-flex items-center gap-0.5 py-3 text-[15px] text-sun hover:underline">
+          <button onClick={() => onJump('how')} className="inline-flex items-center gap-0.5 py-3 text-[16px] text-sun hover:underline">
             كيف بيشتغل
             <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
           </button>

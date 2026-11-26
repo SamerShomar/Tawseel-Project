@@ -16,7 +16,7 @@ export function OrderProgress({ status }) {
 
   if (status === 'REJECTED') {
     return (
-      <div className="flex items-center justify-center gap-2 rounded-2xl bg-rose-50 dark:bg-rose-400/15 p-4 text-[13px] font-medium text-rose-800 dark:text-rose-300">
+      <div className="flex items-center justify-center gap-2 rounded-2xl bg-rose-50 dark:bg-rose-400/15 p-4 text-[14px] font-medium text-rose-800 dark:text-rose-300">
         <CircleX className="size-5" strokeWidth={1.75} aria-hidden />
         نعتذر، المطعم رفض هذا الطلب.
       </div>
@@ -46,7 +46,7 @@ export function OrderProgress({ status }) {
                   <Icon className="size-5" strokeWidth={1.75} aria-hidden />
                 </span>
               </span>
-              <span className={`text-[12px] leading-tight ${done ? 'font-semibold text-ink' : 'text-stone-500'}`}>{STATUS[step].label}</span>
+              <span className={`text-[13px] leading-tight ${done ? 'font-semibold text-ink' : 'text-stone-500'}`}>{STATUS[step].label}</span>
             </li>
           )
         })}

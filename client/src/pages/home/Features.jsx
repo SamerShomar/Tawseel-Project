@@ -24,7 +24,7 @@ export function Bento({ restaurantCount }) {
   const tile = 'card relative overflow-hidden p-6 md:p-8'
 
   return (
-    <section id="why" className="scroll-mt-14 px-4 py-24 md:py-36">
+    <section id="why" className="scroll-mt-12 px-4 py-24 md:py-36">
       <div className="mx-auto max-w-5xl">
         <h2 className="text-center text-[32px] leading-[1.1] font-semibold md:text-[48px]">ليش توصيل؟</h2>
         <div ref={gridRef} className="mt-12 grid grid-cols-2 gap-4 md:mt-16 md:grid-cols-4 md:gap-5">
@@ -33,15 +33,15 @@ export function Bento({ restaurantCount }) {
             <div className="pointer-events-none absolute -end-24 -bottom-24 size-80 rounded-full bg-[radial-gradient(closest-side,rgb(232_93_30/0.6),transparent)]" />
             <Banknote className="relative size-14 text-sun" strokeWidth={1.25} aria-hidden />
             <p className="relative mt-10 text-[32px] leading-[1.05] font-semibold md:mt-24 md:text-[40px]">الدفع عند الاستلام.</p>
-            <p className="relative mt-3 max-w-sm text-[15px] text-[#d2d2d7]">ما في بطاقات ولا تحويلات. بتدفع نقداً للسائق لما يوصلك أكلك.</p>
+            <p className="relative mt-3 max-w-sm text-[16px] text-[#d2d2d7]">ما في بطاقات ولا تحويلات. بتدفع نقداً للسائق لما يوصلك أكلك.</p>
           </div>
 
           <div data-tilt="10" className={`${tile} col-span-2`}>
             <p className="bg-gradient-to-l from-brand-700 to-accent bg-clip-text text-[48px] leading-none font-semibold text-transparent tabular-nums md:text-[60px]">
               <CountUp value={restaurantCount} />
             </p>
-            <p className="mt-2 text-[18px] font-semibold">مطعم من غزة</p>
-            <p className="text-[15px] text-stone-500">من الشاورما للكنافة، كلها بمكان واحد.</p>
+            <p className="mt-2 text-[19px] font-semibold">مطعم من غزة</p>
+            <p className="text-[16px] text-stone-500">من الشاورما للكنافة، كلها بمكان واحد.</p>
           </div>
 
           <div data-tilt="10" className={tile}>
@@ -52,20 +52,20 @@ export function Bento({ restaurantCount }) {
                 </span>
               ))}
             </div>
-            <p className="mt-6 text-[18px] leading-tight font-semibold">تتبّع مباشر</p>
-            <p className="mt-1 text-[13px] text-stone-500">5 مراحل، بتتحدّث لحالها.</p>
+            <p className="mt-6 text-[19px] leading-tight font-semibold">تتبّع مباشر</p>
+            <p className="mt-1 text-[14px] text-stone-500">5 مراحل، بتتحدّث لحالها.</p>
           </div>
 
           <div data-tilt="10" className={tile}>
             <PhoneOff className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
-            <p className="mt-6 text-[18px] leading-tight font-semibold">ولا مكالمة</p>
-            <p className="mt-1 text-[13px] text-stone-500">كل شي بيصير من الموقع.</p>
+            <p className="mt-6 text-[19px] leading-tight font-semibold">ولا مكالمة</p>
+            <p className="mt-1 text-[14px] text-stone-500">كل شي بيصير من الموقع.</p>
           </div>
 
           <div data-tilt="10" className={`${tile} col-span-2`}>
             <Store className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
             <p className="mt-6 text-[20px] font-semibold">عندك مطعم؟</p>
-            <p className="mt-1 text-[15px] text-stone-500">استقبل الطلبات، عدّل قائمتك، وتابع كل طلب من لوحة وحدة.</p>
+            <p className="mt-1 text-[16px] text-stone-500">استقبل الطلبات، عدّل قائمتك، وتابع كل طلب من لوحة وحدة.</p>
             <Link to="/register?role=owner" className="link mt-3 py-2">
               سجّل مطعمك
               <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
@@ -75,7 +75,7 @@ export function Bento({ restaurantCount }) {
           <div data-tilt="10" className={`${tile} col-span-2`}>
             <Bike className="size-8 text-brand-700" strokeWidth={1.5} aria-hidden />
             <p className="mt-6 text-[20px] font-semibold">بدك تشتغل سائق؟</p>
-            <p className="mt-1 text-[15px] text-stone-500">اختار الطلبات اللي بتناسبك، ووصّلها بوقتك.</p>
+            <p className="mt-1 text-[16px] text-stone-500">اختار الطلبات اللي بتناسبك، ووصّلها بوقتك.</p>
             <Link to="/register?role=driver" className="link mt-3 py-2">
               اشتغل سائق
               <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
@@ -105,10 +105,12 @@ export function Highlights({ dishes }) {
     <section className="py-20 md:py-28">
       <div className="mx-auto max-w-5xl px-4">
         <h2 className="text-[32px] leading-[1.1] font-semibold md:text-[48px]">أطباق بتحبها.</h2>
-        <p className="mt-2 text-[16px] text-stone-500 md:text-[20px]">اسحب، اختار، واطلب من المطعم مباشرة.</p>
+        <p className="mt-2 text-[17px] text-stone-500 md:text-[20px]">اسحب، اختار، واطلب من المطعم مباشرة.</p>
       </div>
-      <div ref={rowRef} className="no-scrollbar mt-8 overflow-x-auto scroll-smooth">
-        <ul ref={listRef} className="flex snap-x snap-mandatory gap-4 px-4 md:px-[max(1rem,calc((100vw-64rem)/2+1rem))]">
+      {/* A sideways-scrolling row also clips up and down, so it gets room inside for a card to lift and grow
+          on hover or press (pb + -mb keeps the spacing below unchanged). */}
+      <div ref={rowRef} className="no-scrollbar -mb-10 overflow-x-auto scroll-smooth pt-8 pb-10">
+        <ul ref={listRef} className="flex snap-x snap-mandatory scroll-px-3 gap-4 px-3">
           {dishes.map((d) => (
             <li key={d.name} className="w-[72vw] max-w-[320px] shrink-0 snap-start">
               <Link
@@ -125,9 +127,9 @@ export function Highlights({ dishes }) {
                 />
                 {/* Glass caption over the photo. */}
                 <div className="glass absolute inset-x-3 bottom-3 rounded-[22px] p-4">
-                  <p className="inline-block rounded-full bg-sun px-2.5 py-0.5 text-[12px] font-semibold text-on-sun">{d.restaurant}</p>
-                  <p className="mt-0.5 text-[18px] leading-tight font-semibold">{d.name}</p>
-                  <span className="link mt-1 text-[13px]">
+                  <p className="inline-block rounded-full bg-sun px-2.5 py-0.5 text-[13px] font-semibold text-on-sun">{d.restaurant}</p>
+                  <p className="mt-0.5 text-[19px] leading-tight font-semibold">{d.name}</p>
+                  <span className="link mt-1 text-[14px]">
                     اطلب الآن
                     <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
                   </span>
