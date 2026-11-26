@@ -8,7 +8,7 @@ export function QuantityStepper({ name, quantity, onChange }) {
       <button type="button" className={btn} onClick={() => onChange(quantity - 1)} aria-label={`إنقاص ${name}`}>
         <Minus className="size-4" strokeWidth={2} aria-hidden />
       </button>
-      <span key={quantity} className="animate-pop w-6 text-center text-[15px] font-semibold" aria-live="polite">
+      <span key={quantity} className="animate-pop w-6 text-center text-[16px] font-semibold" aria-live="polite">
         {quantity}
       </span>
       <button type="button" className={btn} onClick={() => onChange(quantity + 1)} aria-label={`زيادة ${name}`}>

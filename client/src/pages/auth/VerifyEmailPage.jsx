@@ -43,7 +43,7 @@ export default function VerifyEmailPage() {
       ) : (
         <div className="flex flex-col gap-4">
           <Alert>{result.error}</Alert>
-          <p className="text-[13px] text-stone-600">
+          <p className="text-[14px] text-stone-600">
             {user ? 'بتقدر تطلب رابط جديد من الشريط فوق.' : 'سجّل دخول، وبعدين اطلب رابط جديد من الشريط فوق.'}
           </p>
           {!user && (

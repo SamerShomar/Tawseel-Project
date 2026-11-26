@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { ChevronLeft, MapPin, Phone, Plus } from 'lucide-react'
 import { FloatingBar } from '@/components/FloatingBar'
@@ -11,6 +11,7 @@ import { Spinner } from '@/components/ui/Spinner'
 import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { useApi } from '@/hooks/useApi'
+import { scrollToElement } from '@/hooks/useLenis'
 import { formatPrice } from '@/lib/format'
 import { thumb } from '@/lib/photo'
 
@@ -29,10 +30,10 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
             // Text and price on one side, the dish photo on the other (like a menu).
             <article key={item.id} data-tilt="8" className="card group flex gap-4 p-4">
               <div className="flex min-w-0 flex-1 flex-col">
-                <h3 className="text-[15px] font-semibold">{item.name}</h3>
-                {item.description && <p className="mt-0.5 line-clamp-2 text-[13px] text-stone-500">{item.description}</p>}
+                <h3 className="text-[16px] font-semibold">{item.name}</h3>
+                {item.description && <p className="mt-0.5 line-clamp-2 text-[14px] text-stone-500">{item.description}</p>}
                 <div className="mt-auto flex items-center justify-between gap-3 pt-3">
-                  <span className="rounded-full bg-sun px-3 py-1 text-[15px] font-bold text-on-sun">{formatPrice(item.price)}</span>
+                  <span className="rounded-full bg-sun px-3 py-1 text-[16px] font-bold text-on-sun">{formatPrice(item.price)}</span>
                   {!canOrder ? null : qty ? (
                     <QuantityStepper name={item.name} quantity={qty} onChange={(q) => onQuantity(item.id, q)} />
                   ) : (
@@ -62,25 +63,70 @@ function MenuSection({ name, items, canOrder, qtyInCart, onAdd, onQuantity }) {
   )
 }
 
-/** Sticky glass row of section chips; the chip for the section you're reading lights up. */
+/**
+ * Sticky glass row of section chips; the chip for the section you're reading lights up.
+ * A tapped chip stays lit until you scroll by hand: near the end of the page the last sections are too short
+ * to scroll up to the reading line, so working it out from the scroll position alone would light the wrong one.
+ */
 function SectionNav({ sections }) {
   const [active, setActive] = useState(sections[0])
+  const navRef = useRef(null)
+  const tapped = useRef(null)
 
   useEffect(() => {
-    // A section counts as "current" while it crosses a thin line 40% down the screen.
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id.slice('section-'.length))),
-      { rootMargin: '-40% 0px -59% 0px' },
-    )
-    sections.forEach((s) => {
-      const el = document.getElementById(sectionId(s))
-      if (el) observer.observe(el)
-    })
-    return () => observer.disconnect()
+    let frame = 0
+    const update = () => {
+      frame = 0
+      if (tapped.current) return
+      // The section whose top has passed a line 40% down the screen; at the very bottom, the last one.
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4
+      let current = sections[0]
+      for (const s of sections) {
+        const el = document.getElementById(sectionId(s))
+        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) current = s
+      }
+      setActive(atBottom ? sections.at(-1) : current)
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    // Scrolling by hand (wheel, finger, keys) hands control back to the scroll position.
+    const release = () => {
+      tapped.current = null
+    }
+    const manual = ['wheel', 'touchstart', 'keydown']
+    window.addEventListener('scroll', onScroll, { passive: true })
+    manual.forEach((type) => window.addEventListener(type, release, { passive: true }))
+    update()
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+      manual.forEach((type) => window.removeEventListener(type, release))
+    }
   }, [sections])
+
+  // Keep the lit chip visible in the row on narrow screens.
+  useEffect(() => {
+    const chip = navRef.current?.querySelector('[aria-current="true"]')
+    const row = navRef.current
+    if (!chip || row.scrollWidth <= row.clientWidth) return
+    const r = row.getBoundingClientRect()
+    const c = chip.getBoundingClientRect()
+    row.scrollBy({ left: c.left + c.width / 2 - (r.left + r.width / 2), behavior: 'smooth' })
+  }, [active])
+
+  const go = (s) => {
+    tapped.current = s
+    setActive(s)
+    // Land just under the stuck bars: the site bar (the row's sticky top) plus the row itself.
+    const nav = navRef.current
+    const offset = parseFloat(getComputedStyle(nav).top) + nav.offsetHeight + 12
+    scrollToElement(document.getElementById(sectionId(s)), offset)
+  }
 
   return (
     <nav
+      ref={navRef}
       aria-label="أقسام القائمة"
       className="material-bar no-scrollbar sticky top-[calc(3rem+env(safe-area-inset-top))] z-20 -mx-4 mt-8 flex gap-2 overflow-x-auto border-b border-tint/5 px-4 py-2"
     >
@@ -91,9 +137,9 @@ function SectionNav({ sections }) {
           aria-current={active === s ? 'true' : undefined}
           onClick={(e) => {
             e.preventDefault()
-            document.getElementById(sectionId(s))?.scrollIntoView({ behavior: 'smooth' })
+            go(s)
           }}
-          className={`flex h-11 shrink-0 items-center rounded-full px-4 text-[13px] whitespace-nowrap transition duration-300 ${
+          className={`flex h-11 shrink-0 items-center rounded-full px-4 text-[14px] whitespace-nowrap transition duration-300 ${
             active === s ? 'bg-sun font-semibold text-on-sun' : 'text-ink hover:bg-tint/5'
           }`}
         >
@@ -148,10 +194,10 @@ export default function RestaurantPage() {
         <div className="glass relative -mt-16 rounded-[24px] p-5 sm:-mt-24 sm:p-8">
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-[26px] leading-[1.125] font-semibold md:text-[40px]">{restaurant.name}</h1>
-            {restaurant.category && <span className="rounded-full bg-sun px-3 py-1 text-[12px] font-semibold text-on-sun">{restaurant.category}</span>}
+            {restaurant.category && <span className="rounded-full bg-sun px-3 py-1 text-[13px] font-semibold text-on-sun">{restaurant.category}</span>}
           </div>
-          {restaurant.description && <p className="mt-2 text-[15px] text-stone-600 md:text-[16px]">{restaurant.description}</p>}
-          <div className="mt-3 flex flex-wrap gap-x-5 text-[13px] text-stone-600">
+          {restaurant.description && <p className="mt-2 text-[16px] text-stone-600 md:text-[17px]">{restaurant.description}</p>}
+          <div className="mt-3 flex flex-wrap gap-x-5 text-[14px] text-stone-600">
             {restaurant.address && (
               <span className="flex items-center gap-1 py-1">
                 <MapPin className="size-4" strokeWidth={1.75} aria-hidden />
@@ -214,7 +260,7 @@ export default function RestaurantPage() {
 
       {showBar && (
         <FloatingBar>
-          <span className="text-[13px]">
+          <span className="text-[14px]">
             <strong key={cart.count} className="animate-pop inline-block">
               {cart.count}
             </strong>{' '}

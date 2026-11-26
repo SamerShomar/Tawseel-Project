@@ -54,7 +54,7 @@ export default function RegisterPage() {
     >
       <form onSubmit={submit} className="flex flex-col gap-4" noValidate>
         <fieldset className="grid grid-cols-3 gap-2 sm:gap-3">
-          <legend className="mb-2 text-[13px] font-medium text-stone-700">نوع الحساب</legend>
+          <legend className="mb-2 text-[14px] font-medium text-stone-700">نوع الحساب</legend>
           {ROLES.map((r) => (
             <label
               key={r.value}
@@ -64,8 +64,8 @@ export default function RegisterPage() {
             >
               <input type="radio" name="role" value={r.value} checked={form.role === r.value} onChange={set('role')} className="sr-only" />
               <r.icon className={`size-7 transition ${form.role === r.value ? 'text-brand-700' : 'text-stone-500'}`} strokeWidth={1.5} aria-hidden />
-              <span className="mt-1 block text-[13px] font-semibold">{r.label}</span>
-              <span className="block text-[12px] text-stone-600">{r.hint}</span>
+              <span className="mt-1 block text-[14px] font-semibold">{r.label}</span>
+              <span className="block text-[13px] text-stone-600">{r.hint}</span>
             </label>
           ))}
         </fieldset>
@@ -75,7 +75,7 @@ export default function RegisterPage() {
         {isOwner && <Field label="اسم المطعم" required value={form.restaurantName} onChange={set('restaurantName')} error={errors.restaurantName} />}
         <Field label="البريد الإلكتروني" type="email" dir="ltr" autoComplete="email" required value={form.email} onChange={set('email')} error={errors.email} />
         <Field label={form.role === 'DRIVER' ? 'رقم الهاتف' : 'رقم الهاتف (اختياري)'} type="tel" dir="ltr" autoComplete="tel" required={form.role === 'DRIVER'} value={form.phone} onChange={set('phone')} error={errors.phone} />
-        {form.role === 'DRIVER' && <p className="-mt-2 text-[12px] text-stone-600">حساب السائق بيحتاج موافقة الإدارة قبل ما تشوف الطلبات.</p>}
+        {form.role === 'DRIVER' && <p className="-mt-2 text-[13px] text-stone-600">حساب السائق بيحتاج موافقة الإدارة قبل ما تشوف الطلبات.</p>}
         <Field label="كلمة المرور" type="password" dir="ltr" autoComplete="new-password" required minLength={8} value={form.password} onChange={set('password')} error={errors.password} placeholder="8 أحرف على الأقل" />
         <button className="btn-primary mt-2" disabled={submitting}>
           {submitting ? 'جاري إنشاء الحساب…' : 'إنشاء الحساب'}

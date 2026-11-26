@@ -10,12 +10,12 @@ import photos from '@/data/dish-photos.json'
 import { useApi } from '@/hooks/useApi'
 import { scrollToElement } from '@/hooks/useLenis'
 import { Bento, Highlights } from './home/Features'
-import { Hero, LocalNav } from './home/Hero'
+import { Hero } from './home/Hero'
 import { Story } from './home/Story'
 
 /*
  * The home page is laid out like a product page, with ordering first:
- * dark hero ("جوعان؟" and the phone) → glass local nav → the restaurant list (search + categories) →
+ * dark hero ("جوعان؟" and the phone) → the restaurant list (search + categories) →
  * swipeable popular dishes → pinned "how it works" story → "why" bento.
  */
 
@@ -43,21 +43,19 @@ export default function HomePage() {
     .map((d) => ({ ...d, restaurantId: all?.restaurants.find((r) => r.name === d.restaurant)?.id }))
     .filter((d) => d.restaurantId)
 
-  // Jump to a section, leaving room for the sticky local nav (56px).
-  const jump = (id) => scrollToElement(document.getElementById(id), 56)
+  // Jump to a section, leaving room for the sticky bar (48px).
+  const jump = (id) => scrollToElement(document.getElementById(id), 48)
 
   return (
     <>
       <Hero onJump={jump} />
-      {/* Sits after the hero so it only sticks once the hero has scrolled away (no doubled bars on top). */}
-      <LocalNav onJump={jump} />
 
       {/* The restaurant list comes first after the hero: ordering is what most people came for. */}
-      <section ref={listRef} id="restaurants" className="mx-auto max-w-5xl scroll-mt-14 px-4 py-16 md:py-24">
+      <section ref={listRef} id="restaurants" className="mx-auto max-w-5xl scroll-mt-12 px-4 py-16 md:py-24">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between md:mb-8">
           <div>
             <h2 className="text-[32px] leading-[1.1] font-semibold md:text-[48px]">كل المطاعم.</h2>
-            <p className="mt-2 text-[16px] text-stone-500 md:text-[20px]">ابحث، اختار، واطلب.</p>
+            <p className="mt-2 text-[17px] text-stone-500 md:text-[20px]">ابحث، اختار، واطلب.</p>
           </div>
           <div className="relative sm:w-72">
             <Search className="pointer-events-none absolute start-4 top-1/2 size-[18px] -translate-y-1/2 text-stone-500" strokeWidth={1.75} aria-hidden />
@@ -106,12 +104,12 @@ export default function HomePage() {
                 <RestaurantCover restaurant={r} sizes="(min-width: 1024px) 330px, (min-width: 640px) 50vw, 96px" className="w-24 shrink-0 transition duration-700 ease-apple group-hover:scale-[1.18] group-hover:rotate-1 sm:h-36 sm:w-full" />
                 <div className="min-w-0 flex-1 p-4 sm:p-5">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="truncate text-[15px] font-semibold sm:text-[16px]">{r.name}</h3>
-                    {r.category && <span className="shrink-0 rounded-full bg-sun-100 px-3 py-1 text-[12px] font-medium text-ink">{r.category}</span>}
+                    <h3 className="truncate text-[16px] font-semibold sm:text-[17px]">{r.name}</h3>
+                    {r.category && <span className="shrink-0 rounded-full bg-sun-100 px-3 py-1 text-[13px] font-medium text-ink">{r.category}</span>}
                   </div>
-                  {r.description && <p className="mt-1 line-clamp-1 text-[13px] text-stone-500 sm:line-clamp-2">{r.description}</p>}
+                  {r.description && <p className="mt-1 line-clamp-1 text-[14px] text-stone-500 sm:line-clamp-2">{r.description}</p>}
                   {r.address && (
-                    <p className="mt-2 flex items-center gap-1 truncate text-[12px] text-stone-500 sm:mt-3">
+                    <p className="mt-2 flex items-center gap-1 truncate text-[13px] text-stone-500 sm:mt-3">
                       <MapPin className="size-3.5 shrink-0" strokeWidth={1.75} aria-hidden />
                       <span className="truncate">{r.address}</span>
                     </p>

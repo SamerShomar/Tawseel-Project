@@ -50,7 +50,7 @@ function CartBadge({ count }) {
     // key={count} replays the pop animation each time the number changes.
     <span
       key={count}
-      className="animate-pop absolute -end-1.5 top-1 grid min-w-[18px] place-items-center rounded-full bg-sun px-1 text-[11px] leading-[18px] font-bold text-on-sun"
+      className="animate-pop absolute -end-1.5 top-1 grid min-w-[18px] place-items-center rounded-full bg-sun px-1 text-[12px] leading-[18px] font-bold text-on-sun"
     >
       {count > 99 ? '99+' : count}
     </span>
@@ -130,14 +130,14 @@ function MobileMenu({ open, links, onClose }) {
             className={`mt-6 transition duration-500 ${open ? 'opacity-100' : 'opacity-0'}`}
             style={{ transitionDelay: open ? `${80 + items.length * 40}ms` : '0ms' }}
           >
-            <p className="text-[12px] text-stone-500">مسجّل باسم {user.name}</p>
+            <p className="text-[13px] text-stone-500">مسجّل باسم {user.name}</p>
             <button
               type="button"
               onClick={() => {
                 onClose()
                 logout()
               }}
-              className="mt-1 py-2 text-[15px] text-brand-700"
+              className="mt-1 py-2 text-[16px] text-brand-700"
             >
               تسجيل الخروج
             </button>
@@ -173,9 +173,9 @@ function Navbar() {
 
   return (
     <>
-      {/* On the home page the global bar scrolls away and the page's own glass bar sticks instead, as on a product page. */}
+      {/* One bar for the whole site, always stuck to the top. */}
       <header
-        className={`${pathname === '/' && !open ? 'relative' : 'sticky top-0'} z-50 pt-[env(safe-area-inset-top)] transition-colors ${
+        className={`sticky top-0 z-50 pt-[env(safe-area-inset-top)] transition-colors ${
           open ? 'bg-surface/80 backdrop-blur-2xl' : 'material-bar'
         }`}
       >
@@ -191,7 +191,7 @@ function Navbar() {
                 key={l.to}
                 to={l.to}
                 end={l.end}
-                className={({ isActive }) => `nav-link py-3 text-[12px] transition ${isActive ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
+                className={({ isActive }) => `nav-link py-3 text-[13px] transition ${isActive ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
               >
                 {l.label}
               </NavLink>
@@ -211,12 +211,12 @@ function Navbar() {
                 <Link to="/account" className={`${iconBtn} hidden md:grid`} aria-label="حسابي">
                   <UserRound className="size-[18px] transition duration-300 ease-apple group-hover:scale-110" strokeWidth={1.5} aria-hidden />
                 </Link>
-                <button onClick={logout} className="hidden px-2 py-3 text-[12px] text-ink/70 transition hover:text-ink md:block">
+                <button onClick={logout} className="hidden px-2 py-3 text-[13px] text-ink/70 transition hover:text-ink md:block">
                   خروج
                 </button>
               </>
             ) : (
-              <Link to="/login" className="hidden px-2 py-3 text-[12px] text-ink/70 transition hover:text-ink md:block">
+              <Link to="/login" className="hidden px-2 py-3 text-[13px] text-ink/70 transition hover:text-ink md:block">
                 تسجيل الدخول
               </Link>
             )}
@@ -231,7 +231,7 @@ function Navbar() {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/60 bg-surface/55 dark:border-white/10 text-[12px] leading-relaxed text-stone-600 backdrop-blur-xl dark:bg-stone-100 dark:backdrop-filter-none">
+    <footer className="border-t border-white/60 bg-surface/55 dark:border-white/10 text-[13px] leading-relaxed text-stone-600 backdrop-blur-xl dark:bg-stone-100 dark:backdrop-filter-none">
       <div className="mx-auto max-w-5xl px-4 py-5">
         <p className="border-b border-tint/10 pb-3">أسماء المطاعم والقوائم المعروضة تجريبية لأغراض العرض. الدفع عند الاستلام.</p>
         <div className="flex flex-wrap items-center justify-between gap-2 pt-3">
@@ -291,7 +291,7 @@ export function Page({ title, subtitle, actions, children, narrow = false }) {
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4 md:mb-10">
           <div>
             {title && <h1 className="text-[26px] leading-[1.125] font-semibold md:text-[40px]">{title}</h1>}
-            {subtitle && <p className="mt-2 text-[15px] text-stone-500 md:text-[18px]">{subtitle}</p>}
+            {subtitle && <p className="mt-2 text-[16px] text-stone-500 md:text-[19px]">{subtitle}</p>}
           </div>
           {actions}
         </div>

@@ -36,14 +36,14 @@ export function SegmentedControl({ options, value, onChange, label }) {
             role="tab"
             aria-selected={value === o.key}
             onClick={() => onChange(o.key)}
-            className={`relative flex h-11 items-center gap-2 rounded-full px-4 text-[13px] whitespace-nowrap transition-colors ${
+            className={`relative flex h-11 items-center gap-2 rounded-full px-4 text-[14px] whitespace-nowrap transition-colors ${
               value === o.key ? 'font-semibold text-ink' : 'text-stone-600 hover:text-ink'
             }`}
           >
             {o.label}
             {o.badge != null && (
               <span
-                className={`min-w-6 rounded-full px-1.5 text-[12px] leading-5 ${o.highlight ? 'bg-sun font-semibold text-on-sun' : 'bg-tint/5 text-stone-600'}`}
+                className={`min-w-6 rounded-full px-1.5 text-[13px] leading-5 ${o.highlight ? 'bg-sun font-semibold text-on-sun' : 'bg-tint/5 text-stone-600'}`}
               >
                 {o.badge}
               </span>

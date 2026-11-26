@@ -20,7 +20,7 @@ export function Field({ label, error, as: Tag = 'input', className = '', type, .
 
   return (
     <div className={className}>
-      <label htmlFor={id} className="mb-1.5 block text-[13px] font-medium text-stone-700">
+      <label htmlFor={id} className="mb-1.5 block text-[14px] font-medium text-stone-700">
         {label}
       </label>
       {isPassword ? (
@@ -42,7 +42,7 @@ export function Field({ label, error, as: Tag = 'input', className = '', type, .
         input
       )}
       {error && (
-        <p id={`${id}-error`} className="mt-1 text-xs text-rose-600 dark:text-rose-400">
+        <p id={`${id}-error`} className="mt-1 text-[13px] text-rose-600 dark:text-rose-400">
           {error}
         </p>
       )}

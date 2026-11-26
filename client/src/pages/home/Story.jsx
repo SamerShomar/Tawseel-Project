@@ -41,7 +41,7 @@ export function Story() {
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         trigger.current = ScrollTrigger.create({
           trigger: '.story-pin',
-          start: 'top 56px', // just under the sticky local nav
+          start: 'top 48px', // just under the sticky bar
           end: '+=150%',
           pin: true,
           scrub: true,
@@ -52,7 +52,7 @@ export function Story() {
           ease: 'none',
           scrollTrigger: {
             trigger: '.story-pin',
-            start: 'top 56px',
+            start: 'top 48px',
             end: '+=150%',
             scrub: true,
           },
@@ -72,8 +72,8 @@ export function Story() {
   }
 
   return (
-    <section ref={ref} id="how" className="scroll-mt-14">
-      <div className="story-pin flex min-h-[calc(100svh-56px)] flex-col justify-center overflow-hidden px-4 py-8">
+    <section ref={ref} id="how" className="scroll-mt-12">
+      <div className="story-pin flex min-h-[calc(100svh-48px)] flex-col justify-center overflow-hidden px-4 py-8">
         <div className="mx-auto grid w-full max-w-5xl items-center gap-6 md:grid-cols-2 md:gap-12">
           <div>
             <h2 className="text-[26px] leading-[1.125] font-semibold md:text-[40px]">ثلاث خطوات، والأكل عندك.</h2>
@@ -96,8 +96,8 @@ export function Story() {
               ))}
             </div>
             <div key={step} className="animate-page-in mt-3 md:hidden">
-              <p className="text-[18px] font-semibold">{STEPS[step].title}</p>
-              <p className="text-[15px] text-stone-500">{STEPS[step].text}</p>
+              <p className="text-[19px] font-semibold">{STEPS[step].title}</p>
+              <p className="text-[16px] text-stone-500">{STEPS[step].text}</p>
             </div>
 
             <ol className="mt-6 hidden space-y-2 md:block">
@@ -118,10 +118,10 @@ export function Story() {
                       <Icon className="size-5" strokeWidth={1.75} aria-hidden />
                     </span>
                     <span>
-                      <span className={`block text-[18px] font-semibold transition-colors duration-500 ${i === step ? 'text-ink' : 'text-stone-500'}`}>
+                      <span className={`block text-[19px] font-semibold transition-colors duration-500 ${i === step ? 'text-ink' : 'text-stone-500'}`}>
                         {title}
                       </span>
-                      <span className="block text-[15px] text-stone-500">{text}</span>
+                      <span className="block text-[16px] text-stone-500">{text}</span>
                     </span>
                   </button>
                 </li>
