@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+import { usePauseOffscreen } from '@/components/motion/usePauseOffscreen'
 import { BatteryFull, Beef, Bike, CakeSlice, ChefHat, CircleCheck, House, Minus, Pizza, Plus, ReceiptText, Sandwich, Search, Signal, Wifi } from 'lucide-react'
 
 /**
@@ -5,8 +7,11 @@ import { BatteryFull, Beef, Bike, CakeSlice, ChefHat, CircleCheck, House, Minus,
  * Purely decorative (aria-hidden): the real features are on the real pages.
  */
 export function Phone({ children, className = '' }) {
+  const ref = useRef(null)
+  usePauseOffscreen(ref)
   return (
     <div
+      ref={ref}
       className={`relative aspect-[9/19.5] rounded-[46px] bg-[#1d1d1f] p-[9px] shadow-[0_50px_100px_-20px_rgb(0_0_0/0.55),inset_0_0_0_1.5px_rgb(255_255_255/0.14)] ${className}`}
       aria-hidden
     >

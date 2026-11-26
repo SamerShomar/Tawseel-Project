@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { Beef, CakeSlice, ChevronLeft, Coffee, Pizza, Sandwich, Soup } from 'lucide-react'
+import { usePauseOffscreen } from '@/components/motion/usePauseOffscreen'
 import { gsap, useGSAP } from '@/lib/gsap'
 import { Phone, ScreenTracking } from './Phone'
 
@@ -19,6 +20,7 @@ const FOOD = [
  */
 export function Hero({ onJump }) {
   const ref = useRef(null)
+  usePauseOffscreen(ref)
 
   // Mouse position over the hero: --px/--py from -0.5 to 0.5 (lean the phone, pull the big glow toward the cursor),
   // and --gx/--gy in pixels (the light that follows the cursor).
@@ -112,7 +114,10 @@ export function Hero({ onJump }) {
           <div className="pointer-events-none absolute inset-x-0 -top-2 h-[170px] md:-top-4 md:h-[240px]" aria-hidden>
             {FOOD.map(({ icon: Icon, className, delay }) => (
               <span key={className} className={`hero-food absolute ${className}`}>
-                <Icon className="animate-food-float size-full" strokeWidth={1.5} style={{ animationDelay: delay }} />
+                {/* The float moves this HTML wrapper, not the SVG itself, so the graphics card can run it. */}
+                <span className="animate-food-float block size-full" style={{ animationDelay: delay }}>
+                  <Icon className="size-full" strokeWidth={1.5} />
+                </span>
               </span>
             ))}
           </div>

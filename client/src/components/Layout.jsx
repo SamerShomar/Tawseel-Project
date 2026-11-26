@@ -24,29 +24,34 @@ const HOME_SECTIONS = [
 /** Scrolls to a home page section, leaving room for the sticky bar (48px). */
 const jumpTo = (id) => scrollToElement(document.getElementById(id), 48)
 
-/** The home page section being read (its top has passed a line 40% down the screen). */
+/**
+ * The home page section being read: the one crossing a thin line 40% down the screen.
+ * Watched with an IntersectionObserver, so nothing is measured on each frame of the scroll.
+ */
 function useCurrentSection(enabled) {
   const [current, setCurrent] = useState(null)
   useEffect(() => {
     if (!enabled) return
-    let frame = 0
-    const update = () => {
-      frame = 0
-      let id = null
-      for (const [section] of HOME_SECTIONS) {
-        const el = document.getElementById(section)
-        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) id = section
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setCurrent(e.target.id)),
+      { rootMargin: '-40% 0px -59% 0px' },
+    )
+    // The sections render with the page, which may still be loading: look for them until all are there.
+    const watched = new Set()
+    const watch = () => {
+      for (const [id] of HOME_SECTIONS) {
+        const el = document.getElementById(id)
+        if (el && !watched.has(el)) {
+          watched.add(el)
+          observer.observe(el)
+        }
       }
-      setCurrent(id)
+      return watched.size === HOME_SECTIONS.length
     }
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update)
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    update()
+    const timer = watch() ? null : setInterval(() => watch() && clearInterval(timer), 300)
     return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', onScroll)
+      clearInterval(timer)
+      observer.disconnect()
     }
   }, [enabled])
   return enabled ? current : null

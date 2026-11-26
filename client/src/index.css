@@ -196,6 +196,29 @@
   --color-tint: #000000;
 }
 
+/* Scroll reveal (useReveal in components/motion/Reveal.jsx): hidden until it scrolls into view, then rises in.
+   A CSS animation, so it runs off the main thread while the page scrolls. */
+[data-reveal='hidden'] {
+  opacity: 0;
+  transform: translateY(60px) scale(0.94);
+}
+[data-reveal='in'] {
+  animation: reveal-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.94);
+  }
+}
+
+/* Endless animations wait while their section is off screen (usePauseOffscreen); nothing visible changes. */
+[data-offscreen] *,
+[data-offscreen] *::before,
+[data-offscreen] *::after {
+  animation-play-state: paused !important;
+}
+
 /* Respect "Reduce Motion": everything snaps to its final state. */
 @media (prefers-reduced-motion: reduce) {
   *,
