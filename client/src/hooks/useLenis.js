@@ -7,11 +7,15 @@ let lenisInstance = null
 /** Scrolls to the top instantly (used on page change). */
 export const scrollToTop = () => (lenisInstance ? lenisInstance.scrollTo(0, { immediate: true }) : window.scrollTo(0, 0))
 
-/** Smoothly scrolls to an element, leaving `offset` pixels above it (e.g. for a sticky bar). */
+/**
+ * Smoothly scrolls to an element, leaving `offset` pixels above it (e.g. for a sticky bar).
+ * The position is worked out here: given an element, Lenis would also add its CSS scroll-margin, doubling the gap.
+ */
 export const scrollToElement = (el, offset = 0) => {
   if (!el) return
-  if (lenisInstance) lenisInstance.scrollTo(el, { offset: -offset })
-  else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' })
+  const top = el.getBoundingClientRect().top + window.scrollY - offset
+  if (lenisInstance) lenisInstance.scrollTo(top)
+  else window.scrollTo({ top, behavior: 'smooth' })
 }
 
 /** Smoothly scrolls to a page position in pixels. */

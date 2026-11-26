@@ -349,7 +349,7 @@ body {
   scale: 0 1;
   transition: scale 0.35s var(--ease-apple);
 }
-.nav-link[aria-current='page']::after {
+.nav-link[aria-current]::after {
   scale: 1 1;
 }
 

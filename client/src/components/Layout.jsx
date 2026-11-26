@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router'
 import { Moon, ShoppingBag, Sun, UserRound } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
-import { scrollToTop, setScrollLocked, useLenis } from '@/hooks/useLenis'
+import { scrollToElement, scrollToTop, setScrollLocked, useLenis } from '@/hooks/useLenis'
 import { homeFor } from '@/lib/format'
 import { useTheme } from '@/lib/theme'
 import { Backdrop } from './motion/Backdrop'
@@ -12,6 +12,45 @@ import { usePointerEffects } from './motion/usePointerEffects'
 import { VerifyEmailBanner } from './VerifyEmailBanner'
 
 const YEAR = new Date().getFullYear()
+
+/** Sections of the home page, linked from the bar while you're on it. */
+const HOME_SECTIONS = [
+  ['overview', 'نظرة عامة'],
+  ['restaurants', 'المطاعم'],
+  ['how', 'كيف بيشتغل'],
+  ['why', 'ليش توصيل'],
+]
+
+/** Scrolls to a home page section, leaving room for the sticky bar (48px). */
+const jumpTo = (id) => scrollToElement(document.getElementById(id), 48)
+
+/** The home page section being read (its top has passed a line 40% down the screen). */
+function useCurrentSection(enabled) {
+  const [current, setCurrent] = useState(null)
+  useEffect(() => {
+    if (!enabled) return
+    let frame = 0
+    const update = () => {
+      frame = 0
+      let id = null
+      for (const [section] of HOME_SECTIONS) {
+        const el = document.getElementById(section)
+        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.4) id = section
+      }
+      setCurrent(id)
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    update()
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [enabled])
+  return enabled ? current : null
+}
 
 const CUSTOMER_LINKS = [
   { to: '/', label: 'المطاعم', end: true },
@@ -91,7 +130,7 @@ function MenuButton({ open, onClick }) {
 }
 
 /** Full-screen frosted-glass menu on phones: large links that slide in one after another. */
-function MobileMenu({ open, links, onClose }) {
+function MobileMenu({ open, links, sections, onClose }) {
   const { user, canOrder, logout } = useAuth()
 
   const items = [
@@ -114,6 +153,27 @@ function MobileMenu({ open, links, onClose }) {
       inert={!open}
     >
       <ul className="px-10 pt-6 pb-10">
+        {sections && (
+          <li className={`mb-4 border-b border-tint/10 pb-4 transition duration-500 ${open ? 'opacity-100' : 'opacity-0'}`} style={{ transitionDelay: open ? '60ms' : '0ms' }}>
+            <p className="mb-1 text-[13px] text-stone-500">بهالصفحة</p>
+            <div className="flex flex-wrap gap-x-5">
+              {HOME_SECTIONS.map(([id, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => {
+                    onClose()
+                    // Wait for the page to unlock (the menu freezes scrolling while open).
+                    setTimeout(() => jumpTo(id), 80)
+                  }}
+                  className="py-2 text-[17px] text-ink"
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </li>
+        )}
         {items.map((l, i) => (
           <li
             key={l.to}
@@ -150,11 +210,18 @@ function MobileMenu({ open, links, onClose }) {
 
 /** Global navigation: thin translucent bar, centered links on desktop, menu button on phones. */
 function Navbar() {
-  const { user, canOrder, logout } = useAuth()
+  const { user, canOrder, logout, isOwner, isAdmin, isDriver } = useAuth()
   const { count } = useCart()
   const { pathname } = useLocation()
-  const links = useNavLinks()
+  const allLinks = useNavLinks()
   const [open, setOpen] = useState(false)
+
+  // On the home page, visitors and customers get the page's sections in the bar (and an order button);
+  // the "المطاعم" page link would just repeat the restaurants section, so it steps aside.
+  const sections = pathname === '/' && !isOwner && !isAdmin && !isDriver
+  const links = sections ? allLinks.filter((l) => l.to !== '/') : allLinks
+  const current = useCurrentSection(sections)
+  const linkClass = (active) => `nav-link py-3 text-[13px] whitespace-nowrap transition ${active ? 'text-ink' : 'text-ink/70 hover:text-ink'}`
 
   // Close the menu after navigating, and on Escape.
   useEffect(() => {
@@ -185,14 +252,24 @@ function Navbar() {
             توصيل
           </Link>
 
-          <div className="hidden flex-1 items-center justify-center gap-8 md:flex">
+          <div className="hidden flex-1 items-center justify-center gap-5 md:flex lg:gap-8">
+            {sections &&
+              HOME_SECTIONS.map(([id, label]) => (
+                <a
+                  key={id}
+                  href={`#${id}`}
+                  aria-current={current === id ? 'location' : undefined}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    jumpTo(id)
+                  }}
+                  className={linkClass(current === id)}
+                >
+                  {label}
+                </a>
+              ))}
             {links.map((l) => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                end={l.end}
-                className={({ isActive }) => `nav-link py-3 text-[13px] transition ${isActive ? 'text-ink' : 'text-ink/70 hover:text-ink'}`}
-              >
+              <NavLink key={l.to} to={l.to} end={l.end} className={({ isActive }) => linkClass(isActive)}>
                 {l.label}
               </NavLink>
             ))}
@@ -220,11 +297,16 @@ function Navbar() {
                 تسجيل الدخول
               </Link>
             )}
+            {sections && (
+              <button onClick={() => jumpTo('restaurants')} data-magnetic className="btn-primary ms-1 h-9 min-h-0 px-4 py-0 text-[13px] whitespace-nowrap">
+                اطلب الآن
+              </button>
+            )}
             <MenuButton open={open} onClick={() => setOpen((o) => !o)} />
           </div>
         </nav>
       </header>
-      <MobileMenu open={open} links={links} onClose={() => setOpen(false)} />
+      <MobileMenu open={open} links={links} sections={sections} onClose={() => setOpen(false)} />
     </>
   )
 }
